@@ -4,134 +4,64 @@ import gameObjects
 
 pygame.init()
 
-# Initialize the game
-bg_img = pygame.image.load('background.jpg')
-bg_rect = bg_img.get_rect()
+fps = 120
+clock = pygame.time.Clock()
+obamaFix = 1
 
-screen = pygame.display.set_mode((bg_rect.width + 400, bg_rect.height))
+pygame.mixer.music.load("menumusic.mp3")
+obama = pygame.mixer.Sound("letmebeclear.mp3")
+
+bg = pygame.image.load('bg2.jpg')
+bg_rect = bg.get_rect()
+
+screen = pygame.display.set_mode((bg_rect.width, bg_rect.height))
 screen_rect = screen.get_rect()
 
-left = pygame.draw.rect(screen, (0, 0, 255), (0, 0, 200, 666))
-right = pygame.draw.rect(screen, (0, 0, 255), (1200, 0, 200, 666))
+# creating avatar to move in overworld   
+heroImg = pygame.image.load('diamond.png')
+hero_rect = heroImg.get_rect()
+heroSpeed = 5
 
-no_of_diamonds = 10
-diamond_group = pygame.sprite.Group()
-for i in range(no_of_diamonds):
-   diamond_group.add(gameobjects.Diamond(screen_rect))
+enemy = pygame.image.load('obamacube.png')
+enemyImg = pygame.transform.scale(enemy, (100, 100))
+enemy_rect = enemy.get_rect()
+enemy_rect.x = 400
+enemy_rect.y = 300
 
-no_of_spaceships = 1
-spaceship_group = pygame.sprite.Group()
-for i in range(no_of_spaceships):
-   spaceship_group.add(gameobjects.Spaceship(screen_rect))
-
-# creating new groups for panel diamonds and variables to track saved or taken diamonds in the game
-saved_diamonds = 0
-saved_group = pygame.sprite.Group()   
-
-taken_diamonds = 0
-taken_group = pygame.sprite.Group()
-
-# initialize font and game labels
-font = pygame.font.Font('CoffeeHealing.ttf', 32)
-
-# initializing left "taken" panel and blitting it
-takenText = "Taken: {}"
-formattedTaken = takenText.format(taken_diamonds)
-takenLabel = font.render(formattedTaken, True, (255, 255, 255))
-taken_rect = takenLabel.get_rect()
-taken_rect.top = (left.top)
-taken_rect.centerx = (left.centerx)
-screen.blit(takenLabel, taken_rect)
-
-# initializing right "saved" panel and blitting it
-savedText = "Saved: {}"
-formattedSaved = savedText.format(saved_diamonds)
-savedLabel = font.render(formattedSaved, True, (255, 255, 255))
-saved_rect = savedLabel.get_rect()
-saved_rect.top = (right.top)
-saved_rect.centerx = (right.centerx)
-screen.blit(savedLabel, saved_rect)
-
-#method to refresh the saved panel
-def displaySaved():
-    screen.fill((0, 0, 255), (1200, 0, 200, 50))
-    savedText = "Saved: {}"
-    formattedSaved = savedText.format(saved_diamonds)
-    savedLabel = font.render(formattedSaved, True, (255, 255, 255))
-    saved_rect = savedLabel.get_rect()
-    saved_rect.top = (right.top)
-    saved_rect.centerx = (right.centerx)
-    screen.blit(savedLabel, saved_rect)
-    saved_group.draw(screen)
-
-#method to refresh the taken panel
-def displayTaken():
-    screen.fill((0, 0, 255), (0, 0, 200, 50))
-    takenText = "Taken: {}"
-    formattedTaken = takenText.format(taken_diamonds)
-    takenLabel = font.render(formattedTaken, True, (255, 255, 255))
-    taken_rect = takenLabel.get_rect()
-    taken_rect.top = (left.top)
-    taken_rect.centerx = (left.centerx)
-    screen.blit(takenLabel, taken_rect)
-    taken_group.draw(screen)
-
-#renders all components on the screen
-def render():
-    screen.blit(bg_img,(200, 0))
-    diamond_group.update()
-    diamond_group.draw(screen)
-
-    spaceship_group.update()
-    spaceship_group.draw(screen)
-    displaySaved()
-    displayTaken()
-    pygame.display.flip()
-
-
-render()
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
 running = True
-# gameloop
 while running:
     #event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            #if mouse and diamonds collide, iterates the counter and updates the saved panel
-            for sprite in diamond_group.sprites():
-                if sprite.rect.collidepoint(event.pos):
-                    saved_diamonds += 1
-                    saved_group.add(gameobjects.SavedDiamond(right))
-                    diamond_group.remove(sprite)
-                    diamond_group.update()
-                    diamond_group.draw(screen)
-                    displaySaved()
-                    
     
-    #collision detection to keep diamonds and spaceship in bounds
-    for sprite in diamond_group:
-        if sprite.rect.x < 201 or sprite.rect.x > screen_rect.width - 301:
-            sprite.rand_xd *= -1
-        if sprite.rect.y < 0 or sprite.rect.y > screen_rect.height - 100:
-            sprite.rand_yd *= -1
-    
-    for sprite in spaceship_group:
-        if sprite.rect.x < 200 or sprite.rect.x > screen_rect.width - 328:
-            sprite.rand_xd *= -1
-        if sprite.rect.y < 0 or sprite.rect.y > screen_rect.height - 128:
-            sprite.rand_yd *= -1
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_RIGHT and (hero_rect.x + hero_rect.width) < screen_rect.width:
+            hero_rect.x += heroSpeed
+        if event.key == pygame.K_LEFT and hero_rect.x > 0:
+            hero_rect.x -= heroSpeed
+        if event.key == pygame.K_DOWN and (hero_rect.y + hero_rect.height) < screen_rect.height:
+            hero_rect.y += heroSpeed
+        if event.key == pygame.K_UP and hero_rect.y > 0:
+            hero_rect.y -= heroSpeed
+        
 
-    collideCheck = pygame.sprite.groupcollide(diamond_group,spaceship_group,True,False)
-    
-    #if spaceship and diamonds collide, iterates the counter and updates the taken panel
-    for collisionDetected in collideCheck:
-        taken_diamonds += 1
-        taken_group.add(gameobjects.TakenDiamond(left))
-        displayTaken()
+    if hero_rect.colliderect(enemy_rect):
+        while obamaFix > 0:
+            obamaFix -= 1
+            pygame.mixer.music.pause()
+            pygame.mixer.Sound.play(obama)
+            time.sleep(2.50)
+            enemyImg.set_alpha(0)
+            pygame.mixer.music.unpause()
 
-    #render
-    render()
-    time.sleep(0.05)
+
+    screen.blit(bg, (0,0))
+    screen.blit(enemyImg, enemy_rect)
+    screen.blit(heroImg, hero_rect)
+    pygame.display.flip()
+    clock.tick(fps)
 
 pygame.quit()
