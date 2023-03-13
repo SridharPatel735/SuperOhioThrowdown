@@ -1,6 +1,6 @@
 #overWorld file
 import pygame, time, random
-import gameObjects, math
+import gameObjects, math, battleCalcs
 
 pygame.init()
 
@@ -23,11 +23,20 @@ heroImg = pygame.image.load('diamond.png')
 hero_rect = heroImg.get_rect()
 heroSpeed = 1
 
+hero = battleCalcs.Fighter([1, 1, 1, 1], [{
+    "Chasedown Block": battleCalcs.Move([0, 100, 10, 1, 1, 0]),
+    "Yabadabadoo Old Navy": battleCalcs.Move([0, 50, 20, 2, 0, 0]),
+    "Cleveland!! This is for You!": battleCalcs.Move([0, 100, 15, 3, 0, 0]),
+    "Tomohawk Dunk": battleCalcs.Move([100, 90, 10, 4, 0, 0])
+    }], 100)
+
 enemy = pygame.image.load('obamacube.png')
 enemyImg = pygame.transform.scale(enemy, (100, 100))
 enemy_rect = enemy.get_rect()
 enemy_rect.x = 400
 enemy_rect.y = 300
+
+level = 0
 
 pygame.mixer.music.set_volume(0)
 pygame.mixer.music.play(-1)
