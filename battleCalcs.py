@@ -38,31 +38,8 @@ class Fighter(stats, moveset, expTot):
         level = expTot // 1000
         return (level + 1)
 
-class Move(moveDetails):
-    def __init__(self, moveDetails):
-        self.bp = moveDetails[0]
-        self.acc = moveDetails[1]
-        self.pp = moveDetails[2]
-        self.effect = moveDetails[3]
-        self.priority = moveDetails[4]
-        self.learnLvl = moveDetails[5]
-
 lebronStats = [85, 75, 60, 70]
-
-lebronMoves = {
-    "Chasedown Block": Move([0, 100, 10, 1, 1, 0]),
-    "Yabadabadoo Old Navy": Move([0, 50, 20, 2, 0, 0]),
-    "Cleveland!! This is for You!": Move([0, 100, 15, 3, 0, 0]),
-    "Tomohawk Dunk": Move([100, 90, 10, 4, 0, 0])
-}
-
-"""
-Effects list (to implement later)
-1 - The user runs with high speeds and blocks the enemies attack, this move has priority. If this move is repeated consecutively, its accuracy is halved. 
-2 - The user sings with such confidence putting the opponent in a dream-like state causing them to fall asleep.
-3 - Increases attack stat by 1 stage - maxes out at 6
-4 - This move has a 20% chance of lowering the opponents defense by 1 stage. 
-"""
+obamaStats = [45, 120, 120, 25]
 
 def speedCalc(fighter1, fighter2, movef1, movef2):
     if (movef1.priority == movef2.priority):
