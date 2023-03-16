@@ -1,6 +1,6 @@
 #overWorld file
 import pygame, time, random
-import gameObjects, math, battleCalcs
+import gameObjects, math
 
 pygame.init()
 
@@ -10,6 +10,8 @@ obamaFix = 1
 
 pygame.mixer.music.load("menumusic.mp3")
 obama = pygame.mixer.Sound("letmebeclear.mp3")
+battleLoopBool = False
+test = True
 
 bg = pygame.image.load('bg2.jpg')
 bg_rect = bg.get_rect()
@@ -22,13 +24,13 @@ screen_rect = screen.get_rect()
 heroImg = pygame.image.load('diamond.png')
 hero_rect = heroImg.get_rect()
 heroSpeed = 1
-
+'''
 hero = battleCalcs.Fighter([1, 1, 1, 1], [{
     "Chasedown Block": battleCalcs.Move([0, 100, 10, 1, 1, 0]),
     "Yabadabadoo Old Navy": battleCalcs.Move([0, 50, 20, 2, 0, 0]),
     "Cleveland!! This is for You!": battleCalcs.Move([0, 100, 15, 3, 0, 0]),
     "Tomohawk Dunk": battleCalcs.Move([100, 90, 10, 4, 0, 0])
-    }], 100)
+    }], 100)'''
 
 enemy = pygame.image.load('obamacube.png')
 enemyImg = pygame.transform.scale(enemy, (100, 100))
@@ -48,6 +50,8 @@ while running:
             running = False
         
     if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_TAB:
+            battleLoopBool = True
         if event.key == pygame.K_RIGHT:
             keys['right'] = True
         elif event.key == pygame.K_LEFT:
@@ -101,20 +105,55 @@ while running:
     hero_rect.x += x
     hero_rect.y += y
 
-    if hero_rect.colliderect(enemy_rect):
-        while obamaFix > 0:
-            obamaFix -= 1
-            pygame.mixer.music.pause()
-            pygame.mixer.Sound.play(obama)
-            time.sleep(2.50)
-            enemyImg.set_alpha(0)
-            pygame.mixer.music.unpause()
+    '''if hero_rect.colliderect(enemy_rect):
+        enemy_rect.x = 0
+        #pygame.mixer.music.pause()
+        #pygame.mixer.Sound.play(obama)
+        #time.sleep(2.50)
+        #enemyImg.set_alpha(0)
+        #pygame.mixer.music.unpause()
+        screen.fill((0, 0, 0))
+        battleLoopBool = True'''
 
+    #battle loop
+    if battleLoopBool:
+        print("placeholder")
+        battleBg = pygame.image.load("battleBgTemplate.jpg")
+        battleBg_rect = battleBg.get_rect()
+        battleScreen = pygame.display.set_mode((battleBg_rect.width, battleBg_rect.height))
+        battleScreen_rect = battleScreen.get_rect()
+        battleRunning = True
+        battleFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 24)
 
-    screen.blit(bg, (0,0))
-    screen.blit(enemyImg, enemy_rect)
-    screen.blit(heroImg, hero_rect)
-    pygame.display.flip()
-    clock.tick(fps)
+        optionsMenu = (1000, 600, 50, 50) 
+        while battleRunning:
+
+            #event loop
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    battleRunning = False
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_BACKSPACE:
+                        battleRunning = False
+                        print ("test")
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if optionsMenu.rect.collidepoint(event.pos):
+                        menuText = battleFont.render('Success!', True, (0, 0, 0))
+                        menuText_rect = menuText.get_rect()
+                        menuText_rect.centerx = battleScreen_rect.centerx
+                        pygame.display.update()
+            battleScreen.blit(battleBg, (0,0))
+            pygame.draw.rect(battleScreen, (255, 0, 0), optionsMenu)
+            pygame.display.update()
+        battleLoopBool = False
+        
+        
+
+    if (test):
+        screen.blit(bg, (0,0))
+        screen.blit(enemyImg, enemy_rect)
+        screen.blit(heroImg, hero_rect)
+        pygame.display.flip()
+        clock.tick(fps)
 
 pygame.quit()

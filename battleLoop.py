@@ -1,40 +1,29 @@
 #overWorld file
 import pygame, time, random
-import gameObjects, math, battleCalcs, overworld
 
 pygame.init()
 
 fps = 120
 clock = pygame.time.Clock()
 
-#test grunt
-grunt = battleCalcs.Fighter([1, 1, 1, 1], [{
-    "Chasedown Block": battleCalcs.Move([0, 100, 10, 1, 1, 0]),
-    "Yabadabadoo Old Navy": battleCalcs.Move([0, 50, 20, 2, 0, 0]),
-    "Cleveland!! This is for You!": battleCalcs.Move([0, 100, 15, 3, 0, 0]),
-    "Tomohawk Dunk": battleCalcs.Move([100, 90, 10, 4, 0, 0])
-    }], 100)
 
-#creating the miniboss and boss depending the level
-if (overworld.level == 0):
-    miniboss = battleCalcs.Fighter([1, 1, 1, 1], [{
-    "Chasedown Block": battleCalcs.Move([0, 100, 10, 1, 1, 0]),
-    "Yabadabadoo Old Navy": battleCalcs.Move([0, 50, 20, 2, 0, 0]),
-    "Cleveland!! This is for You!": battleCalcs.Move([0, 100, 15, 3, 0, 0]),
-    "Tomohawk Dunk": battleCalcs.Move([100, 90, 10, 4, 0, 0])
-    }], 100)
+def battleLoop():
+    print("test")
 
-    boss = battleCalcs.Fighter([1, 1, 1, 1], [{
-    "Chasedown Block": battleCalcs.Move([0, 100, 10, 1, 1, 0]),
-    "Yabadabadoo Old Navy": battleCalcs.Move([0, 50, 20, 2, 0, 0]),
-    "Cleveland!! This is for You!": battleCalcs.Move([0, 100, 15, 3, 0, 0]),
-    "Tomohawk Dunk": battleCalcs.Move([100, 90, 10, 4, 0, 0])
-    }], 100)
+    battleBg = pygame.image.load("battleBgTemplate.jpg")
+    battleBg_rect = battleBg.get_rect()
+    battleScreen = pygame.display.set_mode((battleBg_rect.width, battleBg_rect.height))
+    battleScreen_rect = battleScreen.get_rect()
+    running = True
+    while running:
 
-running = True
-while running:
+        #event loop
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+    battleScreen.blit(battleBg, (0,0))
+    pygame.display.update()
+    #clock.tick(fps)
 
-    #event loop
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    
+pygame.quit()
