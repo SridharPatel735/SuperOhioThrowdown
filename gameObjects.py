@@ -1,41 +1,103 @@
-import pygame,random
-
-class GameObject(pygame.sprite.Sprite):
-    def __init__(self,x,y,img_path):
-        super().__init__()
-        self.image = pygame.image.load(img_path)
-        self.rect = self.image.get_rect()  
-        self.rect.center = (x,y)
-
-        self.rand_xd = random.choice([-1,1])
-        self.rand_yd = random.choice([-1,1])
-
-    def update(self):
-       self.rect = self.rect.move(self.rand_xd*self.speed,self.rand_yd*self.speed)
+import pygame
+from level1Settings import *
 
 
-class Diamond(GameObject):
-    def __init__(self,screen_rect):
-        rand_x = random.randint(250,screen_rect.width - 300) 
-        rand_y = random.randint(100,screen_rect.height - 100)
-        super().__init__(rand_x,rand_y,"diamond.png" )
+
+
+class Tile(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "new_rock.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+
+class PrisionTile(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "prisonfloortile.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+        
+class DoorTile(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "prisonDoor.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self, position, groups, obstacle_sprites):
+        super().__init__(groups)
+        self.image = pygame.image.load("sridhar_player_icon.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+
+        self.direction = pygame.math.Vector2()
         self.speed = 5
 
-class Spaceship(GameObject):
-    def __init__(self, screen_rect):
-        super().__init__(screen_rect.centerx, screen_rect.centery, 'spaceship.png')
-        self.speed = 2
 
-class SavedDiamond(GameObject):
-    def __init__(self,screen_rect):
-        rand_x = random.randint(1250, 1350) 
-        rand_y = random.randint(100,screen_rect.height - 100)
-        super().__init__(rand_x,rand_y,"diamond.png" )
-        self.speed = 0
+        self.obstacle_sprites = obstacle_sprites
 
-class TakenDiamond(GameObject):
-    def __init__(self,screen_rect):
-        rand_x = random.randint(50,150) 
-        rand_y = random.randint(100,screen_rect.height - 100)
-        super().__init__(rand_x,rand_y,"diamond.png" )
-        self.speed = 0     
+
+    def input(self):
+        keys = pygame.key.get_pressed()
+
+
+        if keys[pygame.K_UP]:
+            self.direction.y = -1
+        elif keys[pygame.K_DOWN]:
+            self.direction.y = 1
+        else:
+            self.direction.y = 0
+
+
+        if keys[pygame.K_LEFT]:
+            self.direction.x = -1
+        elif keys[pygame.K_RIGHT]:
+            self.direction.x = 1
+        else:
+            self.direction.x = 0
+
+
+
+    def move(self):
+        if self.direction.magnitude() != 0:
+            self.direction = self.direction.normalize()
+
+
+        self.rect.x += self.direction.x * self.speed
+        self.collision("horizontal")
+        self.rect.y += self.direction.y * self.speed
+        self.collision("vertical")
+
+
+    def collision(self, direction):
+        if direction == "horizontal":
+            for sprite in self.obstacle_sprites:
+                if sprite.rect.colliderect(self.rect):
+                    if self.direction.x > 0:
+                        self.rect.right = sprite.rect.left
+                    if self.direction.x < 0:
+                        self.rect.left = sprite.rect.right
+
+
+        if direction == "vertical":
+            for sprite in self.obstacle_sprites:
+                if sprite.rect.colliderect(self.rect):
+                    if self.direction.y > 0:
+                        self.rect.bottom = sprite.rect.top
+                    if self.direction.y < 0:
+                        self.rect.top = sprite.rect.bottom
+
+
+        if direction == "vertical":
+            pass
+
+
+    def update(self):
+        self.input()
+        self.move()
