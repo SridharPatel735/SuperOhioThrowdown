@@ -1,11 +1,11 @@
 import pygame
 from levelSettings import *
-from gameObjects import Tile, Player, PrisionTile, DoorTile, GruntTile
+from gameObjects import Tile, Player, GrassTile, WaterTile, SandTile
 
 
 
 
-class Level1:
+class Level2:
     def __init__(self):
         # get the display surface
         self.display_surface = pygame.display.get_surface()
@@ -21,33 +21,37 @@ class Level1:
 
 
     def create_map(self):
-        for row_index, row in enumerate(WORLD_MAP1):
+        for row_index, row in enumerate(WORLD_MAP2):
             for col_index, col in enumerate(row):
                 x = col_index * TILESIZE
                 y = row_index * TILESIZE
 
-                if col == " " or col == "p":
-                    PrisionTile((x, y), [self.visible_sprites])
+                if col == "g" or col == "p":
+                    GrassTile((x, y), [self.visible_sprites])
+
+                if col == " ":
+                    SandTile((x, y), [self.visible_sprites])
+
+                
                 
 
-        for row_index, row in enumerate(WORLD_MAP1):
+        for row_index, row in enumerate(WORLD_MAP2):
             for col_index, col in enumerate(row):
                 x = col_index * TILESIZE
                 y = row_index * TILESIZE
 
 
-                if col == "x" or col == "w":
+                if col == "x":
                     Tile((x, y), [self.visible_sprites, self.obstacle_sprites])
+
+                if col == "w":
+                    WaterTile((x, y), [self.visible_sprites, self.obstacle_sprites])
 
                 if col == "p":
                     self.player = Player(
                         (x, y), [self.visible_sprites], self.obstacle_sprites)
                     
-                if col == "d":
-                    DoorTile((x, y), [self.visible_sprites, self.obstacle_sprites])
-
-                if col == "g":
-                    GruntTile((x, y), [self.visible_sprites, self.obstacle_sprites])
+                
                 
                 
 

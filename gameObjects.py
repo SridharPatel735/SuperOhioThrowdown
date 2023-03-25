@@ -1,24 +1,13 @@
 import pygame
-from level1Settings import *
+from levelSettings import *
 
-
-
-
-class Tile(pygame.sprite.Sprite):
-    def __init__(self, position, groups):
-        super().__init__(groups)
-        self.image = pygame.image.load(
-            "new_rock.png").convert_alpha()
-        self.rect = self.image.get_rect(topleft=position)
-
-
+#Level 1 Sprites 
 class PrisionTile(pygame.sprite.Sprite):
     def __init__(self, position, groups):
         super().__init__(groups)
         self.image = pygame.image.load(
             "prisonfloortile.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=position)
-
         
 class DoorTile(pygame.sprite.Sprite):
     def __init__(self, position, groups):
@@ -27,7 +16,46 @@ class DoorTile(pygame.sprite.Sprite):
             "prisonDoor.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=position)
 
+class GruntTile(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "grunt.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
 
+#Level 2 Sprites
+class WaterTile(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "watertile.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class GrassTile(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "grasstile.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class SandTile(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "sandtile.jpg").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+#Level 3 Sprites
+
+#Level 4 Sprites
+
+#ALL LEVELS
+class Tile(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "new_rock.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, position, groups, obstacle_sprites):
