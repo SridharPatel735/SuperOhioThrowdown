@@ -122,10 +122,6 @@ class Player(pygame.sprite.Sprite):
                         self.rect.top = sprite.rect.bottom
 
 
-        if direction == "vertical":
-            pass
-
-
     def update(self):
         self.input()
         self.move()

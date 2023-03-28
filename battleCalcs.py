@@ -108,6 +108,7 @@ class Fighter:
         self.tempDef = self.dfs
         self.tempSpd = self.spd
         self.tempHp = self.hp
+        print(moveset[1])
         self.move1 = moveset[0]
         self.move2 = moveset[1]
         self.move3 = moveset[2]
@@ -132,7 +133,7 @@ def findLevel(expTot):
     level = expTot // 1000
     return (level + 1)
 
-class Move(moveDetails):
+class Move:
     def __init__(self, moveDetails):
         self.bp = moveDetails[0]
         self.acc = moveDetails[1]
@@ -143,12 +144,27 @@ class Move(moveDetails):
 
 lebronStats = [85, 75, 60, 70]
 obamaStats = [45, 120, 120, 25]
+luffyStats = [50, 90, 90, 60]
+ohmStats = [100, 100, 100, 100]
+emStats = [70, 100, 50, 20]
+bruceStats = [90, 45, 45, 110]
+jackStats = [110, 50, 40, 70]
+sharkStats = [100, 30, 60, 70]
+bearStats = [40, 140, 80, 40]
+gruntStats = [40, 40, 40, 40]
+
+# lebronMoves = {
+#     "Chasedown Block": Move([0, 100, 10, 1, 1, 0]),
+#     "Yabadabadoo Old Navy": Move([0, 50, 20, 2, 0, 0]),
+#     "Cleveland!! This is for You!": Move([0, 100, 15, 3, 0, 0]),
+#     "Tomohawk Dunk": Move([100, 90, 10, 4, 0, 0])
+# }
 
 lebronMoves = {
-    "Chasedown Block": Move([0, 100, 10, 1, 1, 0]),
-    "Yabadabadoo Old Navy": Move([0, 50, 20, 2, 0, 0]),
-    "Cleveland!! This is for You!": Move([0, 100, 15, 3, 0, 0]),
-    "Tomohawk Dunk": Move([100, 90, 10, 4, 0, 0])
+    Move([0, 100, 10, 1, 1, 0, "Chasedown Block"]),
+    Move([0, 50, 20, 2, 0, 0, "Yabadabadoo Old Navy"]),
+    Move([0, 100, 15, 3, 0, 0, "Cleveland!! This is for You!"]),
+    Move([100, 90, 10, 4, 0, 0, "Tomohawk Dunk"])
 }
 
 

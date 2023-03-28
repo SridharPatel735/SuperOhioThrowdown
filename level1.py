@@ -26,7 +26,7 @@ class Level1:
                 x = col_index * TILESIZE
                 y = row_index * TILESIZE
 
-                if col == " " or col == "p":
+                if col == " " or col == "p" or col == "g":
                     PrisionTile((x, y), [self.visible_sprites])
                 
 

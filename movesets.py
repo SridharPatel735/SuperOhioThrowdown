@@ -1,4 +1,4 @@
-class Move(moveDetails):
+class Move:
     def __init__(self, moveDetails):
         self.bp = moveDetails[0]
         self.acc = moveDetails[1]
