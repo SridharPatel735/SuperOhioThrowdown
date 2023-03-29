@@ -8,23 +8,23 @@ pygame.init()
 
 def charSelection():
 
-    WIDTH = 500
-    HEIGHT = 400
+    WIDTH = 1280
+    HEIGHT = 720
 
     screen = pygame.display.set_mode((WIDTH,HEIGHT))
     pygame.display.set_caption("Character Selection")
     luffy =pygame.image.load('luffy.png')
 
-    luffyImg = pygame.transform.scale(luffy,(80, 110))
+    luffyImg = pygame.transform.scale(luffy,(320, 440))
 
     lebron = pygame.image.load('lebron.png')
-    lebronImg = pygame.transform.scale(lebron, (80, 110))
+    lebronImg = pygame.transform.scale(lebron, (320, 440))
     bruce = pygame.image.load("bruce_lee.png")
-    bruceImg = pygame.transform.scale(bruce, (80, 110))
+    bruceImg = pygame.transform.scale(bruce, (320, 440))
     images = [lebronImg, bruceImg, luffyImg]
 
     pygame.font.init()
-    f= pygame.font.SysFont("Arial", 30)\
+    f= pygame.font.SysFont("kvn-pokemon-gen-5.ttf", 60)
 
     num_C = len(images)
     c_Width=lebronImg.get_width()
@@ -35,7 +35,7 @@ def charSelection():
 
     for i in range(num_C):
         x = i*(c_Width+20)+x_start
-        y=c_Height
+        y=200
         r= pygame.Rect(x,y,c_Width,c_Height)
         select.append(r)
 
@@ -62,7 +62,6 @@ def charSelection():
                 if select_button.collidepoint(event.pos):
                         if index==0:
                             character_1=True
-                            return (battleCalcs.Fighter(battleCalcs.lebronStats, battleCalcs.lebronMoves, 5000))
                             print(1)
                         elif index==1:
                             character_2=True

@@ -3,20 +3,29 @@ import sys
 from levelSettings import *
 from level1 import Level1
 from level2 import Level2
-import gameObjects
+import gameObjects, battleCalcs, characterSelection
 from debug import debug
 
 
+lebronStats = [85, 75, 60, 70]
+lebronMoves = [[0, 100, 10, 1, 1, 0, "Chasedown Block"], [0, 50, 20, 2, 0, 0, "Yabadabadoo Old Navy"], [0, 100, 15, 3, 0, 0, "Cleveland!! This is for You!"], [100, 90, 10, 4, 0, 0, "Tomohawk Dunk"]]
+
+hero = battleCalcs.Fighter(lebronStats, lebronMoves, 5000)
+
 class Game:
+
+
     def __init__(self):
         pygame.init()
+        characterSelection.charSelection()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Super Ohio Throwdown")
         self.clock = pygame.time.Clock()
-
         self.level1 = Level1()
 
     def run(self):
+        global hero
+
         pygame.mixer.music.load("menumusic.mp3")
         battleLoopBool = False
 
@@ -44,8 +53,7 @@ class Game:
                 gruntImg_rect = heroImg.get_rect()
                 battleBg = pygame.image.load("battleBgTemplate.jpg")
                 battleBg_rect = battleBg.get_rect()
-                battleScreen = pygame.display.set_mode(
-                    (battleBg_rect.width, battleBg_rect.height))
+                battleScreen = pygame.display.set_mode((battleBg_rect.width, battleBg_rect.height))
                 battleScreen_rect = battleScreen.get_rect()
                 battleRunning = True
                 battleFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 24)

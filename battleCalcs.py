@@ -108,11 +108,43 @@ class Fighter:
         self.tempDef = self.dfs
         self.tempSpd = self.spd
         self.tempHp = self.hp
-        print(moveset[1])
-        self.move1 = moveset[0]
-        self.move2 = moveset[1]
-        self.move3 = moveset[2]
-        self.move4 = moveset[3]
+        
+        self.move1bp = moveset[0][0]
+        self.move1acc = moveset[0][1]
+        self.move1pp = moveset[0][2]
+        self.move1effect = moveset[0][3]
+        self.move1priority = moveset[0][4]
+        self.move1learnLvl = moveset[0][5]
+        self.move1name = moveset[0][6]
+
+        self.move2bp = moveset[1][0]
+        self.move2acc = moveset[1][1]
+        self.move2pp = moveset[1][2]
+        self.move2effect = moveset[1][3]
+        self.move2priority = moveset[1][4]
+        self.move2learnLvl = moveset[1][5]
+        self.move2name = moveset[1][6]
+        
+        self.move3bp = moveset[2][0]
+        self.move3acc = moveset[2][1]
+        self.move3pp = moveset[2][2]
+        self.move3effect = moveset[2][3]
+        self.move3priority = moveset[2][4]
+        self.move3learnLvl = moveset[2][5]
+        self.move3name = moveset[2][6]
+        
+        self.move4bp = moveset[3][0]
+        self.move4acc = moveset[3][1]
+        self.move4pp = moveset[3][2]
+        self.move4effect = moveset[3][3]
+        self.move4priority = moveset[3][4]
+        self.move4learnLvl = moveset[3][5]
+        self.move4name = moveset[3][6]
+        # print(moveset[1])
+        # self.move1 = moveset[0]
+        # self.move2 = moveset[1]
+        # self.move3 = moveset[2]
+        # self.move4 = moveset[3]
 
     def replaceMove(self, moveToReplace):
         # user picks move to replace, move position is assigned to moveSelected, cancel button = 0
@@ -133,14 +165,14 @@ def findLevel(expTot):
     level = expTot // 1000
     return (level + 1)
 
-class Move:
-    def __init__(self, moveDetails):
-        self.bp = moveDetails[0]
-        self.acc = moveDetails[1]
-        self.pp = moveDetails[2]
-        self.effect = moveDetails[3]
-        self.priority = moveDetails[4]
-        self.learnLvl = moveDetails[5]
+# class Move:
+#     def __init__(self, moveDetails):
+#         self.bp = moveDetails[0]
+#         self.acc = moveDetails[1]
+#         self.pp = moveDetails[2]
+#         self.effect = moveDetails[3]
+#         self.priority = moveDetails[4]
+#         self.learnLvl = moveDetails[5]
 
 lebronStats = [85, 75, 60, 70]
 obamaStats = [45, 120, 120, 25]
@@ -160,12 +192,12 @@ gruntStats = [40, 40, 40, 40]
 #     "Tomohawk Dunk": Move([100, 90, 10, 4, 0, 0])
 # }
 
-lebronMoves = {
-    Move([0, 100, 10, 1, 1, 0, "Chasedown Block"]),
-    Move([0, 50, 20, 2, 0, 0, "Yabadabadoo Old Navy"]),
-    Move([0, 100, 15, 3, 0, 0, "Cleveland!! This is for You!"]),
-    Move([100, 90, 10, 4, 0, 0, "Tomohawk Dunk"])
-}
+# lebronMoves = {
+#     [[0, 100, 10, 1, 1, 0, "Chasedown Block"],
+#     [0, 50, 20, 2, 0, 0, "Yabadabadoo Old Navy"],
+#     [0, 100, 15, 3, 0, 0, "Cleveland!! This is for You!"],
+#     [100, 90, 10, 4, 0, 0, "Tomohawk Dunk"]]
+# }
 
 
 
