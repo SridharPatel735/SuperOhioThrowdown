@@ -140,11 +140,6 @@ class Fighter:
         self.move4priority = moveset[3][4]
         self.move4learnLvl = moveset[3][5]
         self.move4name = moveset[3][6]
-        # print(moveset[1])
-        # self.move1 = moveset[0]
-        # self.move2 = moveset[1]
-        # self.move3 = moveset[2]
-        # self.move4 = moveset[3]
 
     def replaceMove(self, moveToReplace):
         # user picks move to replace, move position is assigned to moveSelected, cancel button = 0
