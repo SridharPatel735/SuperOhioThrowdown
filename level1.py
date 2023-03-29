@@ -3,22 +3,18 @@ from levelSettings import *
 from gameObjects import Tile, Player, PrisionTile, DoorTile, GruntTile
 
 
-
-
 class Level1:
     def __init__(self):
         # get the display surface
         self.display_surface = pygame.display.get_surface()
 
-
         # setup sprite groups
         self.visible_sprites = CameraGroup()
         self.obstacle_sprites = pygame.sprite.Group()
-
+        self.grunt_sprite = pygame.sprite.Group()
 
         # setup sprite
         self.create_map()
-
 
     def create_map(self):
         for row_index, row in enumerate(WORLD_MAP1):
@@ -28,36 +24,31 @@ class Level1:
 
                 if col == " " or col == "p" or col == "g":
                     PrisionTile((x, y), [self.visible_sprites])
-                
 
         for row_index, row in enumerate(WORLD_MAP1):
             for col_index, col in enumerate(row):
                 x = col_index * TILESIZE
                 y = row_index * TILESIZE
 
-
                 if col == "x" or col == "w":
                     Tile((x, y), [self.visible_sprites, self.obstacle_sprites])
 
                 if col == "p":
                     self.player = Player(
-                        (x, y), [self.visible_sprites], self.obstacle_sprites)
-                    
+                        (x, y), [self.visible_sprites], self.obstacle_sprites, self.grunt_sprite)
+
                 if col == "d":
-                    DoorTile((x, y), [self.visible_sprites, self.obstacle_sprites])
+                    DoorTile((x, y), [self.visible_sprites,
+                             self.obstacle_sprites])
 
                 if col == "g":
-                    GruntTile((x, y), [self.visible_sprites, self.obstacle_sprites])
-                
-                
-
+                    GruntTile((x, y), [self.visible_sprites,
+                              self.grunt_sprite])
 
     def run(self):
         # update and draw the game
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
-
-
 
 
 class CameraGroup(pygame.sprite.Group):
@@ -68,12 +59,10 @@ class CameraGroup(pygame.sprite.Group):
         self.half_height = self.display_surface.get_size()[1] // 2
         self.offset = pygame.math.Vector2()
 
-
     def custom_draw(self, player):
         # getting the offset for the y and the x
         self.offset.x = player.rect.centerx - self.half_width
         self.offset.y = player.rect.centery - self.half_height
-
 
         for sprite in self.sprites():
             offset_rect = sprite.rect.topleft - self.offset
