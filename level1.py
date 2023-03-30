@@ -1,6 +1,6 @@
 import pygame
 from levelSettings import *
-from gameObjects import Tile, Player, PrisionTile, DoorTile, GruntTile
+from gameObjects import Tile, Player, PrisionTile, DoorTile, GruntTile, DoorTileFlipped
 
 
 class Level1:
@@ -12,6 +12,9 @@ class Level1:
         self.visible_sprites = CameraGroup()
         self.obstacle_sprites = pygame.sprite.Group()
         self.grunt_sprite = pygame.sprite.Group()
+        self.miniBoss_sprite = pygame.sprite.Group()
+        self.boss_sprite = pygame.sprite.Group()
+        self.door_sprite = pygame.sprite.Group()
 
         # setup sprite
         self.create_map()
@@ -35,11 +38,15 @@ class Level1:
 
                 if col == "p":
                     self.player = Player(
-                        (x, y), [self.visible_sprites], self.obstacle_sprites, self.grunt_sprite)
+                        (x, y), [self.visible_sprites], self.obstacle_sprites, self.grunt_sprite, self.miniBoss_sprite, self.boss_sprite, self.door_sprite)
 
                 if col == "d":
                     DoorTile((x, y), [self.visible_sprites,
-                             self.obstacle_sprites])
+                             self.door_sprite])
+
+                if col == "f":
+                    DoorTileFlipped((x, y), [self.visible_sprites,
+                                             self.door_sprite])
 
                 if col == "g":
                     GruntTile((x, y), [self.visible_sprites,
