@@ -406,7 +406,7 @@ class Game:
                             enemyHealthBar = (enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
                                 #If enemy HP is empty, end of battle process starts
                             if (enemy.tempHp < 0):
-                                if (enemyHealthBar > 215):
+                                if (enemyHealthBar >= 215):
                                     enemyHealthBar = 215
                                 heroHealthRect = (884, 408, heroHealthBar, 10)
                                 enemyHealthRect = (335, 152, enemyHealthBar, 10)
@@ -450,7 +450,7 @@ class Game:
                                 heroHealthBar = (heroStartingHealth - hero.tempHp) * heroHealthBlock
                                 #If player HP is empty, end of battle process starts
                                 if (hero.tempHp < 0):
-                                    if (heroHealthBar > 215):
+                                    if (heroHealthBar >= 215):
                                         heroHealthBar = 215
                                     heroHealthRect = (884, 408, heroHealthBar, 10)
                                     enemyHealthRect = (335, 152, enemyHealthBar, 10)
@@ -493,7 +493,7 @@ class Game:
                             heroHealthBar = (heroStartingHealth - hero.tempHp) * heroHealthBlock
                             #If player HP is empty, end of battle process starts
                             if (hero.tempHp < 0):
-                                if (heroHealthBar > 215):
+                                if (heroHealthBar >= 215):
                                     heroHealthBar = 215
                                 heroHealthRect = (884, 408, heroHealthBar, 10)
                                 enemyHealthRect = (335, 152, enemyHealthBar, 10)
@@ -536,7 +536,7 @@ class Game:
                                 enemyHealthBar = (enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
                                 #If enemy HP is empty, end of battle process starts
                                 if (enemy.tempHp < 0):
-                                    if (enemyHealthBar > 215):
+                                    if (enemyHealthBar >= 215):
                                         enemyHealthBar = 215
                                     heroHealthRect = (884, 408, heroHealthBar, 10)
                                     enemyHealthRect = (335, 152, enemyHealthBar, 10)
