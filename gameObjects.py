@@ -4,6 +4,15 @@ from levelSettings import *
 battleLoopGrunt = False
 gruntLoopRunOnce = False
 
+battleLoopMiniBoss = False
+miniBossLoopRunOnce = False
+
+battleLoopBoss = False
+bossLoopRunOnce = False
+
+endOfLevelOne = False
+endOfLevelOneRunOnce = False
+
 # Level 1 Sprites
 
 
@@ -20,6 +29,15 @@ class DoorTile(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = pygame.image.load(
             "prisonDoor.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+
+class DoorTileFlipped(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "prisonDoor.png").convert_alpha()
+        self.image = pygame.transform.flip(self.image, True, False)
         self.rect = self.image.get_rect(topleft=position)
 
 
@@ -56,6 +74,22 @@ class SandTile(pygame.sprite.Sprite):
             "sandtile.jpg").convert_alpha()
         self.rect = self.image.get_rect(topleft=position)
 
+
+class MiniBossShark(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "shark.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+
+class BossJackSparrow(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "jackSparrow.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
 # Level 3 Sprites
 
 # Level 4 Sprites
@@ -72,7 +106,7 @@ class Tile(pygame.sprite.Sprite):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, position, groups, obstacle_sprites, grunt_sprite):
+    def __init__(self, position, groups, obstacle_sprites, grunt_sprite, miniBoss_sprite, boss_sprite, door_sprite):
         super().__init__(groups)
         self.image = pygame.image.load(
             "sridhar_player_icon.png").convert_alpha()
@@ -83,6 +117,9 @@ class Player(pygame.sprite.Sprite):
 
         self.obstacle_sprites = obstacle_sprites
         self.grunt_sprite = grunt_sprite
+        self.miniBoss_sprite = miniBoss_sprite
+        self.boss_sprite = boss_sprite
+        self.door_sprite = door_sprite
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -113,6 +150,12 @@ class Player(pygame.sprite.Sprite):
     def collision(self, direction):
         global gruntLoopRunOnce
         global battleLoopGrunt
+        global miniBossLoopRunOnce
+        global battleLoopMiniBoss
+        global bossLoopRunOnce
+        global battleLoopBoss
+        global endOfLevelOne
+        global endOfLevelOneRunOnce
 
         if direction == "horizontal":
             for sprite in self.obstacle_sprites:
@@ -135,6 +178,24 @@ class Player(pygame.sprite.Sprite):
                 if sprite.rect.colliderect(self.rect):
                     battleLoopGrunt = True
                     gruntLoopRunOnce = True
+
+        if miniBossLoopRunOnce == False:
+            for sprite in self.miniBoss_sprite:
+                if sprite.rect.colliderect(self.rect):
+                    battleLoopMiniBoss = True
+                    miniBossLoopRunOnce = True
+
+        if bossLoopRunOnce == False:
+            for sprite in self.boss_sprite:
+                if sprite.rect.colliderect(self.rect):
+                    battleLoopBoss = True
+                    bossLoopRunOnce = True
+
+        if endOfLevelOneRunOnce == False:
+            for sprite in self.door_sprite:
+                if sprite.rect.colliderect(self.rect):
+                    endOfLevelOne = True
+                    endOfLevelOneRunOnce = True
 
     def update(self):
         self.input()

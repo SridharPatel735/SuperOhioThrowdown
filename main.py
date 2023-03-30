@@ -5,6 +5,19 @@ from level1 import Level1
 from level2 import Level2
 import gameObjects
 from debug import debug
+import time
+
+level1Trigger = True
+level2Trigger = False
+level1RunBool = False
+level2RunBool = False
+
+
+def draw_text(screen, text, font_size, x, y):
+    text_font = pygame.font.Font("kvn-pokemon-gen-5.ttf", font_size)
+    text_color = (255, 255, 255)
+    img = text_font.render(text, True, text_color)
+    screen.blit(img, (x, y))
 
 
 class Game:
@@ -14,28 +27,78 @@ class Game:
         pygame.display.set_caption("Super Ohio Throwdown")
         self.clock = pygame.time.Clock()
 
-        self.level1 = Level1()
-
     def run(self):
+        global level1Trigger, level2Trigger, level1RunBool, level2RunBool
+        mainLoop = True
+        nextLevelButton = True
+        runOnce = True
+
         pygame.mixer.music.load("menumusic.mp3")
         battleLoopBool = False
 
         pygame.mixer.music.set_volume(0)
         pygame.mixer.music.play(-1)
 
-        while True:
+        while (mainLoop):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_TAB:
-                    battleLoopBool = True
+                if event.key == pygame.K_TAB and runOnce == True:
+                    level1Trigger = False
+                    level2Trigger = True
+                    runOnce = False
+
+            if gameObjects.endOfLevelOne == True:
+                level2Trigger = True
+                level1Trigger = False
+                gameObjects.endOfLevelOne = False
+
+            if level1Trigger == True:
+                self.level1 = Level1()
+                level1Trigger = False
+                level1RunBool = True
+                level2Trigger = False
+                level2RunBool = False
+
+            elif level2Trigger == True:
+                nextLevelButton = False
+                self.screen.fill('black')
+                line1 = "Testing"
+                line2 = "CONTINUE"
+
+                draw_text(self.screen, line1, 30, 100, 100)
+                draw_text(self.screen, line2, 30, 590, 600)
+
+                continueRectangle = pygame.draw.rect(
+                    self.screen, "red", pygame.Rect(550, 600, 200, 60), 2)
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    (x, y) = pygame.mouse.get_pos()
+                    if (x >= 550) and (x <= 750) and (y >= 600) and (y <= 660):
+                        nextLevelButton = True
+
+                pygame.display.update()
+                # TODO - Add text to black screen
+                if nextLevelButton == True:
+                    self.level2 = Level2()
+                    level2Trigger = False
+                    level2RunBool = True
+                    level1RunBool = False
 
             if gameObjects.battleLoopGrunt == True:
                 battleLoopBool = True
                 gameObjects.battleLoopGrunt = False
+
+            if gameObjects.battleLoopMiniBoss == True:
+                battleLoopBool = True
+                gameObjects.battleLoopMiniBoss = False
+
+            if gameObjects.battleLoopBoss == True:
+                battleLoopBool = True
+                gameObjects.battleLoopBoss = False
 
             if battleLoopBool:
                 heroImg = pygame.image.load("sridhar_player_icon_back.png")
@@ -104,9 +167,15 @@ class Game:
                 battleLoopBool = False
 
             self.screen.fill('black')
-            self.level1.run()
-            pygame.display.update()
-            self.clock.tick(FPS)
+
+            if level1RunBool == True:
+                self.level1.run()
+            elif level2RunBool == True:
+                self.level2.run()
+
+            if nextLevelButton == True:
+                pygame.display.update()
+                self.clock.tick(FPS)
 
 
 if __name__ == '__main__':
