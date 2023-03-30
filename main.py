@@ -31,6 +31,7 @@ class Game:
         global bruceStats
         global bruceMoves
         global hero
+        global enemy
         global charSelected
 
         pygame.init()
@@ -101,7 +102,8 @@ class Game:
                 battleRunning = True
                 battleFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 24)
 
-                optionsMenu = (1000, 600, 50, 50)
+                heroHealth = (884, 408, 215, 10)
+                enemyHealth = (335, 152, 215, 10)
 
                 attack1 = (100, 535, (battleScreen_rect.width - 300) / 2, 50)
                 attack2 = ((battleScreen_rect.width / 2) + 50, 535,
@@ -141,6 +143,10 @@ class Game:
                         result = False
                         playerDmg = 0
                         enemyDmg = 0
+                        print(enemy.move1priority)
+                        print(enemy.move2priority)
+                        print(enemy.move3priority)
+                        print(enemy.move4priority)
                         
                         if (playerAttack == "attack1"):
                             if enemyMove == 1:
@@ -244,6 +250,9 @@ class Game:
                     pygame.draw.rect(battleScreen, (240, 240, 240), attack2)
                     pygame.draw.rect(battleScreen, (240, 240, 240), attack3)
                     pygame.draw.rect(battleScreen, (240, 240, 240), attack4)
+
+                    pygame.draw.rect(battleScreen, (255, 0, 0), heroHealth)
+                    pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealth)
                     
                     attack1Text = battleFont.render(hero.move1name, True, (0, 0, 0))
                     attack1Text_rect = attack1Text.get_rect()

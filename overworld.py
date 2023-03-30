@@ -19,6 +19,9 @@ screen_rect = screen.get_rect()
 controlScreen = pygame.display.set_mode((1280, 720))
 controlScreen_rect = controlScreen.get_rect()
 
+creditsScreen = pygame.display.set_mode((1280, 720))
+creditsScreen_rect = controlScreen.get_rect()
+
 logo = pygame.image.load('ohiologo.png')
 logo_rect = logo.get_rect()
 logo_rect.x = (screen.get_rect().centerx - (logo_rect.width / 2))
@@ -78,9 +81,14 @@ while running:
                 running = False
             elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and controlsMenuActive == True):
                 controlsMenuActive = False
+                running = True
             elif (x >= controlsTab_rect.x and x <= (controlsTab_rect.x + controlsTab_rect.width) and y >= controlsTab_rect.y and y <= (controlsTab_rect.y + controlsTab_rect.height) and controlsMenuActive == False):
                 controlsMenuActive = True
-                pygame.quit()
+            elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and creditsActive == True):
+                creditsActive = False
+                running = True
+            elif (x >= creditsTab_rect.x and x <= (creditsTab_rect.x + creditsTab_rect.width) and y >= creditsTab_rect.y and y <= (creditsTab_rect.y + creditsTab_rect.height) and creditsActive == False):
+                creditsActive = True
 
 
     while controlsMenuActive:
@@ -89,6 +97,15 @@ while running:
             controlScreen.blit(controlsMenuText, ((controlsTab_rect.centerx - 90), (controlsTab_rect.centery - 50)))
             pygame.draw.rect(controlScreen, (0, 0, 255), exitTab_rect)
             controlScreen.blit(exitText, ((exitTab_rect.centerx), (exitTab_rect.centery - 50)))
+            pygame.display.update()
+            clock.tick(fps)
+
+    while creditsActive:
+            creditsScreen.blit(bg, (0,0))
+            creditsMenuText = pygame.font.Font.render(menuFont, "tiago made dis shi", True, (255, 255, 255))
+            creditsScreen.blit(creditsMenuText, ((creditsTab_rect.centerx - 90), (creditsTab_rect.centery - 50)))
+            pygame.draw.rect(creditsScreen, (0, 0, 255), exitTab_rect)
+            creditsScreen.blit(exitText, ((exitTab_rect.centerx), (exitTab_rect.centery - 50)))
             pygame.display.update()
             clock.tick(fps)
 
