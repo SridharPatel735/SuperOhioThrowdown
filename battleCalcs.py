@@ -95,7 +95,7 @@ import random
         
 
 class Fighter:
-    def __init__(self, stats, moveset, expTot):
+    def __init__(self, stats, moveset, expTot, fileName):
         self.expTot = expTot
         self.level = findLevel(self.expTot)
         self.atk = (stats[0] // 20 + 1) * self.level
@@ -140,6 +140,8 @@ class Fighter:
         self.move4priority = moveset[3][4]
         self.move4learnLvl = moveset[3][5]
         self.move4name = moveset[3][6]
+
+        self.imageSource = fileName
 
     def replaceMove(self, moveToReplace):
         # user picks move to replace, move position is assigned to moveSelected, cancel button = 0
