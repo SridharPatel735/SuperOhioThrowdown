@@ -45,11 +45,11 @@ class Game:
         pygame.init()
         charSelected = characterSelection.charSelection()
         if (charSelected == 1):
-            hero = battleCalcs.Fighter(lebronStats, lebronMoves, 5000)
+            hero = battleCalcs.Fighter(lebronStats, lebronMoves, 5000, "lebron.png")
         elif (charSelected == 2):
-            hero = battleCalcs.Fighter(bruceStats, bruceMoves, 5000)
+            hero = battleCalcs.Fighter(bruceStats, bruceMoves, 5000, "bruce_lee.png")
         elif (charSelected == 3):
-            hero = battleCalcs.Fighter(luffyStats, luffyMoves, 5000)
+            hero = battleCalcs.Fighter(luffyStats, luffyMoves, 5000, "luffy.png")
         
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Super Ohio Throwdown")
@@ -94,13 +94,13 @@ class Game:
             if gameObjects.battleLoopGrunt == True:
                 gruntStats = [40, 40, 40, 40]
                 gruntMoves = [[30, 100, 5, 4, 0, 0, "Shout"], [50, 100, 10, 0, 0, 0, "Punch"], [0, 100, 3, 3, 0, 0, "Get Angry"], [0, 100, 5, 16, 0, 0, "Stop Right There"]]
-                enemy = battleCalcs.Fighter(gruntStats, gruntMoves, 5000)
+                enemy = battleCalcs.Fighter(gruntStats, gruntMoves, 5000, "grunt_battle.png")
                 if (charSelected == 1):
-                    hero = battleCalcs.Fighter(lebronStats, lebronMoves, 5000)
+                    hero = battleCalcs.Fighter(lebronStats, lebronMoves, 5000, "lebron.png")
                 elif (charSelected == 2):
-                    hero = battleCalcs.Fighter(bruceStats, bruceMoves, 5000)
+                    hero = battleCalcs.Fighter(bruceStats, bruceMoves, 5000, "bruce_lee.png")
                 elif (charSelected == 3):
-                    hero = battleCalcs.Fighter(luffyStats, luffyMoves, 5000)
+                    hero = battleCalcs.Fighter(luffyStats, luffyMoves, 5000, "luffy.png")
                 
                 healthLength = 215
 
@@ -116,10 +116,10 @@ class Game:
                 heroHealthBar = 0
                 enemyHealthBar = 0
 
-                heroImg = pygame.image.load("sridhar_player_icon_back.png")
+                heroImg = pygame.image.load(hero.imageSource)
                 heroImg = pygame.transform.flip(heroImg, True, False)
                 heroImg_rect = heroImg.get_rect()
-                gruntImg = pygame.image.load("grunt_battle.png")
+                gruntImg = pygame.image.load(enemy.imageSource)
                 gruntImg_rect = heroImg.get_rect()
                 battleBg = pygame.image.load("battleBgTemplate.jpg")
                 battleBg_rect = battleBg.get_rect()
