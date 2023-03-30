@@ -117,11 +117,13 @@ class Game:
                 enemyHealthBar = 0
 
                 heroImg = pygame.image.load("sridhar_player_icon_back.png")
+                heroImg = pygame.transform.flip(heroImg, True, False)
                 heroImg_rect = heroImg.get_rect()
                 gruntImg = pygame.image.load("grunt_battle.png")
                 gruntImg_rect = heroImg.get_rect()
                 battleBg = pygame.image.load("battleBgTemplate.jpg")
                 battleBg_rect = battleBg.get_rect()
+                battleBorder = pygame.image.load("battleBgBorder.png")
                 battleScreen = pygame.display.set_mode((battleBg_rect.width, battleBg_rect.height))
                 battleScreen_rect = battleScreen.get_rect()
                 battleRunning = True
@@ -274,6 +276,7 @@ class Game:
 
                     battleScreen.blit(battleBg, (0, 0))
                     battleScreen.blit(heroImg, ((battleScreen_rect.width / 2) - 335, 320))
+                    battleScreen.blit(battleBorder, (0, 500))
                     battleScreen.blit(gruntImg, ((battleScreen_rect.width / 2) + 158, 88))
 
                     pygame.draw.rect(battleScreen, (240, 240, 240), attack1)
