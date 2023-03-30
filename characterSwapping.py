@@ -11,7 +11,7 @@ pygame.display.set_caption("Character Swap")
 pygame.font.init()
 f= pygame.font.SysFont("Arial", 30)
 
-door=pygame.image.load('door.png')
+door=pygame.image.load('prisonDoor.png')
 doorImg= pygame.transform.scale(door,(50,100))
 
 enemy = pygame.image.load('obamacube.png')
