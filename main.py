@@ -176,54 +176,63 @@ class Game:
                         
                         if (playerAttack == "attack1"):
                             if enemyMove == 1:
-                                result = battleCalcs.speedCalc(hero.move1priority, enemy.move1priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move1priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 2:
-                                result = battleCalcs.speedCalc(hero.move1priority, enemy.move2priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move1priority, enemy.move2priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 3:
-                                result = battleCalcs.speedCalc(hero.move1priority, enemy.move3priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move1priority, enemy.move3priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 4:
-                                result = battleCalcs.speedCalc(hero.move1priority, enemy.move4priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move1priority, enemy.move4priority, hero.tempSpd, enemy.tempSpd)
                         elif (playerAttack == "attack2"):
                             if enemyMove == 1:
-                                result = battleCalcs.speedCalc(hero.move2priority, enemy.move1priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move2priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 2:
-                                result = battleCalcs.speedCalc(hero.move2priority, enemy.move2priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move2priority, enemy.move2priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 3:
-                                result = battleCalcs.speedCalc(hero.move2priority, enemy.move3priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move2priority, enemy.move3priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 4:
-                                result = battleCalcs.speedCalc(hero.move2priority, enemy.move4priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move2priority, enemy.move4priority, hero.tempSpd, enemy.tempSpd)
                         elif (playerAttack == "attack3"):
                             if enemyMove == 1:
-                                result = battleCalcs.speedCalc(hero.move3priority, enemy.move1priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move3priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 2:
-                                result = battleCalcs.speedCalc(hero.move3priority, enemy.move2priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move3priority, enemy.move2priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 3:
-                                result = battleCalcs.speedCalc(hero.move3priority, enemy.move3priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move3priority, enemy.move3priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 4:
-                                result = battleCalcs.speedCalc(hero.move3priority, enemy.move4priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move3priority, enemy.move4priority, hero.tempSpd, enemy.tempSpd)
                         elif (playerAttack == "attack4"):
                             if enemyMove == 1:
-                                result = battleCalcs.speedCalc(hero.move4priority, enemy.move1priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move4priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 2:
-                                result = battleCalcs.speedCalc(hero.move4priority, enemy.move2priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move4priority, enemy.move2priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 3:
-                                result = battleCalcs.speedCalc(hero.move4priority, enemy.move3priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move4priority, enemy.move3priority, hero.tempSpd, enemy.tempSpd)
                             elif enemyMove == 4:
-                                result = battleCalcs.speedCalc(hero.move4priority, enemy.move4priority, hero.spd, enemy.spd)
+                                result = battleCalcs.speedCalc(hero.move4priority, enemy.move4priority, hero.tempSpd, enemy.tempSpd)
                         
                         if (result):
                             if (playerAttack == "attack1"):
-                                playerDmg = battleCalcs.damageCalc(hero.atk, hero.move1bp, hero.level, enemy.dfs)
+                                playerDmg = battleCalcs.damageCalc(hero.tempAtk, hero.move1bp, hero.level, enemy.tempDef)
                             elif (playerAttack == "attack2"):
-                                playerDmg = battleCalcs.damageCalc(hero.atk, hero.move2bp, hero.level, enemy.dfs)
+                                playerDmg = battleCalcs.damageCalc(hero.tempAtk, hero.move2bp, hero.level, enemy.tempDef)
                             elif (playerAttack == "attack3"):
-                                playerDmg = battleCalcs.damageCalc(hero.atk, hero.move3bp, hero.level, enemy.dfs)
+                                playerDmg = battleCalcs.damageCalc(hero.tempAtk, hero.move3bp, hero.level, enemy.tempDef)
                             elif (playerAttack == "attack4"):
-                                playerDmg = battleCalcs.damageCalc(hero.atk, hero.move4bp, hero.level, enemy.dfs)
+                                playerDmg = battleCalcs.damageCalc(hero.tempAtk, hero.move4bp, hero.level, enemy.tempDef)
                             
-                            enemy.hp = enemy.hp - playerDmg
-                            enemyHealthBar = (enemyStartingHealth - enemy.hp) * enemyHealthBlock
-                            if (enemy.hp <= 0):
+                            enemy.tempHp = enemy.tempHp - playerDmg
+                            enemyHealthBar = (enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
+                                #tiago
+                            if (enemy.tempHp <= 0):
+                                if (enemyHealthBar > 215):
+                                    enemyHealthBar = 215
+                                heroHealthRect = (884, 408, heroHealthBar, 10)
+                                enemyHealthRect = (335, 152, enemyHealthBar, 10)
+                                pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
+                                pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
+                                pygame.display.update()
+                                time.sleep(2)
                                 battleRunning = False
                             
                             else:
@@ -236,9 +245,18 @@ class Game:
                                 elif (enemyMove == 4):
                                     enemyDmg = battleCalcs.damageCalc(enemy.atk, enemy.move4bp, enemy.level, hero.dfs)
 
-                                hero.hp = hero.hp - enemyDmg
-                                heroHealthBar = (heroStartingHealth - hero.hp) * heroHealthBlock
-                                if (hero.hp <= 0):
+                                hero.tempHp = hero.tempHp - enemyDmg
+                                heroHealthBar = (heroStartingHealth - hero.tempHp) * heroHealthBlock
+                                #tiago
+                                if (hero.tempHp <= 0):
+                                    if (heroHealthBar > 215):
+                                        heroHealthBar = 215
+                                    heroHealthRect = (884, 408, heroHealthBar, 10)
+                                    enemyHealthRect = (335, 152, enemyHealthBar, 10)
+                                    pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
+                                    pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
+                                    pygame.display.update()
+                                    time.sleep(2)
                                     battleRunning = False
 
                         elif (result == False):
@@ -251,9 +269,17 @@ class Game:
                             elif (enemyMove == 4):
                                 enemyDmg = battleCalcs.damageCalc(enemy.atk, enemy.move4bp, enemy.level, hero.dfs)
 
-                            hero.hp = hero.hp - enemyDmg
-                            heroHealthBar = (heroStartingHealth - hero.hp) * heroHealthBlock
-                            if (hero.hp <= 0):
+                            hero.tempHp = hero.tempHp - enemyDmg
+                            heroHealthBar = (heroStartingHealth - hero.tempHp) * heroHealthBlock
+                                #tiago
+                            if (hero.tempHp <= 0):
+                                if (heroHealthBar > 215):
+                                    heroHealthBar = 215
+                                heroHealthRect = (884, 408, heroHealthBar, 10)
+                                enemyHealthRect = (335, 152, enemyHealthBar, 10)
+                                pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
+                                pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
+                                pygame.display.update()
                                 time.sleep(2)
                                 battleRunning = False
                             
@@ -267,9 +293,17 @@ class Game:
                                 elif (playerAttack == "attack4"):
                                     playerDmg = battleCalcs.damageCalc(hero.atk, hero.move4bp, hero.level, enemy.dfs)
 
-                                enemy.hp = enemy.hp - playerDmg    
-                                enemyHealthBar = (enemyStartingHealth - enemy.hp) * enemyHealthBlock
-                                if (enemy.hp <= 0):
+                                enemy.tempHp = enemy.tempHp - playerDmg    
+                                enemyHealthBar = (enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
+                                #tiago
+                                if (enemy.tempHp <= 0):
+                                    if (enemyHealthBar > 215):
+                                        enemyHealthBar = 215
+                                    heroHealthRect = (884, 408, heroHealthBar, 10)
+                                    enemyHealthRect = (335, 152, enemyHealthBar, 10)
+                                    pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
+                                    pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
+                                    pygame.display.update()
                                     time.sleep(2)
                                     battleRunning = False
                                                 
