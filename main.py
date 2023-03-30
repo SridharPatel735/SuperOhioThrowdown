@@ -26,19 +26,44 @@ def draw_text(screen, text, font_size, x, y):
 
 
 lebronStats = [85, 75, 60, 70]
-lebronMoves = [[0, 100, 10, 1, 1, 0, "Chasedown Block"], [0, 50, 20, 2, 0, 0, "Yabadabadoo Old Navy"], [
-    0, 100, 15, 3, 0, 0, "Cleveland!! This is for You!"], [100, 90, 10, 4, 0, 0, "Tomohawk Dunk"]]
+lebronMoves = [[0, 100, 10, 1, 1, 0, "Chasedown Block"], [0, 50, 20, 2, 0, 0, "Yabadabadoo Old Navy"], [0, 100, 15, 3, 0, 0, "Cleveland!! This is for You!"], [100, 90, 10, 4, 0, 0, "Tomohawk Dunk"]]
 
 luffyStats = [50, 90, 90, 60]
-luffyMoves = [[10, 100, 5, 9, 0, 0, "Gatling Punch"], [40, 100, 20, 0, 1, 0, "Jet Pistol"], [
-    150, 100, 5, 5, 0, 0, "Giant Pistol"], [0, 100, 5, 10, 0, 0, "Gear Change"]]
+luffyMoves = [[10, 100, 5, 9, 0, 0, "Gatling Punch"], [40, 100, 20, 0, 1, 0, "Jet Pistol"], [150, 100, 5, 5, 0, 0, "Giant Pistol"], [0, 100, 5, 10, 0, 0, "Gear Change"]]
 
 bruceStats = [90, 45, 45, 110]
-bruceMoves = [[30, 100, 10, 0, 0, 0, "Leg Sweep"], [10, 100, 3, 12, 0, 0, "One Inch Punch"], [15, 100, 10, 0,
-                                                                                              1, 0, "Lop Sao Backfist"], [0, 100, 10, 1, 1, 0, "Block"], [7, 100, 5, 9, 0, 15, "Lightning Fast Punches"]]
+bruceMoves = [[30, 100, 10, 0, 0, 0, "Leg Sweep"], [10, 100, 3, 12, 0, 0, "One Inch Punch"], [15, 100, 10, 0, 1, 0, "Lop Sao Backfist"], [0, 100, 10, 1, 1, 0, "Block"], [7, 100, 5, 9, 0, 15, "Lightning Fast Punches"]]
+
+gruntStats = [40, 40, 40, 40]
+gruntMoves = [[30, 100, 5, 4, 0, 0, "Shout"], [50, 100, 10, 0, 0, 0, "Punch"], [0, 100, 3, 3, 0, 0, "Get Angry"], [0, 100, 5, 16, 0, 0, "Stop Right There"]]
+
+obamaStats = [45, 120, 120, 25]
+obamaMoves = [[0, 100, 3, 7, 0, 0, "Let Me Be Clear"], [20, 100, 5, 17, 0, 0, "Campaign Trail Stomp"], [0, 100, 5, 16, 0, 0, "Landslide Victory"], [30, 100, 10, 14, 0, 0, "Endorsement Enforcement"]]
+
+ohmStats = [100, 100, 100, 100]
+ohmMoves = [[150, 100, 1, 5, 0, 0, "Super Ohio Throwdown"], [20, 100, 10, 6, 0, 0, "AtOHMic BOHMb"], [0, 50, 5, 7, 0, 0, "Attack of the ClOHMs"], [0, 100, 3, 8, 0, 0, "OHMazing Grace"]]
+
+emStats = [70, 100, 50, 20]
+emMoves = [[140, 100, 1, 0, 0, 15, "Killshot"], [20, 100, 10, 11, 0, 0, "Rap God"], [0, 100, 1, 13, 0, 0, "Not Afraid"], [10, 100, 5, 9, 0, 0, "8 Mile Melee"], [0, 100, 1, 13, 0, 0, "Till I Collapse"], [0, 50, 20, 2, 0, 10, "Music to Be Murdered By"]]
+
+jackStats = [110, 50, 40, 70]
+jackMoves = [[0, 100, 5, 1, 0, 0, "Drunken Dodge"], [90, 100, 3, 18, 0, 0, "Crash the Boat"], [40, 100, 5, 11, 0, 0, "Slash and Dash"], [0, 100, 1, 19, 0, 0, "Pillage"]]
+
+sharkStats = [100, 30, 60, 70]
+sharkMoves = [[0, 100, 10, 11, 0, 0, "Tidal Wave"], [0, 90, 5, 8, 0, 0, "Fish Feast"], [60, 100, 10, 0, 0, 0, "Bite"], [20, 100, 10, 6, 0, 0, "Puncture Prey"]]
+
+bearStats = [40, 140, 80, 40]
+bearMoves = [[60, 100, 10, 0, 0, 0, "Bite"], [0, 100, 10, 12, 0, 0, "Shake the Tree"], [0, 100, 1, 13, 0, 0, "Bear Down"], [30, 100, 10, 14, 0, 0, "Berry Bush Beatdown"], [0, 100, 1, 15, 0, 15, "Unbearable Bunker"]]
 
 hero = 0
+heroLevel = 5000
+grunt = 0
 enemy = 0
+miniBoss = 0
+boss = 0
+gruntLevel = heroLevel + 1000
+miniBossLevel = heroLevel + 2000
+bossLevel = heroLevel + 3000
 charSelected = 0
 healthLength = 215
 
@@ -60,20 +85,20 @@ class Game:
         global bruceStats
         global bruceMoves
         global hero
-        global enemy
         global charSelected
+        global heroLevel
 
         pygame.init()
         charSelected = characterSelection.charSelection()
         if (charSelected == 1):
             hero = battleCalcs.Fighter(
-                lebronStats, lebronMoves, 5000, "lebron.png")
+                lebronStats, lebronMoves, heroLevel, "lebron.png")
         elif (charSelected == 2):
             hero = battleCalcs.Fighter(
-                bruceStats, bruceMoves, 5000, "bruce_lee.png")
+                bruceStats, bruceMoves, heroLevel, "bruce_lee.png")
         elif (charSelected == 3):
             hero = battleCalcs.Fighter(
-                luffyStats, luffyMoves, 5000, "luffy.png")
+                luffyStats, luffyMoves, heroLevel, "luffy.png")
 
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Super Ohio Throwdown")
@@ -84,22 +109,23 @@ class Game:
         nextLevelButton = True
         runOnce = True
 
-        global lebronStats
-        global lebronMoves
-        global luffyStats
-        global luffyMoves
-        global bruceStats
-        global bruceMoves
-        global hero
+        global lebronStats, lebronMoves
+        global luffyStats, luffyMoves
+        global bruceStats, bruceMoves
+        global gruntStats, gruntMoves
+        global obamaStats, obamaMoves
+        global ohmStats, ohmMoves
+        global emStats, emMoves
+        global jackStats, jackMoves
+        global sharkStats, sharkMoves
+        global bearStats, bearMoves
+        global hero, grunt, miniBoss, boss
         global enemy
-        global charSelected
+        global heroLevel, miniBossLevel, bossLevel
 
-        global heroHealthBlock
-        global enemyHealthBlock
-        global heroStartingHealth
-        global enemyStartingHealth
-        global heroHealthRect
-        global enemyHealthRect
+        global heroHealthBlock, heroStartingHealth, heroHealthRect
+        global enemyHealthBlock, enemyStartingHealth, enemyHealthRect
+        
 
         pygame.mixer.music.load("menumusic.mp3")
         battleLoopBool = False
@@ -128,6 +154,9 @@ class Game:
                 gameObjects.endOfLevelOne = False
 
             if level1Trigger == True:
+                heroLevel = 5000
+                gruntLevel = heroLevel + 1000
+                grunt = battleCalcs.Fighter(gruntStats, gruntMoves, gruntLevel, "grunt_battle.png")
                 self.level1 = Level1()
                 level1Trigger = False
                 level1RunBool = True
@@ -152,36 +181,32 @@ class Game:
                         nextLevelButton = True
 
                 pygame.display.update()
-                # TODO - Add text to black screen
                 if nextLevelButton == True:
+                    heroLevel = hero.getLevel() * 1000
+                    gruntLevel = heroLevel + 1000
+                    miniBossLevel = heroLevel + 2000
+                    bossLevel = heroLevel + 3000
+                    print("-------------------------------------------------------------------------")
+                    print(heroLevel)
+                    print(gruntLevel)
+                    print(miniBossLevel)
+                    print(bossLevel)
+                    print("-------------------------------------------------------------------------")
+                    grunt = battleCalcs.Fighter(gruntStats, gruntMoves, gruntLevel, "grunt_battle.png")
+                    miniBoss = battleCalcs.Fighter(sharkStats, sharkMoves, miniBossLevel, "shark.png")
+                    boss = battleCalcs.Fighter(jackStats, jackMoves, bossLevel, "jackSparrow.png")
                     self.level2 = Level2()
                     level2Trigger = False
                     level2RunBool = True
                     level1RunBool = False
 
             if gameObjects.battleLoopGrunt == True:
-                gruntStats = [40, 40, 40, 40]
-                gruntMoves = [[30, 100, 5, 4, 0, 0, "Shout"], [50, 100, 10, 0, 0, 0, "Punch"], [
-                    0, 100, 3, 3, 0, 0, "Get Angry"], [0, 100, 5, 16, 0, 0, "Stop Right There"]]
-                enemy = battleCalcs.Fighter(
-                    gruntStats, gruntMoves, 5000, "grunt_battle.png")
-                if (charSelected == 1):
-                    hero = battleCalcs.Fighter(
-                        lebronStats, lebronMoves, 5000, "lebron.png")
-                elif (charSelected == 2):
-                    hero = battleCalcs.Fighter(
-                        bruceStats, bruceMoves, 5000, "bruce_lee.png")
-                elif (charSelected == 3):
-                    hero = battleCalcs.Fighter(
-                        luffyStats, luffyMoves, 5000, "luffy.png")
-
+                enemy = grunt
                 healthLength = 215
-
                 heroHealthBlock = round(healthLength / hero.hp)
                 enemyHealthBlock = round(healthLength / enemy.hp)
                 heroStartingHealth = hero.hp
                 enemyStartingHealth = enemy.hp
-
                 battleLoopBool = True
                 gameObjects.battleLoopGrunt = False
 
@@ -380,7 +405,7 @@ class Game:
                             enemy.tempHp = enemy.tempHp - playerDmg
                             enemyHealthBar = (enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
                                 #If enemy HP is empty, end of battle process starts
-                            if (enemy.tempHp <= 0):
+                            if (enemy.tempHp < 0):
                                 if (enemyHealthBar > 215):
                                     enemyHealthBar = 215
                                 heroHealthRect = (884, 408, heroHealthBar, 10)
@@ -394,15 +419,17 @@ class Game:
                                 pygame.display.update()
 
                                 while (endBattle == True):
-                                        for event in pygame.event.get():
-                                            if event.type == pygame.QUIT:
+                                    hero.afterWin(hero.getLevel() + 1000)
+                                    hero.reset()
+                                    for event in pygame.event.get():
+                                        if event.type == pygame.QUIT:
+                                            battleRunning = False
+                                        if event.type == pygame.MOUSEBUTTONDOWN:
+                                            (x, y) = pygame.mouse.get_pos()
+                                            if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
+                                                time.sleep(1)
+                                                endBattle = False
                                                 battleRunning = False
-                                            if event.type == pygame.MOUSEBUTTONDOWN:
-                                                (x, y) = pygame.mouse.get_pos()
-                                                if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
-                                                    time.sleep(1)
-                                                    endBattle = False
-                                                    battleRunning = False
                                         
                             
                             else:
@@ -422,7 +449,7 @@ class Game:
                                 hero.tempHp = hero.tempHp - enemyDmg
                                 heroHealthBar = (heroStartingHealth - hero.tempHp) * heroHealthBlock
                                 #If player HP is empty, end of battle process starts
-                                if (hero.tempHp <= 0):
+                                if (hero.tempHp < 0):
                                     if (heroHealthBar > 215):
                                         heroHealthBar = 215
                                     heroHealthRect = (884, 408, heroHealthBar, 10)
@@ -465,7 +492,7 @@ class Game:
                             hero.tempHp = hero.tempHp - enemyDmg
                             heroHealthBar = (heroStartingHealth - hero.tempHp) * heroHealthBlock
                             #If player HP is empty, end of battle process starts
-                            if (hero.tempHp <= 0):
+                            if (hero.tempHp < 0):
                                 if (heroHealthBar > 215):
                                     heroHealthBar = 215
                                 heroHealthRect = (884, 408, heroHealthBar, 10)
@@ -508,7 +535,7 @@ class Game:
                                 enemy.tempHp = enemy.tempHp - playerDmg    
                                 enemyHealthBar = (enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
                                 #If enemy HP is empty, end of battle process starts
-                                if (enemy.tempHp <= 0):
+                                if (enemy.tempHp < 0):
                                     if (enemyHealthBar > 215):
                                         enemyHealthBar = 215
                                     heroHealthRect = (884, 408, heroHealthBar, 10)
@@ -522,6 +549,8 @@ class Game:
                                     pygame.display.update()
 
                                     while (endBattle == True):
+                                        hero.afterWin(hero.getLevel() + 1000)
+                                        hero.reset()
                                         for event in pygame.event.get():
                                             if event.type == pygame.QUIT:
                                                 battleRunning = False
