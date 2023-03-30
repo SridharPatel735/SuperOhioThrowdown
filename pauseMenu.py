@@ -1,17 +1,27 @@
-import pygame
+import pygame,movesets,characterSelection,battleCalcs, main
 pygame.init()
 
-WIDTH=640
-HEIGHT=480
+WIDTH=1280
+HEIGHT=720
 screen=pygame.display.set_mode((WIDTH,HEIGHT))
 screen_rect = screen.get_rect()
 
 pygame.display.set_caption("Pause Menu")
-hImg = pygame.image.load('diamond.png')
-heroImg= pygame.transform.scale(hImg,(100,200))
+if (characterSelection.charSelection()==1):
+    hero = battleCalcs.Fighter(main.lebronStats, main.lebronMoves, 5000)
+    hImg =pygame.image.load('lebron.png')
 
-hero_rect = hImg.get_rect()
-heroSpeed = 5
+    heroImg = pygame.transform.scale(hImg,(320, 440))
+elif (characterSelection.charSelection()==2):
+    hero = battleCalcs.Fighter(main.bruceStats, main.bruceMoves, 5000)
+    hImg =pygame.image.load('bruce_lee.png')
+
+    heroImg = pygame.transform.scale(hImg,(320, 440))
+elif (characterSelection.charSelection()==3):
+    hero = battleCalcs.Fighter(main.luffyStats, main.luffyMoves, 5000)
+    hImg =pygame.image.load('luffy.png')
+
+    heroImg = pygame.transform.scale(hImg,(320, 440))
 
 def pause():
     f=pygame.font.Font(None,50)
@@ -89,8 +99,7 @@ def pause():
 
 running = True
 paused = False
-bg = pygame.image.load('bg2.jpg')
-bg_rect = bg.get_rect()
+
 player_stats = {'lvl':1,'hp': 100, 'atk': 10, 'def': 5, 'spd': 20}
 
 while running:
@@ -107,7 +116,7 @@ while running:
                 quit_t=f.render('Quit',True,(0,0,0),2)
                 continue_r= continue_t.get_rect(center=(WIDTH/2-150,HEIGHT*9/10))
                 quit_r= quit_t.get_rect(center=(WIDTH/2+150,HEIGHT*9/10))
-                move_1=f.render('move 1', True,(0,0,0),2)
+                move_1=f.render('', True,(0,0,0),2)
                 move_2=f.render('move 2', True,(0,0,0),2)
                 move_3=f.render('move 3', True,(0,0,0),2)
                 move_4=f.render('move 4', True,(0,0,0),2)
@@ -129,22 +138,11 @@ while running:
                 elif move_4_r.collidepoint(mouse_pos):
                     print()            
 
+
     if paused:
         pause()
-    else:
-        
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT and (hero_rect.x + hero_rect.width) < screen_rect.width:
-                hero_rect.x += heroSpeed
-            if event.key == pygame.K_LEFT and hero_rect.x > 0:
-                hero_rect.x -= heroSpeed
-            if event.key == pygame.K_DOWN and (hero_rect.y + hero_rect.height) < screen_rect.height:
-                hero_rect.y += heroSpeed
-            if event.key == pygame.K_UP and hero_rect.y > 0:
-                hero_rect.y -= heroSpeed
-        # Game code goes here
-        screen.blit(bg, (0,0))
-        screen.blit(hImg, hero_rect)
 
+        
+        
     pygame.display.flip()    
 pygame.quit()
