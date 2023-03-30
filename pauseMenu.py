@@ -7,17 +7,17 @@ screen=pygame.display.set_mode((WIDTH,HEIGHT))
 screen_rect = screen.get_rect()
 
 pygame.display.set_caption("Pause Menu")
-if (characterSelection.charSelection()==1):
+if characterSelection.charSelection()==1:
     hero = battleCalcs.Fighter(main.lebronStats, main.lebronMoves, 5000)
     hImg =pygame.image.load('lebron.png')
 
     heroImg = pygame.transform.scale(hImg,(320, 440))
-elif (characterSelection.charSelection()==2):
+elif characterSelection.charSelection()==2:
     hero = battleCalcs.Fighter(main.bruceStats, main.bruceMoves, 5000)
     hImg =pygame.image.load('bruce_lee.png')
 
     heroImg = pygame.transform.scale(hImg,(320, 440))
-elif (characterSelection.charSelection()==3):
+elif characterSelection.charSelection()==3:
     hero = battleCalcs.Fighter(main.luffyStats, main.luffyMoves, 5000)
     hImg =pygame.image.load('luffy.png')
 
