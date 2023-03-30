@@ -75,9 +75,7 @@ while running:
             if (x >= startTab_rect.x and x <= (startTab_rect.x + startTab_rect.width) and y >= startTab_rect.y and y <= (startTab_rect.y + startTab_rect.height) and controlsMenuActive == False):
                 loadingScreen()
                 newGame = game()
-                newGame.__init__()
                 newGame.run()
-                print("success")
                 pygame.display.update()
             elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and controlsMenuActive == False):
                 running = False
