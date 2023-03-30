@@ -2,6 +2,7 @@ import pygame
 import random
 import time
 import sys
+import pauseMenu
 from levelSettings import *
 from level1 import Level1
 from level2 import Level2
@@ -80,13 +81,6 @@ class Game:
 
     def run(self):
         global level1Trigger, level2Trigger, level1RunBool, level2RunBool
-        mainLoop = True
-        nextLevelButton = True
-        runOnce = True
-        self.level1 = Level1()
-
-        global level1Trigger, level2Trigger, level1RunBool, level2RunBool
-        mainLoop = True
         nextLevelButton = True
         runOnce = True
 
@@ -124,6 +118,8 @@ class Game:
                     level1Trigger = False
                     level2Trigger = True
                     runOnce = False
+                if event.key == pygame.K_ESCAPE and battleLoopBool==False:
+                    pauseMenu.p()
 
             if gameObjects.endOfLevelOne == True:
                 level2Trigger = True
@@ -189,10 +185,52 @@ class Game:
                 gameObjects.battleLoopGrunt = False
 
             if gameObjects.battleLoopMiniBoss == True:
+                gruntStats = [40, 40, 40, 40]
+                gruntMoves = [[30, 100, 5, 4, 0, 0, "Shout"], [50, 100, 10, 0, 0, 0, "Punch"], [
+                    0, 100, 3, 3, 0, 0, "Get Angry"], [0, 100, 5, 16, 0, 0, "Stop Right There"]]
+                enemy = battleCalcs.Fighter(
+                    gruntStats, gruntMoves, 5000, "grunt_battle.png")
+                if (charSelected == 1):
+                    hero = battleCalcs.Fighter(
+                        lebronStats, lebronMoves, 5000, "lebron.png")
+                elif (charSelected == 2):
+                    hero = battleCalcs.Fighter(
+                        bruceStats, bruceMoves, 5000, "bruce_lee.png")
+                elif (charSelected == 3):
+                    hero = battleCalcs.Fighter(
+                        luffyStats, luffyMoves, 5000, "luffy.png")
+
+                healthLength = 215
+
+                heroHealthBlock = round(healthLength / hero.hp)
+                enemyHealthBlock = round(healthLength / enemy.hp)
+                heroStartingHealth = hero.hp
+                enemyStartingHealth = enemy.hp
                 battleLoopBool = True
                 gameObjects.battleLoopMiniBoss = False
 
             if gameObjects.battleLoopBoss == True:
+                gruntStats = [40, 40, 40, 40]
+                gruntMoves = [[30, 100, 5, 4, 0, 0, "Shout"], [50, 100, 10, 0, 0, 0, "Punch"], [
+                    0, 100, 3, 3, 0, 0, "Get Angry"], [0, 100, 5, 16, 0, 0, "Stop Right There"]]
+                enemy = battleCalcs.Fighter(
+                    gruntStats, gruntMoves, 5000, "grunt_battle.png")
+                if (charSelected == 1):
+                    hero = battleCalcs.Fighter(
+                        lebronStats, lebronMoves, 5000, "lebron.png")
+                elif (charSelected == 2):
+                    hero = battleCalcs.Fighter(
+                        bruceStats, bruceMoves, 5000, "bruce_lee.png")
+                elif (charSelected == 3):
+                    hero = battleCalcs.Fighter(
+                        luffyStats, luffyMoves, 5000, "luffy.png")
+
+                healthLength = 215
+
+                heroHealthBlock = round(healthLength / hero.hp)
+                enemyHealthBlock = round(healthLength / enemy.hp)
+                heroStartingHealth = hero.hp
+                enemyStartingHealth = enemy.hp
                 battleLoopBool = True
                 gameObjects.battleLoopBoss = False
 
