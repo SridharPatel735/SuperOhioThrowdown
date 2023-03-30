@@ -100,7 +100,7 @@ while running:
 
     while creditsActive:
             creditsScreen.blit(bg, (0,0))
-            creditsMenuText = pygame.font.Font.render(menuFont, "tiago made dis shi", True, (255, 255, 255))
+            creditsMenuText = pygame.font.Font.render(menuFont, "tiago made this", True, (255, 255, 255))
             creditsScreen.blit(creditsMenuText, ((creditsTab_rect.centerx - 90), (creditsTab_rect.centery - 50)))
             pygame.draw.rect(creditsScreen, (0, 0, 255), exitTab_rect)
             creditsScreen.blit(exitText, ((exitTab_rect.centerx), (exitTab_rect.centery - 50)))
