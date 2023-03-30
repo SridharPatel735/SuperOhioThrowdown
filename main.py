@@ -103,6 +103,7 @@ class Game:
 
         pygame.mixer.music.load("menumusic.mp3")
         battleLoopBool = False
+        endBattle = False
 
         pygame.mixer.music.set_volume(0)
         pygame.mixer.music.play(-1)
@@ -251,6 +252,7 @@ class Game:
                 battleScreen_rect = battleScreen.get_rect()
                 battleRunning = True
                 battleFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 24)
+                endMessageFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 48)
 
                 heroHealthRect = (884, 408, heroHealthBar, 10)
                 enemyHealthRect = (335, 152, enemyHealthBar, 10)
@@ -264,7 +266,9 @@ class Game:
 
                 while battleRunning:
                     playerAttack = ""
+                    playerEffect = 0
                     enemyAttack = ""
+                    enemyEffect = 0
 
                     heroHealthRect = (884, 408, heroHealthBar, 10)
                     enemyHealthRect = (335, 152, enemyHealthBar, 10)
@@ -285,6 +289,11 @@ class Game:
                                 playerAttack = "attack3"
                             elif ((x >= (battleScreen_rect.width / 2) + 50) and (x <= ((battleScreen_rect.width - 300) / 2) + (battleScreen_rect.width / 2) + 50) and (y >= 630) and (y <= 680)):
                                 playerAttack = "attack4"
+                            # elif ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
+                            #     time.sleep(1)
+                            #     endBattle = False
+                            #     battleRunning = False
+
                             # if optionsMenu.rect.collidepoint(event.pos):
                             #     menuText = battleFont.render('Success!', True, (0, 0, 0))
                             #     menuText_rect = menuText.get_rect()
@@ -298,6 +307,7 @@ class Game:
                         enemyDmg = 0
 
                         if (playerAttack == "attack1"):
+                            playerEffect == hero.move1effect
                             if enemyMove == 1:
                                 result = battleCalcs.speedCalc(
                                     hero.move1priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
@@ -311,6 +321,7 @@ class Game:
                                 result = battleCalcs.speedCalc(
                                     hero.move1priority, enemy.move4priority, hero.tempSpd, enemy.tempSpd)
                         elif (playerAttack == "attack2"):
+                            playerEffect == hero.move2effect
                             if enemyMove == 1:
                                 result = battleCalcs.speedCalc(
                                     hero.move2priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
@@ -324,6 +335,7 @@ class Game:
                                 result = battleCalcs.speedCalc(
                                     hero.move2priority, enemy.move4priority, hero.tempSpd, enemy.tempSpd)
                         elif (playerAttack == "attack3"):
+                            playerEffect == hero.move3effect
                             if enemyMove == 1:
                                 result = battleCalcs.speedCalc(
                                     hero.move3priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
@@ -337,6 +349,7 @@ class Game:
                                 result = battleCalcs.speedCalc(
                                     hero.move3priority, enemy.move4priority, hero.tempSpd, enemy.tempSpd)
                         elif (playerAttack == "attack4"):
+                            playerEffect == hero.move4effect
                             if enemyMove == 1:
                                 result = battleCalcs.speedCalc(
                                     hero.move4priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
@@ -365,23 +378,33 @@ class Game:
                                     hero.tempAtk, hero.move4bp, hero.level, enemy.tempDef)
 
                             enemy.tempHp = enemy.tempHp - playerDmg
-                            enemyHealthBar = (
-                                enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
-                            # tiago
+                            enemyHealthBar = (enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
+                                #If enemy HP is empty, end of battle process starts
                             if (enemy.tempHp <= 0):
                                 if (enemyHealthBar > 215):
                                     enemyHealthBar = 215
                                 heroHealthRect = (884, 408, heroHealthBar, 10)
-                                enemyHealthRect = (
-                                    335, 152, enemyHealthBar, 10)
-                                pygame.draw.rect(
-                                    battleScreen, (255, 0, 0), heroHealthRect)
-                                pygame.draw.rect(
-                                    battleScreen, (255, 0, 0), enemyHealthRect)
+                                enemyHealthRect = (335, 152, enemyHealthBar, 10)
+                                pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
+                                pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
+                                battleScreen.blit(battleBorder, (0, 500))
+                                battleText = pygame.font.Font.render(endMessageFont, "The enemy fainted!", True, (255, 255, 255))
+                                battleScreen.blit(battleText, (50, 550))
+                                endBattle = True
                                 pygame.display.update()
-                                time.sleep(2)
-                                battleRunning = False
 
+                                while (endBattle == True):
+                                        for event in pygame.event.get():
+                                            if event.type == pygame.QUIT:
+                                                battleRunning = False
+                                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                                (x, y) = pygame.mouse.get_pos()
+                                                if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
+                                                    time.sleep(1)
+                                                    endBattle = False
+                                                    battleRunning = False
+                                        
+                            
                             else:
                                 if (enemyMove == 1):
                                     enemyDmg = battleCalcs.damageCalc(
@@ -397,23 +420,33 @@ class Game:
                                         enemy.atk, enemy.move4bp, enemy.level, hero.dfs)
 
                                 hero.tempHp = hero.tempHp - enemyDmg
-                                heroHealthBar = (
-                                    heroStartingHealth - hero.tempHp) * heroHealthBlock
-                                # tiago
+                                heroHealthBar = (heroStartingHealth - hero.tempHp) * heroHealthBlock
+                                #If player HP is empty, end of battle process starts
                                 if (hero.tempHp <= 0):
                                     if (heroHealthBar > 215):
                                         heroHealthBar = 215
-                                    heroHealthRect = (
-                                        884, 408, heroHealthBar, 10)
-                                    enemyHealthRect = (
-                                        335, 152, enemyHealthBar, 10)
-                                    pygame.draw.rect(
-                                        battleScreen, (255, 0, 0), heroHealthRect)
-                                    pygame.draw.rect(
-                                        battleScreen, (255, 0, 0), enemyHealthRect)
+                                    heroHealthRect = (884, 408, heroHealthBar, 10)
+                                    enemyHealthRect = (335, 152, enemyHealthBar, 10)
+                                    pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
+                                    pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
+                                    battleScreen.blit(battleBorder, (0, 500))
+                                    battleText = pygame.font.Font.render(endMessageFont, "You fainted!", True, (255, 255, 255))
+                                    battleScreen.blit(battleText, (50, 550))
+                                    endBattle = True
                                     pygame.display.update()
-                                    time.sleep(2)
-                                    battleRunning = False
+
+                                    while (endBattle == True):
+                                        for event in pygame.event.get():
+                                            if event.type == pygame.QUIT:
+                                                battleRunning = False
+                                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                                (x, y) = pygame.mouse.get_pos()
+                                                if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
+                                                    time.sleep(1)
+                                                    endBattle = False
+                                                    battleRunning = False
+                                                    pygame.quit()
+                                                    sys.exit()
 
                         elif (result == False):
                             if (enemyMove == 1):
@@ -430,23 +463,34 @@ class Game:
                                     enemy.atk, enemy.move4bp, enemy.level, hero.dfs)
 
                             hero.tempHp = hero.tempHp - enemyDmg
-                            heroHealthBar = (
-                                heroStartingHealth - hero.tempHp) * heroHealthBlock
-                            # tiago
+                            heroHealthBar = (heroStartingHealth - hero.tempHp) * heroHealthBlock
+                            #If player HP is empty, end of battle process starts
                             if (hero.tempHp <= 0):
                                 if (heroHealthBar > 215):
                                     heroHealthBar = 215
                                 heroHealthRect = (884, 408, heroHealthBar, 10)
-                                enemyHealthRect = (
-                                    335, 152, enemyHealthBar, 10)
-                                pygame.draw.rect(
-                                    battleScreen, (255, 0, 0), heroHealthRect)
-                                pygame.draw.rect(
-                                    battleScreen, (255, 0, 0), enemyHealthRect)
+                                enemyHealthRect = (335, 152, enemyHealthBar, 10)
+                                pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
+                                pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
+                                battleScreen.blit(battleBorder, (0, 500))
+                                battleText = pygame.font.Font.render(endMessageFont, "You fainted!", True, (255, 255, 255))
+                                battleScreen.blit(battleText, (50, 550))
+                                endBattle = True
                                 pygame.display.update()
-                                time.sleep(2)
-                                battleRunning = False
 
+                                while (endBattle == True):
+                                        for event in pygame.event.get():
+                                            if event.type == pygame.QUIT:
+                                                battleRunning = False
+                                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                                (x, y) = pygame.mouse.get_pos()
+                                                if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
+                                                    time.sleep(1)
+                                                    endBattle = False
+                                                    battleRunning = False
+                                                    pygame.quit()
+                                                    sys.exit()
+                            
                             else:
                                 if (playerAttack == "attack1"):
                                     playerDmg = battleCalcs.damageCalc(
@@ -461,24 +505,33 @@ class Game:
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.atk, hero.move4bp, hero.level, enemy.dfs)
 
-                                enemy.tempHp = enemy.tempHp - playerDmg
-                                enemyHealthBar = (
-                                    enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
-                                # tiago
+                                enemy.tempHp = enemy.tempHp - playerDmg    
+                                enemyHealthBar = (enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
+                                #If enemy HP is empty, end of battle process starts
                                 if (enemy.tempHp <= 0):
                                     if (enemyHealthBar > 215):
                                         enemyHealthBar = 215
-                                    heroHealthRect = (
-                                        884, 408, heroHealthBar, 10)
-                                    enemyHealthRect = (
-                                        335, 152, enemyHealthBar, 10)
-                                    pygame.draw.rect(
-                                        battleScreen, (255, 0, 0), heroHealthRect)
-                                    pygame.draw.rect(
-                                        battleScreen, (255, 0, 0), enemyHealthRect)
+                                    heroHealthRect = (884, 408, heroHealthBar, 10)
+                                    enemyHealthRect = (335, 152, enemyHealthBar, 10)
+                                    pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
+                                    pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
+                                    battleScreen.blit(battleBorder, (0, 500))
+                                    battleText = pygame.font.Font.render(endMessageFont, "Enemy fainted!", True, (255, 255, 255))
+                                    battleScreen.blit(battleText, (50, 550))
+                                    endBattle = True
                                     pygame.display.update()
-                                    time.sleep(2)
-                                    battleRunning = False
+
+                                    while (endBattle == True):
+                                        for event in pygame.event.get():
+                                            if event.type == pygame.QUIT:
+                                                battleRunning = False
+                                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                                (x, y) = pygame.mouse.get_pos()
+                                                if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
+                                                    time.sleep(1)
+                                                    endBattle = False
+                                                    battleRunning = False
+                                                
 
                     battleScreen.blit(battleBg, (0, 0))
                     battleScreen.blit(
@@ -532,6 +585,9 @@ class Game:
             if nextLevelButton == True:
                 pygame.display.update()
                 self.clock.tick(FPS)
+
+    def effectCheck():
+        print("works")
 
 
 if __name__ == '__main__':
