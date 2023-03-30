@@ -85,7 +85,7 @@ while running:
 
     while controlsMenuActive:
             controlScreen.blit(bg, (0,0))
-            controlsMenuText = pygame.font.Font.render(menuFont, "WASD to move", True, (255, 255, 255))
+            controlsMenuText = pygame.font.Font.render(menuFont, "arrow keys to move", True, (255, 255, 255))
             controlScreen.blit(controlsMenuText, ((controlsTab_rect.centerx - 90), (controlsTab_rect.centery - 50)))
             pygame.draw.rect(controlScreen, (0, 0, 255), exitTab_rect)
             controlScreen.blit(exitText, ((exitTab_rect.centerx), (exitTab_rect.centery - 50)))

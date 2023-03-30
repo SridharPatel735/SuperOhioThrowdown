@@ -1,4 +1,5 @@
-class Move:
+
+"""class Move:
     def __init__(self, moveDetails):
         self.bp = moveDetails[0]
         self.acc = moveDetails[1]
@@ -82,7 +83,6 @@ gruntMoves = {
     "Stop Right There": Move([0, 100, 5, 16, 0, 0])
 }
 
-"""
 Effects list (to implement later)
 1 - The user runs with high speeds and blocks the enemies attack, this move has priority. If this move is repeated consecutively, its accuracy is halved. 
 2 - The user sings with such confidence putting the opponent in a dream-like state causing them to fall asleep.
@@ -104,3 +104,56 @@ Effects list (to implement later)
 18 - deals 33% damage of attack to user
 19 - turns the user's defense stat into the enemy's defense stat
 """
+lebronMoves = [[0, 100, 10, 1, 1, 0, "Chasedown Block"],
+    [0, 50, 20, 2, 0, 0, "Yabadabadoo Old Navy"],
+    [0, 100, 15, 3, 0, 0, "Cleveland!! This is for You!"],
+    [100, 90, 10, 4, 0, 0, "Tomohawk Dunk"]]
+
+ohmMoves = [[150, 100, 1, 5, 0, 0, "Super Ohio Throwdown"],
+    [20, 100, 10, 6, 0, 0, "AtOHMic BOHMb"],
+    [0, 50, 5, 7, 0, 0, "Attack of the ClOHMs"],
+    [0, 100, 3, 8, 0, 0, "OHMazing Grace"]]
+
+luffyMoves = [[10, 100, 5, 9, 0, 0, "Gatling Punch"],
+    [40, 100, 20, 0, 1, 0, "Jet Pistol"],
+    [150, 100, 5, 5, 0, 0, "Giant Pistol"],
+    [0, 100, 5, 10, 0, 0, "Gear Change"]]
+
+sharkMoves = [[0, 100, 10, 11, 0, 0, "Tidal Wave"],
+    [0, 90, 5, 8, 0, 0, "Fish Feast"],
+    [60, 100, 10, 0, 0, 0, "Bite"],
+    [20, 100, 10, 6, 0, 0, "Puncture Prey"]]
+
+grizzlyMoves = [[60, 100, 10, 0, 0, 0, "Bite"],
+    [0, 100, 10, 12, 0, 0, "Shake the Tree"],
+    [0, 100, 1, 13, 0, 0, "Bear Down"],
+    [30, 100, 10, 14, 0, 0, "Berry Bush Beatdown"],
+    [0, 100, 1, 15, 0, 15, "Unbearable Bunker"]]
+
+bruceMoves = [[30, 100, 10, 0, 0, 0, "Leg Sweep"],
+    [10, 100, 3, 12, 0, 0, "One Inch Punch"],
+    [15, 100, 10, 0, 1, 0, "Lop Sao Backfist"],
+    [0, 100, 10, 1, 1, 0, "Block"],
+    [7, 100, 5, 9, 0, 15, "Lightning Fast Punches"]]
+
+eminemMoves = [[140, 100, 1, 0, 0, 15, "Killshot"],
+    [20, 100, 10, 11, 0, 0, "Rap God"],
+    [0, 100, 1, 13, 0, 0, "Not Afraid"],
+    [10, 100, 5, 9, 0, 0, "8 Mile Melee"],
+    [0, 100, 1, 13, 0, 0, "Till I Collapse"],
+    [0, 50, 20, 2, 0, 10, "Music to Be Murdered By"]]
+
+obamaMoves = [[0, 100, 3, 7, 0, 0, "Let Me Be Clear"],
+    [20, 100, 5, 17, 0, 0, "Campaign Trail Stomp"],
+    [0, 100, 5, 16, 0, 0, "Landslide Victory"],
+    [30, 100, 10, 14, 0, 0, "Endorsement Enforcement"]]
+
+sparrowMoves = [[0, 100, 5, 1, 0, 0, "Drunken Dodge"],
+    [90, 100, 3, 18, 0, 0, "Crash the Boat"],
+    [40, 100, 5, 11, 0, 0, "Slash and Dash"],
+    [0, 100, 1, 19, 0, 0, "Pillage"]]
+
+gruntMoves = [[30, 100, 5, 4, 0, 0, "Shout"],
+    [50, 100, 10, 0, 0, 0, "Punch"],
+    [0, 100, 3, 3, 0, 0, "Get Angry"],
+    [0, 100, 5, 16, 0, 0, "Stop Right There"]]

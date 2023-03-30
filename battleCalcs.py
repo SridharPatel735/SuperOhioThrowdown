@@ -204,31 +204,30 @@ Effects list (to implement later)
 4 - This move has a 20% chance of lowering the opponents defense by 1 stage. 
 """
 
-def speedCalc(fighter1, fighter2, movef1, movef2):
-    if (movef1.priority == movef2.priority):
-        if (fighter1.spd > fighter2.spd):
+def speedCalc(p1, p2, move1Speed, move2Speed):
+    if (p1 == p2):
+        if (move1Speed > move2Speed):
             return True
-        elif (fighter1.spd == fighter2.spd):
+        elif (move1Speed == move2Speed):
             speedTie = random.randint(1,2)
             if speedTie == 1:
                 return True
             elif speedTie == 2:
                 return False
-        elif (fighter1.spd < fighter2.spd):
+        elif (move1Speed < move2Speed):
             return False
-    elif (movef1.priority > movef2.priority):
+    elif (p1 > p2):
         return True
-    elif (movef1.priority < movef2.priority):
+    elif (p1 < p2):
         return False
     
-def damageCalc(attacker, target, move):
+def damageCalc(A, P, L, D):
     rng = random.randint(1,100)
     if rng > 95:
         criticalHit = 1.5
     else:
         criticalHit = 1
-    damage = (((2 * attacker.level) / 5) * move.bp * (attacker.tempAtk / target.tempDef)) * criticalHit / 50 + 2
+    damage = ((((((2 * L) / 5) + 2) * P * (A / D)) / 50) + 2) * criticalHit
+    damage = round(damage)
     print(damage)
-    target.tempHP -= damage
-    #if target.tempHP < 0:
-        # call method for ending battle loop
+    return damage
