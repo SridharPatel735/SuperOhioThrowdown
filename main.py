@@ -1,4 +1,4 @@
-import pygame, random
+import pygame, random, time
 import sys
 from levelSettings import *
 from level1 import Level1
@@ -19,6 +19,14 @@ bruceMoves = [[30, 100, 10, 0, 0, 0, "Leg Sweep"], [10, 100, 3, 12, 0, 0, "One I
 hero = 0
 enemy = 0
 charSelected = 0
+healthLength = 215
+
+heroHealthBlock = 0
+enemyHealthBlock = 0
+heroStartingHealth = 0
+heroHealthRect = 0
+enemyHealthRect = 0
+enemyStartingHealth = 0
 
 class Game:
 
@@ -59,6 +67,13 @@ class Game:
         global enemy
         global charSelected
 
+        global heroHealthBlock
+        global enemyHealthBlock
+        global heroStartingHealth
+        global enemyStartingHealth
+        global heroHealthRect
+        global enemyHealthRect
+
         pygame.mixer.music.load("menumusic.mp3")
         battleLoopBool = False
 
@@ -74,22 +89,32 @@ class Game:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_TAB:
                     battleLoopBool = True
+                 
 
             if gameObjects.battleLoopGrunt == True:
                 gruntStats = [40, 40, 40, 40]
                 gruntMoves = [[30, 100, 5, 4, 0, 0, "Shout"], [50, 100, 10, 0, 0, 0, "Punch"], [0, 100, 3, 3, 0, 0, "Get Angry"], [0, 100, 5, 16, 0, 0, "Stop Right There"]]
-                enemy = battleCalcs.Fighter(gruntStats, gruntMoves, 1000)
+                enemy = battleCalcs.Fighter(gruntStats, gruntMoves, 5000)
                 if (charSelected == 1):
                     hero = battleCalcs.Fighter(lebronStats, lebronMoves, 5000)
                 elif (charSelected == 2):
                     hero = battleCalcs.Fighter(bruceStats, bruceMoves, 5000)
                 elif (charSelected == 3):
                     hero = battleCalcs.Fighter(luffyStats, luffyMoves, 5000)
+                
+                healthLength = 215
+
+                heroHealthBlock = round(healthLength / hero.hp)
+                enemyHealthBlock = round(healthLength / enemy.hp)
+                heroStartingHealth = hero.hp
+                enemyStartingHealth = enemy.hp
+
                 battleLoopBool = True
                 gameObjects.battleLoopGrunt = False
 
             if battleLoopBool:
-
+                heroHealthBar = 0
+                enemyHealthBar = 0
 
                 heroImg = pygame.image.load("sridhar_player_icon_back.png")
                 heroImg_rect = heroImg.get_rect()
@@ -102,8 +127,8 @@ class Game:
                 battleRunning = True
                 battleFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 24)
 
-                heroHealth = (884, 408, 215, 10)
-                enemyHealth = (335, 152, 215, 10)
+                heroHealthRect = (884, 408, heroHealthBar, 10)
+                enemyHealthRect = (335, 152, enemyHealthBar, 10)
 
                 attack1 = (100, 535, (battleScreen_rect.width - 300) / 2, 50)
                 attack2 = ((battleScreen_rect.width / 2) + 50, 535,
@@ -115,6 +140,9 @@ class Game:
                 while battleRunning:
                     playerAttack = ""
                     enemyAttack = ""
+
+                    heroHealthRect = (884, 408, heroHealthBar, 10)
+                    enemyHealthRect = (335, 152, enemyHealthBar, 10)
                     # event loop
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
@@ -143,10 +171,6 @@ class Game:
                         result = False
                         playerDmg = 0
                         enemyDmg = 0
-                        print(enemy.move1priority)
-                        print(enemy.move2priority)
-                        print(enemy.move3priority)
-                        print(enemy.move4priority)
                         
                         if (playerAttack == "attack1"):
                             if enemyMove == 1:
@@ -196,6 +220,7 @@ class Game:
                                 playerDmg = battleCalcs.damageCalc(hero.atk, hero.move4bp, hero.level, enemy.dfs)
                             
                             enemy.hp = enemy.hp - playerDmg
+                            enemyHealthBar = (enemyStartingHealth - enemy.hp) * enemyHealthBlock
                             if (enemy.hp <= 0):
                                 battleRunning = False
                             
@@ -210,6 +235,7 @@ class Game:
                                     enemyDmg = battleCalcs.damageCalc(enemy.atk, enemy.move4bp, enemy.level, hero.dfs)
 
                                 hero.hp = hero.hp - enemyDmg
+                                heroHealthBar = (heroStartingHealth - hero.hp) * heroHealthBlock
                                 if (hero.hp <= 0):
                                     battleRunning = False
 
@@ -224,7 +250,9 @@ class Game:
                                 enemyDmg = battleCalcs.damageCalc(enemy.atk, enemy.move4bp, enemy.level, hero.dfs)
 
                             hero.hp = hero.hp - enemyDmg
+                            heroHealthBar = (heroStartingHealth - hero.hp) * heroHealthBlock
                             if (hero.hp <= 0):
+                                time.sleep(2)
                                 battleRunning = False
                             
                             else:
@@ -237,8 +265,10 @@ class Game:
                                 elif (playerAttack == "attack4"):
                                     playerDmg = battleCalcs.damageCalc(hero.atk, hero.move4bp, hero.level, enemy.dfs)
 
-                                enemy.hp = enemy.hp - playerDmg
+                                enemy.hp = enemy.hp - playerDmg    
+                                enemyHealthBar = (enemyStartingHealth - enemy.hp) * enemyHealthBlock
                                 if (enemy.hp <= 0):
+                                    time.sleep(2)
                                     battleRunning = False
                                                 
 
@@ -251,8 +281,8 @@ class Game:
                     pygame.draw.rect(battleScreen, (240, 240, 240), attack3)
                     pygame.draw.rect(battleScreen, (240, 240, 240), attack4)
 
-                    pygame.draw.rect(battleScreen, (255, 0, 0), heroHealth)
-                    pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealth)
+                    pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
+                    pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
                     
                     attack1Text = battleFont.render(hero.move1name, True, (0, 0, 0))
                     attack1Text_rect = attack1Text.get_rect()
