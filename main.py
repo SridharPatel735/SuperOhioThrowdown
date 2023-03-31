@@ -483,9 +483,6 @@ class Game:
                                 battleText = pygame.font.Font.render(
                                     endMessageFont, "You leveled up!                Click to continue", True, (255, 255, 255))
                                 battleScreen.blit(battleText, (50, 550))
-                                text = f"{hero.level}"
-                                heroLevelPrint = levelFont.render(text, True, (0, 0, 0))
-                                battleScreen.blit(heroLevelPrint, (1055, 343))
                                 print(f"Hero health: {hero.tempHp}")
                                 enemy.afterWin(enemy.level * 1000)
                                 enemy.reset()
@@ -654,9 +651,6 @@ class Game:
                                     battleText = pygame.font.Font.render(
                                         endMessageFont, "You leveled up!", True, (255, 255, 255))
                                     battleScreen.blit(battleText, (50, 550))
-                                    text = f"{hero.level}"
-                                    heroLevelPrint = levelFont.render(text, True, (0, 0, 0))
-                                    battleScreen.blit(heroLevelPrint, (1055, 343))
                                     print(f"Hero health: {hero.tempHp}")
                                     enemy.afterWin(enemy.level * 1000)
                                     enemy.reset()
