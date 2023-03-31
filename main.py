@@ -495,6 +495,7 @@ class Game:
                                 pygame.display.update()
 
                                 while (endBattle == True):
+                                    xpBarStatus = 0
                                     for event in pygame.event.get():
                                         if event.type == pygame.QUIT:
                                             battleRunning = False
@@ -665,6 +666,7 @@ class Game:
                                     pygame.display.update()
 
                                     while (endBattle == True):
+                                        xpBarStatus = 0
                                         for event in pygame.event.get():
                                             if event.type == pygame.QUIT:
                                                 battleRunning = False
