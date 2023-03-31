@@ -145,12 +145,12 @@ class Game:
         global enemyHealthBlock, enemyStartingHealth, enemyHealthRect
         global xpBarStatus
 
-        #pygame.mixer.music.load("menumusic.mp3")
+        # pygame.mixer.music.load("menumusic.mp3")
         battleLoopBool = False
         endBattle = False
 
-        #pygame.mixer.music.set_volume(0)
-        #pygame.mixer.music.play(-1)
+        # pygame.mixer.music.set_volume(0)
+        # pygame.mixer.music.play(1)
 
         while True:
             for event in pygame.event.get():

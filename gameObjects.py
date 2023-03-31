@@ -45,7 +45,6 @@ class DoorTileFlipped(pygame.sprite.Sprite):
         self.image = pygame.transform.flip(self.image, True, False)
         self.rect = self.image.get_rect(topleft=position)
 
-
 class GruntTile(pygame.sprite.Sprite):
     def __init__(self, position, groups):
         super().__init__(groups)
@@ -54,7 +53,6 @@ class GruntTile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=position)
 
 # Level 2 Sprites
-
 
 class WaterTile(pygame.sprite.Sprite):
     def __init__(self, position, groups):
@@ -105,6 +103,34 @@ class BoatTile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=position)
 
 # Level 3 Sprites
+
+class StageTile(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "stage.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class Car(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "yellowCar.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class MiniBossObama(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        obama = pygame.image.load('obama.png')
+        self.image = pygame.transform.scale(obama, (64, 64))
+        self.rect = self.image.get_rect(topleft=position)
+
+class BossEminem(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        eminem = pygame.image.load('eminem.png')
+        self.image = pygame.transform.scale(eminem, (64, 64))
+        self.rect = self.image.get_rect(topleft=position)
 
 # Level 4 Sprites
 
