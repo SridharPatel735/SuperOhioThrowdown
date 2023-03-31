@@ -73,7 +73,7 @@ def p():
         f=pygame.font.Font(None,20)
 
         stat_text = f"HP: {player_stats['hp']}  ATK: {player_stats['atk']}"
-        stat_text_2=f"DEF: {player_stats['dfs']}  SPD: {player_stats['spd']}"
+        stat_text_2=f"DEF: {player_stats['def']}  SPD: {player_stats['spd']}"
         stat_render = f.render(stat_text, True, (0, 0, 0))
         stat_render_rect = stat_render.get_rect(center=(WIDTH/2-350,HEIGHT/2+120))
         screen.blit(stat_render, stat_render_rect)

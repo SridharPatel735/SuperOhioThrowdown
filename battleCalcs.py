@@ -99,7 +99,7 @@ class Fighter:
         self.expTot = expTot
         self.level = findLevel(self.expTot)
         self.baseAtk = stats[0]
-        self.baseDfs = stats[1]
+        self.baseDef = stats[1]
         self.baseSpd = stats[2]
         self.baseHp = stats[3]
         self.atk = (stats[0] // 20 + 1) * self.level
@@ -109,7 +109,7 @@ class Fighter:
         self.accuracy = 1.0
         self.tempAcc = self.accuracy
         self.tempAtk = self.atk
-        self.tempDfs = self.dfs
+        self.tempDef = self.dfs
         self.tempSpd = self.spd
         self.tempHp = self.hp
         
@@ -148,13 +148,11 @@ class Fighter:
         self.imageSource = fileName
         self.fighterName = name
 
-        self.fighterName = name
-
     def reset(self):
         self.accuracy = 1.0
         self.tempAcc = self.accuracy
         self.tempAtk = self.atk
-        self.tempDfs = self.dfs
+        self.tempDef = self.dfs
         self.tempSpd = self.spd
         self.tempHp = self.hp
     
@@ -162,7 +160,7 @@ class Fighter:
         self.expTot = expTot
         self.level = findLevel(self.expTot)
         self.atk = (self.baseAtk // 20 + 1) * self.level
-        self.dfs = (self.baseDfs // 20 + 1) * self.level
+        self.dfs = (self.baseDef // 20 + 1) * self.level
         self.spd = (self.baseSpd // 20 + 1) * self.level
         self.hp = (self.baseHp // 20 + 1) * self.level
 
