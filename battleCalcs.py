@@ -112,6 +112,8 @@ class Fighter:
         self.tempDfs = self.dfs
         self.tempSpd = self.spd
         self.tempHp = self.hp
+        self.usedBlockLast = False
+        self.isProtected = False
         
         self.move1bp = moveset[0][0]
         self.move1acc = moveset[0][1]
@@ -248,14 +250,17 @@ def speedCalc(p1, p2, move1Speed, move2Speed):
         return True
     elif (p1 < p2):
         return False
-    
+
 def damageCalc(A, P, L, D):
     rng = random.randint(1,100)
     if rng > 95:
         criticalHit = 1.5
     else:
         criticalHit = 1
-    damage = ((((((2 * L) / 5) + 2) * P * (A / D)) / 50) + 2) * criticalHit
-    damage = round(damage)
+    if (P > 0):
+        damage = ((((((2 * L) / 5) + 2) * P * (A / D)) / 50) + 2) * criticalHit
+        damage = round(damage)
+    else:
+        damage = 0
     print(damage)
     return damage
