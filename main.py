@@ -6,6 +6,7 @@ import pauseMenu
 from levelSettings import *
 from level1 import Level1
 from level2 import Level2
+from level3 import Level3
 import gameObjects
 import battleCalcs
 import characterSelection
@@ -14,8 +15,11 @@ import time
 
 level1Trigger = True
 level2Trigger = False
+level3Trigger = False
 level1RunBool = False
 level2RunBool = False
+level3RunBool = False
+runMainLoop = True
 
 
 def draw_text(screen, text, font_size, x, y):
@@ -118,8 +122,9 @@ class Game:
         self.clock = pygame.time.Clock()
 
     def run(self):
-        global level1Trigger, level2Trigger, level1RunBool, level2RunBool
+        global level1Trigger, level2Trigger, level3Trigger, level1RunBool, level2RunBool, level3RunBool, runMainLoop
         nextLevelButton2 = True
+        nextLevelButton3 = True
         runOnce = True
 
         global lebronStats, lebronMoves
@@ -164,7 +169,14 @@ class Game:
             if gameObjects.endOfLevelOne == True:
                 level2Trigger = True
                 level1Trigger = False
+                level3Trigger = False
                 gameObjects.endOfLevelOne = False
+
+            if gameObjects.endOfLevelTwo == True:
+                level2Trigger = False
+                level1Trigger = False
+                level3Trigger = True
+                gameObjects.endOfLevelTwo = False
 
             if level1Trigger == True:
                 heroLevel = 5000
@@ -179,6 +191,7 @@ class Game:
 
             elif level2Trigger == True:
                 nextLevelButton2 = False
+                runMainLoop = False
                 self.screen.fill('black')
                 line1 = "Testing"
                 line2 = "CONTINUE"
@@ -216,11 +229,42 @@ class Game:
                     boss = battleCalcs.Fighter(
                         jackStats, jackMoves, bossLevel, "jackSparrow.png", "Captain Jack Sparrow")
                     self.level2 = Level2()
+                    runMainLoop = True
                     level2Trigger = False
                     level2RunBool = True
                     level1RunBool = False
                     gameObjects.gruntLoopRunOnce = False
                     gameObjects.counterGrunt = 0
+            elif level3Trigger == True:
+                nextLevelButton3 = False
+                runMainLoop = False
+                self.screen.fill('black')
+                line1 = "GOING ON TO LEVEL 3 BABY"
+                line2 = "CONTINUE"
+
+                draw_text(self.screen, line1, 30, 100, 100)
+                draw_text(self.screen, line2, 30, 590, 600)
+
+                continueRectangle = pygame.draw.rect(
+                    self.screen, "red", pygame.Rect(550, 600, 200, 60), 2)
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    (x, y) = pygame.mouse.get_pos()
+                    if (x >= 550) and (x <= 750) and (y >= 600) and (y <= 660):
+                        nextLevelButton3 = True
+
+                pygame.display.update()
+
+                if nextLevelButton3 == True:
+                   
+                    self.level3 = Level3()
+                    runMainLoop = True
+                    level3Trigger = False
+                    level3RunBool = True
+                    level2RunBool = False
+                    gameObjects.gruntLoopRunOnce = False
+                    gameObjects.counterGrunt = 0
+
 
             if gameObjects.battleLoopGrunt == True:
                 enemy = grunt
@@ -704,10 +748,13 @@ class Game:
                 self.level1.run()
             elif level2RunBool == True:
                 self.level2.run()
+            elif level3RunBool == True:
+                self.level3.run()
 
-            if nextLevelButton2 == True:
+            if runMainLoop == True:
                 pygame.display.update()
                 self.clock.tick(FPS)
+            
 
     def effectCheck():
         print("works")

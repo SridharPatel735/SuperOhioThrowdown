@@ -15,6 +15,7 @@ class Level2:
         self.miniBoss_sprite = pygame.sprite.Group()
         self.boss_sprite = pygame.sprite.Group()
         self.door_sprite = pygame.sprite.Group()
+        self.boat_sprite = pygame.sprite.Group()
 
         # setup sprite
         self.create_map()
@@ -45,7 +46,7 @@ class Level2:
 
                 if col == "p":
                     self.player = Player(
-                        (x, y), [self.visible_sprites], self.obstacle_sprites, self.grunt_sprite, self.miniBoss_sprite, self.boss_sprite, self.door_sprite)
+                        (x, y), [self.visible_sprites], self.obstacle_sprites, self.grunt_sprite, self.miniBoss_sprite, self.boss_sprite, self.door_sprite, self.boat_sprite)
 
                 if col == "q":
                     GruntTile(
@@ -61,7 +62,7 @@ class Level2:
 
                 if col == "d":
                     BoatTile((x, y), [self.visible_sprites,
-                             self.door_sprite])
+                             self.boat_sprite])
 
     def run(self):
         # update and draw the game

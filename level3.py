@@ -15,6 +15,7 @@ class Level3:
         self.miniBoss_sprite = pygame.sprite.Group()
         self.boss_sprite = pygame.sprite.Group()
         self.door_sprite = pygame.sprite.Group()
+        self.boat_sprite = pygame.sprite.Group()
 
         # setup sprite
         self.create_map()
@@ -25,11 +26,11 @@ class Level3:
                 x = col_index * TILESIZE
                 y = row_index * TILESIZE
 
-                if col == "g" or col == "p":
-                    GrassTile((x, y), [self.visible_sprites])
+                # if col == "g" or col == "p":
+                #     GrassTile((x, y), [self.visible_sprites])
 
-                if col == " " or col == "m" or col == "b" or col == "q" or col == "d":
-                    SandTile((x, y), [self.visible_sprites])
+                # if col == " " or col == "m" or col == "b" or col == "q" or col == "d":
+                #     SandTile((x, y), [self.visible_sprites])
 
         for row_index, row in enumerate(WORLD_MAP3):
             for col_index, col in enumerate(row):
@@ -39,29 +40,29 @@ class Level3:
                 if col == "x":
                     Tile((x, y), [self.visible_sprites, self.obstacle_sprites])
 
-                if col == "w":
-                    WaterTile((x, y), [self.visible_sprites,
-                              self.obstacle_sprites])
+                # if col == "w":
+                #     WaterTile((x, y), [self.visible_sprites,
+                #               self.obstacle_sprites])
 
                 if col == "p":
                     self.player = Player(
-                        (x, y), [self.visible_sprites], self.obstacle_sprites, self.grunt_sprite, self.miniBoss_sprite, self.boss_sprite, self.door_sprite)
+                        (x, y), [self.visible_sprites], self.obstacle_sprites, self.grunt_sprite, self.miniBoss_sprite, self.boss_sprite, self.door_sprite, self.boat_sprite)
 
-                if col == "q":
-                    GruntTile(
-                        (x, y), [self.visible_sprites, self.grunt_sprite])
+                # if col == "q":
+                #     GruntTile(
+                #         (x, y), [self.visible_sprites, self.grunt_sprite])
 
-                if col == "m":
-                    MiniBossShark((x, y), [self.visible_sprites,
-                                           self.miniBoss_sprite])
+                # if col == "m":
+                #     MiniBossShark((x, y), [self.visible_sprites,
+                #                            self.miniBoss_sprite])
 
-                if col == "b":
-                    BossJackSparrow((x, y), [self.visible_sprites,
-                                             self.boss_sprite])
+                # if col == "b":
+                #     BossJackSparrow((x, y), [self.visible_sprites,
+                #                              self.boss_sprite])
 
-                if col == "d":
-                    BoatTile((x, y), [self.visible_sprites,
-                             self.door_sprite])
+                # if col == "d":
+                #     BoatTile((x, y), [self.visible_sprites,
+                #              self.door_sprite])
 
     def run(self):
         # update and draw the game
