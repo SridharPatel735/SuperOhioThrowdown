@@ -902,8 +902,26 @@ class Game:
     #         swapScreen.blit(t,t_r)
     #         pygame.display.flip()
 
-    def effectCheck():
-        print("works")
+    def effectCheck(effectID, hero, enemy):
+        if (effectID == 3):
+        # 3 - Increases attack stat by 1 stage - maxes out at 6
+            if (hero.tempAtk < (hero.atk * 4)):
+                    hero.tempAtk += (hero.atk * 0.5)
+                    print("Attack was raised 1 stage")
+                    print(hero.tempAtk)
+            else:
+                print ("Attack stat maxed, no change")
+        elif (effectID == 4):
+        # 4 - This move has a 20% chance of lowering the opponents defense by 1 stage.
+            if (enemy.tempDfs > (enemy.dfs / 4)):
+                rngCheck = random.randint(1, 5)
+                if (rngCheck == 1):
+                    enemy.tempDfs -= enemy.dfs * 0.125
+                    print("Defense was lowered 1 stage")
+                else:
+                    print ("no defense change")
+            else:
+                print("id not reached")
 
 
 if __name__ == '__main__':
