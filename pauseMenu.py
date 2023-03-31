@@ -74,7 +74,7 @@ def p():
         screen.blit(lvl_render, lvl_render_rect)
 
         stat_text = f"HP: {player_stats['hp']}  ATK: {player_stats['atk']}"
-        stat_text_2=f"DEF: {player_stats['def']}  SPD: {player_stats['spd']}"
+        stat_text_2=f"DEF: {player_stats['dfs']}  SPD: {player_stats['spd']}"
         stat_render = f.render(stat_text, True, (0, 0, 0))
         stat_render_rect = stat_render.get_rect(center=(WIDTH/2-150,HEIGHT/2+60))
         screen.blit(stat_render, stat_render_rect)

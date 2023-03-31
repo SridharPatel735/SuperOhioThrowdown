@@ -79,12 +79,8 @@ while running:
                 pygame.display.update()
             elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and controlsMenuActive == False):
                 running = False
-            # elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and controlsMenuActive == True):
-            #     controlsMenuActive = False
             elif (x >= controlsTab_rect.x and x <= (controlsTab_rect.x + controlsTab_rect.width) and y >= controlsTab_rect.y and y <= (controlsTab_rect.y + controlsTab_rect.height) and controlsMenuActive == False):
                 controlsMenuActive = True
-            # elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and creditsActive == True):
-            #     creditsActive = False
             elif (x >= creditsTab_rect.x and x <= (creditsTab_rect.x + creditsTab_rect.width) and y >= creditsTab_rect.y and y <= (creditsTab_rect.y + creditsTab_rect.height) and creditsActive == False):
                 creditsActive = True
 
