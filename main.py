@@ -263,6 +263,8 @@ class Game:
                     level3Trigger = False
                     level3RunBool = True
                     level2RunBool = False
+                    gameObjects.miniBossLoopRunOnce = False
+                    gameObjects.bossLoopRunOnce = False
                     gameObjects.gruntLoopRunOnce = False
                     gameObjects.counterGrunt = 0
 
