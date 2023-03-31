@@ -95,7 +95,7 @@ import random
         
 
 class Fighter:
-    def __init__(self, stats, moveset, expTot, fileName):
+    def __init__(self, stats, moveset, expTot, fileName, name):
         self.expTot = expTot
         self.level = findLevel(self.expTot)
         self.baseAtk = stats[0]
@@ -146,6 +146,7 @@ class Fighter:
         self.move4name = moveset[3][6]
 
         self.imageSource = fileName
+        self.fighterName = name
 
     def reset(self):
         self.accuracy = 1.0

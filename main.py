@@ -83,6 +83,7 @@ heroStartingHealth = 0
 heroHealthRect = 0
 enemyHealthRect = 0
 enemyStartingHealth = 0
+xpBarStatus = 0
 
 
 class Game:
@@ -104,13 +105,13 @@ class Game:
         charSelected = characterSelection.charSelection()
         if (charSelected == 1):
             hero = battleCalcs.Fighter(
-                lebronStats, lebronMoves, heroLevel, "lebron.png")
+                lebronStats, lebronMoves, heroLevel, "lebron.png", "LeBron James")
         elif (charSelected == 2):
             hero = battleCalcs.Fighter(
-                bruceStats, bruceMoves, heroLevel, "bruce_lee.png")
+                bruceStats, bruceMoves, heroLevel, "bruce_lee.png", "Bruce Lee")
         elif (charSelected == 3):
             hero = battleCalcs.Fighter(
-                luffyStats, luffyMoves, heroLevel, "luffy.png")
+                luffyStats, luffyMoves, heroLevel, "luffy.png", "Monkey D. Luffy")
 
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Super Ohio Throwdown")
@@ -137,13 +138,14 @@ class Game:
 
         global heroHealthBlock, heroStartingHealth, heroHealthRect
         global enemyHealthBlock, enemyStartingHealth, enemyHealthRect
+        global xpBarStatus
 
-        pygame.mixer.music.load("menumusic.mp3")
+        #pygame.mixer.music.load("menumusic.mp3")
         battleLoopBool = False
         endBattle = False
 
-        pygame.mixer.music.set_volume(0)
-        pygame.mixer.music.play(-1)
+        #pygame.mixer.music.set_volume(0)
+        #pygame.mixer.music.play(-1)
 
         while True:
             for event in pygame.event.get():
@@ -168,7 +170,7 @@ class Game:
                 heroLevel = 5000
                 gruntLevel = heroLevel + 1000
                 grunt = battleCalcs.Fighter(
-                    gruntStats, gruntMoves, gruntLevel, "grunt_battle.png")
+                    gruntStats, gruntMoves, gruntLevel, "grunt_battle.png", "Enemy Grunt")
                 self.level1 = Level1()
                 level1Trigger = False
                 level1RunBool = True
@@ -208,11 +210,11 @@ class Game:
                     print(
                         "-------------------------------------------------------------------------")
                     grunt = battleCalcs.Fighter(
-                        gruntStats, gruntMoves, gruntLevel, "grunt_battle.png")
+                        gruntStats, gruntMoves, gruntLevel, "grunt_battle.png", "Enemy Grunt")
                     miniBoss = battleCalcs.Fighter(
-                        sharkStats, sharkMoves, miniBossLevel, "shark.png")
+                        sharkStats, sharkMoves, miniBossLevel, "shark.png", "Shark")
                     boss = battleCalcs.Fighter(
-                        jackStats, jackMoves, bossLevel, "jackSparrow.png")
+                        jackStats, jackMoves, bossLevel, "jackSparrow.png", "Captain Jack Sparrow")
                     self.level2 = Level2()
                     level2Trigger = False
                     level2RunBool = True
@@ -276,6 +278,7 @@ class Game:
 
                 heroHealthRect = (884, 408, heroHealthBar, 10)
                 enemyHealthRect = (335, 152, enemyHealthBar, 10)
+                xpBar = (810, 477, xpBarStatus, 12)
 
                 attack1 = (100, 535, (battleScreen_rect.width - 300) / 2, 50)
                 attack2 = ((battleScreen_rect.width / 2) + 50, 535,
@@ -292,6 +295,8 @@ class Game:
 
                     heroHealthRect = (884, 408, heroHealthBar, 10)
                     enemyHealthRect = (335, 152, enemyHealthBar, 10)
+                    xpBar = (810, 477, xpBarStatus, 12)
+
                     # event loop
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
@@ -415,6 +420,33 @@ class Game:
                                 battleText = pygame.font.Font.render(
                                     endMessageFont, "The enemy fainted!", True, (255, 255, 255))
                                 battleScreen.blit(battleText, (50, 550))
+                                hero.afterWin((hero.level * 1000) + 1000)
+                                hero.reset()
+                                for i in range(41):
+                                    xpBarStatus = xpBarStatus + 7
+                                    xpBar = (810, 477, xpBarStatus, 12)
+                                    pygame.draw.rect(battleScreen, (130, 243, 243), xpBar)
+                                    time.sleep(0.1)
+                                    pygame.display.update()
+                                for i in range(5):
+                                    pygame.draw.rect(battleScreen, (247, 234, 40), xpBar)
+                                    time.sleep(0.1)
+                                    pygame.display.update()
+                                    pygame.draw.rect(battleScreen, (130, 243, 243), xpBar)
+                                    time.sleep(0.1)
+                                    pygame.display.update()
+                                battleScreen.blit(battleBorder, (0, 500))
+                                battleText = pygame.font.Font.render(
+                                    endMessageFont, "You leveled up!                Click to continue", True, (255, 255, 255))
+                                battleScreen.blit(battleText, (50, 550))
+                                text = f"{hero.level}"
+                                heroLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                                battleScreen.blit(heroLevelPrint, (1055, 343))
+                                print(f"Hero health: {hero.tempHp}")
+                                enemy.afterWin(enemy.level * 1000)
+                                enemy.reset()
+                                print(f"Grunt health: {enemy.tempHp}")
+                                time.sleep(1)
                                 endBattle = True
                                 pygame.display.update()
 
@@ -425,13 +457,6 @@ class Game:
                                         if event.type == pygame.MOUSEBUTTONDOWN:
                                             (x, y) = pygame.mouse.get_pos()
                                             if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
-                                                hero.afterWin((hero.level * 1000) + 1000)
-                                                hero.reset()
-                                                print(f"Hero health: {hero.tempHp}")
-                                                enemy.afterWin(enemy.level * 1000)
-                                                enemy.reset()
-                                                print(f"Grunt health: {enemy.tempHp}")
-                                                time.sleep(1)
                                                 endBattle = False
                                                 battleRunning = False
 
@@ -565,6 +590,33 @@ class Game:
                                     battleText = pygame.font.Font.render(
                                         endMessageFont, "Enemy fainted!", True, (255, 255, 255))
                                     battleScreen.blit(battleText, (50, 550))
+                                    hero.afterWin((hero.level * 1000) + 1000)
+                                    hero.reset()
+                                    for i in range(41):
+                                        xpBarStatus = xpBarStatus + 7
+                                        xpBar = (810, 477, xpBarStatus, 12)
+                                        pygame.draw.rect(battleScreen, (130, 243, 243), xpBar)
+                                        time.sleep(0.1)
+                                        pygame.display.update()
+                                    for i in range(5):
+                                        pygame.draw.rect(battleScreen, (247, 234, 40), xpBar)
+                                        time.sleep(0.1)
+                                        pygame.display.update()
+                                        pygame.draw.rect(battleScreen, (130, 243, 243), xpBar)
+                                        time.sleep(0.1)
+                                        pygame.display.update()
+                                    battleScreen.blit(battleBorder, (0, 500))
+                                    battleText = pygame.font.Font.render(
+                                        endMessageFont, "You leveled up!", True, (255, 255, 255))
+                                    battleScreen.blit(battleText, (50, 550))
+                                    text = f"{hero.level}"
+                                    heroLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                                    battleScreen.blit(heroLevelPrint, (1055, 343))
+                                    print(f"Hero health: {hero.tempHp}")
+                                    enemy.afterWin(enemy.level * 1000)
+                                    enemy.reset()
+                                    print(f"Grunt health: {enemy.tempHp}")
+                                    time.sleep(1)
                                     endBattle = True
                                     pygame.display.update()
 
@@ -574,16 +626,9 @@ class Game:
                                                 battleRunning = False
                                             if event.type == pygame.MOUSEBUTTONDOWN:
                                                 (x, y) = pygame.mouse.get_pos()
-                                                if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
-                                                    hero.afterWin((hero.level * 1000) + 1000)
-                                                    hero.reset()
-                                                    print(f"Hero health: {hero.tempHp}")
-                                                    enemy.afterWin(enemy.level * 1000)
-                                                    enemy.reset()
-                                                    print(f"Grunt health: {enemy.tempHp}")
-                                                    time.sleep(1)
-                                                    endBattle = False
-                                                    battleRunning = False
+                                            if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
+                                                endBattle = False
+                                                battleRunning = False
 
                     battleScreen.blit(battleBg, (0, 0))
                     battleScreen.blit(
@@ -600,6 +645,32 @@ class Game:
                     pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
                     pygame.draw.rect(
                         battleScreen, (255, 0, 0), enemyHealthRect)
+                    
+                    levelFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 30)
+                    
+                    text = f"{hero.level}"
+                    heroLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                    battleScreen.blit(heroLevelPrint, (1055, 343))
+
+                    text = f"{enemy.level}"
+                    enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                    battleScreen.blit(enemyLevelPrint, (505, 87))
+
+                    text = f"{hero.hp}"
+                    enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                    battleScreen.blit(enemyLevelPrint, (1046, 417))
+
+                    text = f"{hero.tempHp}"
+                    enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                    battleScreen.blit(enemyLevelPrint, (975, 417))
+
+                    text = f"{hero.fighterName}"
+                    enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                    battleScreen.blit(enemyLevelPrint, (750, 343))
+
+                    text = f"{enemy.fighterName}"
+                    enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                    battleScreen.blit(enemyLevelPrint, (200, 87))
 
                     attack1Text = battleFont.render(
                         hero.move1name, True, (0, 0, 0))

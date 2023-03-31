@@ -7,7 +7,7 @@ fps = 120
 clock = pygame.time.Clock()
 obamaFix = 1
 
-pygame.mixer.music.load("menumusic.mp3")
+#pygame.mixer.music.load("menumusic.mp3")
 
 bg = pygame.image.load('bg2.jpg')
 bg_rect = bg.get_rect()
