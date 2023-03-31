@@ -59,7 +59,7 @@ jackMoves = [[0, 100, 5, 1, 0, 0, "Drunken Dodge"], [90, 100, 3, 18, 0, 0, "Cras
 
 sharkStats = [100, 30, 60, 70]
 sharkMoves = [[0, 100, 10, 11, 0, 0, "Tidal Wave"], [0, 90, 5, 8, 0, 0, "Fish Feast"], [
-    60, 100, 10, 0, 0, 0, "Bite"], [20, 100, 10, 6, 0, 0, "Puncture Prey"]]
+    10, 100, 10, 0, 0, 0, "Bite"], [20, 100, 10, 6, 0, 0, "Puncture Prey"]]
 
 bearStats = [40, 140, 80, 40]
 bearMoves = [[60, 100, 10, 0, 0, 0, "Bite"], [0, 100, 10, 12, 0, 0, "Shake the Tree"], [0, 100, 1, 13, 0, 0,
@@ -226,7 +226,9 @@ class Game:
                 heroHealthBlock = round(healthLength / hero.hp)
                 enemyHealthBlock = round(healthLength / enemy.hp)
                 heroStartingHealth = hero.hp
-                enemyStartingHealth = enemy.hp
+                enemyStartingHealth = enemy.hp                
+                print(f"Grunt health: {enemy.tempHp}")
+                print(f"Hero health: {hero.tempHp}")
                 battleLoopBool = True
                 gameObjects.battleLoopGrunt = False
 
@@ -420,9 +422,12 @@ class Game:
                                         if event.type == pygame.MOUSEBUTTONDOWN:
                                             (x, y) = pygame.mouse.get_pos()
                                             if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
-                                                hero.afterWin(
-                                                    (hero.level * 1000) + 1000)
+                                                hero.afterWin((hero.level * 1000) + 1000)
                                                 hero.reset()
+                                                print(f"Hero health: {hero.tempHp}")
+                                                enemy.afterWin(enemy.level * 1000)
+                                                enemy.reset()
+                                                print(f"Grunt health: {enemy.tempHp}")
                                                 time.sleep(1)
                                                 endBattle = False
                                                 battleRunning = False
@@ -430,16 +435,16 @@ class Game:
                             else:
                                 if (enemyMove == 1):
                                     enemyDmg = battleCalcs.damageCalc(
-                                        enemy.atk, enemy.move1bp, enemy.level, hero.dfs)
+                                        enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDef)
                                 elif (enemyMove == 2):
                                     enemyDmg = battleCalcs.damageCalc(
-                                        enemy.atk, enemy.move2bp, enemy.level, hero.dfs)
+                                        enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDef)
                                 elif (enemyMove == 3):
                                     enemyDmg = battleCalcs.damageCalc(
-                                        enemy.atk, enemy.move3bp, enemy.level, hero.dfs)
+                                        enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDef)
                                 elif (enemyMove == 4):
                                     enemyDmg = battleCalcs.damageCalc(
-                                        enemy.atk, enemy.move4bp, enemy.level, hero.dfs)
+                                        enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDef)
 
                                 hero.tempHp = hero.tempHp - enemyDmg
                                 heroHealthBar = (
@@ -479,16 +484,16 @@ class Game:
                         elif (result == False):
                             if (enemyMove == 1):
                                 enemyDmg = battleCalcs.damageCalc(
-                                    enemy.atk, enemy.move1bp, enemy.level, hero.dfs)
+                                    enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDef)
                             elif (enemyMove == 2):
                                 enemyDmg = battleCalcs.damageCalc(
-                                    enemy.atk, enemy.move2bp, enemy.level, hero.dfs)
+                                    enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDef)
                             elif (enemyMove == 3):
                                 enemyDmg = battleCalcs.damageCalc(
-                                    enemy.atk, enemy.move3bp, enemy.level, hero.dfs)
+                                    enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDef)
                             elif (enemyMove == 4):
                                 enemyDmg = battleCalcs.damageCalc(
-                                    enemy.atk, enemy.move4bp, enemy.level, hero.dfs)
+                                    enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDef)
 
                             hero.tempHp = hero.tempHp - enemyDmg
                             heroHealthBar = (
@@ -527,16 +532,16 @@ class Game:
                             else:
                                 if (playerAttack == "attack1"):
                                     playerDmg = battleCalcs.damageCalc(
-                                        hero.atk, hero.move1bp, hero.level, enemy.dfs)
+                                        hero.tempAtk, hero.move1bp, hero.level, enemy.tempDef)
                                 elif (playerAttack == "attack2"):
                                     playerDmg = battleCalcs.damageCalc(
-                                        hero.atk, hero.move2bp, hero.level, enemy.dfs)
+                                        hero.tempAtk, hero.move2bp, hero.level, enemy.tempDef)
                                 elif (playerAttack == "attack3"):
                                     playerDmg = battleCalcs.damageCalc(
-                                        hero.atk, hero.move3bp, hero.level, enemy.dfs)
+                                        hero.tempAtk, hero.move3bp, hero.level, enemy.tempDef)
                                 elif (playerAttack == "attack4"):
                                     playerDmg = battleCalcs.damageCalc(
-                                        hero.atk, hero.move4bp, hero.level, enemy.dfs)
+                                        hero.tempAtk, hero.move4bp, hero.level, enemy.tempDef)
 
                                 enemy.tempHp = enemy.tempHp - playerDmg
                                 enemyHealthBar = (
@@ -567,9 +572,12 @@ class Game:
                                             if event.type == pygame.MOUSEBUTTONDOWN:
                                                 (x, y) = pygame.mouse.get_pos()
                                                 if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
-                                                    hero.afterWin(
-                                                        (hero.level * 1000) + 1000)
+                                                    hero.afterWin((hero.level * 1000) + 1000)
                                                     hero.reset()
+                                                    print(f"Hero health: {hero.tempHp}")
+                                                    enemy.afterWin(enemy.level * 1000)
+                                                    enemy.reset()
+                                                    print(f"Grunt health: {enemy.tempHp}")
                                                     time.sleep(1)
                                                     endBattle = False
                                                     battleRunning = False

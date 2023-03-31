@@ -98,6 +98,10 @@ class Fighter:
     def __init__(self, stats, moveset, expTot, fileName):
         self.expTot = expTot
         self.level = findLevel(self.expTot)
+        self.baseAtk = stats[0]
+        self.baseDef = stats[1]
+        self.baseSpd = stats[2]
+        self.baseHp = stats[3]
         self.atk = (stats[0] // 20 + 1) * self.level
         self.dfs = (stats[1] // 20 + 1) * self.level
         self.spd = (stats[2] // 20 + 1) * self.level
@@ -154,10 +158,10 @@ class Fighter:
     def afterWin(self, expTot):
         self.expTot = expTot
         self.level = findLevel(self.expTot)
-        self.atk = (self.atk // 20 + 1) * self.level
-        self.dfs = (self.dfs // 20 + 1) * self.level
-        self.spd = (self.spd // 20 + 1) * self.level
-        self.hp = (self.hp // 20 + 1) * self.level
+        self.atk = (self.baseAtk // 20 + 1) * self.level
+        self.dfs = (self.baseDef // 20 + 1) * self.level
+        self.spd = (self.baseSpd // 20 + 1) * self.level
+        self.hp = (self.baseHp // 20 + 1) * self.level
 
     def getLevel(self):
         return self.level
