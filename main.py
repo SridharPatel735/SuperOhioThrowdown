@@ -167,7 +167,9 @@ class Game:
                         runOnce = False
                     if event.key == pygame.K_ESCAPE and battleLoopBool == False:
                         pauseMenu.p()
-
+                        if pauseMenu.p()==True:
+                            pygame.quit()
+                            sys.exit()
             if gameObjects.endOfLevelOne == True:
                 level2Trigger = True
                 level1Trigger = False
