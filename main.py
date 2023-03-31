@@ -118,7 +118,7 @@ class Game:
 
     def run(self):
         global level1Trigger, level2Trigger, level1RunBool, level2RunBool
-        nextLevelButton = True
+        nextLevelButton2 = True
         runOnce = True
 
         global lebronStats, lebronMoves
@@ -176,7 +176,7 @@ class Game:
                 level2RunBool = False
 
             elif level2Trigger == True:
-                nextLevelButton = False
+                nextLevelButton2 = False
                 self.screen.fill('black')
                 line1 = "Testing"
                 line2 = "CONTINUE"
@@ -190,11 +190,11 @@ class Game:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     (x, y) = pygame.mouse.get_pos()
                     if (x >= 550) and (x <= 750) and (y >= 600) and (y <= 660):
-                        nextLevelButton = True
+                        nextLevelButton2 = True
 
                 pygame.display.update()
 
-                if nextLevelButton == True:
+                if nextLevelButton2 == True:
                     heroLevel = hero.level * 1000
                     gruntLevel = heroLevel + 1000
                     miniBossLevel = heroLevel + 2000
@@ -229,6 +229,7 @@ class Game:
                 enemyStartingHealth = enemy.hp                
                 print(f"Grunt health: {enemy.tempHp}")
                 print(f"Hero health: {hero.tempHp}")
+
                 battleLoopBool = True
                 gameObjects.battleLoopGrunt = False
 
@@ -239,6 +240,7 @@ class Game:
                 enemyHealthBlock = round(healthLength / enemy.hp)
                 heroStartingHealth = hero.hp
                 enemyStartingHealth = enemy.hp
+
                 battleLoopBool = True
                 gameObjects.battleLoopMiniBoss = False
 
@@ -249,6 +251,7 @@ class Game:
                 enemyHealthBlock = round(healthLength / enemy.hp)
                 heroStartingHealth = hero.hp
                 enemyStartingHealth = enemy.hp
+
                 battleLoopBool = True
                 gameObjects.battleLoopBoss = False
 
@@ -631,7 +634,7 @@ class Game:
             elif level2RunBool == True:
                 self.level2.run()
 
-            if nextLevelButton == True:
+            if nextLevelButton2 == True:
                 pygame.display.update()
                 self.clock.tick(FPS)
 
