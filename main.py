@@ -434,17 +434,21 @@ class Game:
 
                         if (result):
                             if (playerAttack == "attack1"):
+                                Game.effectCheck(hero.move1effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
-                                    hero.tempAtk, hero.move1bp, hero.level, enemy.tempDef)
+                                    hero.tempAtk, hero.move1bp, hero.level, enemy.tempDfs)
                             elif (playerAttack == "attack2"):
+                                Game.effectCheck(hero.move2effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
-                                    hero.tempAtk, hero.move2bp, hero.level, enemy.tempDef)
+                                    hero.tempAtk, hero.move2bp, hero.level, enemy.tempDfs)
                             elif (playerAttack == "attack3"):
+                                Game.effectCheck(hero.move3effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
-                                    hero.tempAtk, hero.move3bp, hero.level, enemy.tempDef)
+                                    hero.tempAtk, hero.move3bp, hero.level, enemy.tempDfs)
                             elif (playerAttack == "attack4"):
+                                Game.effectCheck(hero.move4effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
-                                    hero.tempAtk, hero.move4bp, hero.level, enemy.tempDef)
+                                    hero.tempAtk, hero.move4bp, hero.level, enemy.tempDfs)
 
                             enemy.tempHp = enemy.tempHp - playerDmg
                             enemyHealthBar = (
@@ -505,16 +509,16 @@ class Game:
                             else:
                                 if (enemyMove == 1):
                                     enemyDmg = battleCalcs.damageCalc(
-                                        enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDef)
+                                        enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDfs)
                                 elif (enemyMove == 2):
                                     enemyDmg = battleCalcs.damageCalc(
-                                        enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDef)
+                                        enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDfs)
                                 elif (enemyMove == 3):
                                     enemyDmg = battleCalcs.damageCalc(
-                                        enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDef)
+                                        enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDfs)
                                 elif (enemyMove == 4):
                                     enemyDmg = battleCalcs.damageCalc(
-                                        enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDef)
+                                        enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDfs)
 
                                 hero.tempHp = hero.tempHp - enemyDmg
                                 heroHealthBar = (
@@ -554,16 +558,16 @@ class Game:
                         elif (result == False):
                             if (enemyMove == 1):
                                 enemyDmg = battleCalcs.damageCalc(
-                                    enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDef)
+                                    enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDfs)
                             elif (enemyMove == 2):
                                 enemyDmg = battleCalcs.damageCalc(
-                                    enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDef)
+                                    enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDfs)
                             elif (enemyMove == 3):
                                 enemyDmg = battleCalcs.damageCalc(
-                                    enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDef)
+                                    enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDfs)
                             elif (enemyMove == 4):
                                 enemyDmg = battleCalcs.damageCalc(
-                                    enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDef)
+                                    enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDfs)
 
                             hero.tempHp = hero.tempHp - enemyDmg
                             heroHealthBar = (
@@ -602,16 +606,16 @@ class Game:
                             else:
                                 if (playerAttack == "attack1"):
                                     playerDmg = battleCalcs.damageCalc(
-                                        hero.tempAtk, hero.move1bp, hero.level, enemy.tempDef)
+                                        hero.tempAtk, hero.move1bp, hero.level, enemy.tempDfs)
                                 elif (playerAttack == "attack2"):
                                     playerDmg = battleCalcs.damageCalc(
-                                        hero.tempAtk, hero.move2bp, hero.level, enemy.tempDef)
+                                        hero.tempAtk, hero.move2bp, hero.level, enemy.tempDfs)
                                 elif (playerAttack == "attack3"):
                                     playerDmg = battleCalcs.damageCalc(
-                                        hero.tempAtk, hero.move3bp, hero.level, enemy.tempDef)
+                                        hero.tempAtk, hero.move3bp, hero.level, enemy.tempDfs)
                                 elif (playerAttack == "attack4"):
                                     playerDmg = battleCalcs.damageCalc(
-                                        hero.tempAtk, hero.move4bp, hero.level, enemy.tempDef)
+                                        hero.tempAtk, hero.move4bp, hero.level, enemy.tempDfs)
 
                                 enemy.tempHp = enemy.tempHp - playerDmg
                                 enemyHealthBar = (
@@ -752,8 +756,31 @@ class Game:
                 self.clock.tick(FPS)
             
 
-    def effectCheck():
-        print("works")
+    def effectCheck(effectID, hero, enemy):
+        if (effectID == 3):
+        # 3 - Increases attack stat by 1 stage - maxes out at 6
+            if (hero.tempAtk < (hero.atk * 4)):
+                    hero.tempAtk += (hero.atk * 0.5)
+                    print("Attack was raised 1 stage")
+                    print(hero.tempAtk)
+            else:
+                print ("Attack stat maxed, no change")
+        elif (effectID == 4):
+        # 4 - This move has a 20% chance of lowering the opponents defense by 1 stage.
+            if (enemy.tempDfs > (enemy.dfs / 4)):
+                rngCheck = random.randint(1, 5)
+                if (rngCheck == 1):
+                    enemy.tempDfs -= enemy.dfs * 0.125
+                    print("Defense was lowered 1 stage")
+                else:
+                    print ("no defense change")
+        else:
+            print("id not reached")
+
+
+    def battleAlert():
+        print("to do later")        
+
 
 
 if __name__ == '__main__':
