@@ -141,6 +141,7 @@ class Game:
         global hero, grunt, miniBoss, boss
         global enemy
         global heroLevel, miniBossLevel, bossLevel
+        global heroBlocked, enemyBlocked
 
         global heroHealthBlock, heroStartingHealth, heroHealthRect
         global enemyHealthBlock, enemyStartingHealth, enemyHealthRect
@@ -452,7 +453,11 @@ class Game:
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move4bp, hero.level, enemy.tempDfs)
 
-                            enemy.tempHp = enemy.tempHp - playerDmg
+                            if (enemy.isProtected == False):
+                                enemy.tempHp = enemy.tempHp - playerDmg
+                            else:
+                                enemy.isProtected = False
+
                             enemyHealthBar = (
                                 enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
                             # If enemy HP is empty, end of battle process starts
@@ -543,19 +548,27 @@ class Game:
 
                             else:
                                 if (enemyMove == 1):
+                                    Game.effectCheck(enemy.move1effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDfs)
                                 elif (enemyMove == 2):
+                                    Game.effectCheck(enemy.move2effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDfs)
                                 elif (enemyMove == 3):
+                                    Game.effectCheck(enemy.move3effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDfs)
                                 elif (enemyMove == 4):
+                                    Game.effectCheck(enemy.move4effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDfs)
+                                
+                                if (hero.isProtected == False):
+                                    hero.tempHp = hero.tempHp - enemyDmg
+                                else:
+                                    hero.isProtected = False
 
-                                hero.tempHp = hero.tempHp - enemyDmg
                                 heroHealthBar = (
                                     heroStartingHealth - hero.tempHp) * heroHealthBlock
                                 # If player HP is empty, end of battle process starts
@@ -592,19 +605,27 @@ class Game:
 
                         elif (result == False):
                             if (enemyMove == 1):
+                                Game.effectCheck(enemy.move1effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDfs)
                             elif (enemyMove == 2):
+                                Game.effectCheck(enemy.move2effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDfs)
                             elif (enemyMove == 3):
+                                Game.effectCheck(enemy.move3effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDfs)
                             elif (enemyMove == 4):
+                                Game.effectCheck(enemy.move4effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDfs)
+                            
+                            if (hero.isProtected == False):
+                                hero.tempHp = hero.tempHp - enemyDmg
+                            else:
+                                hero.isProtected = False
 
-                            hero.tempHp = hero.tempHp - enemyDmg
                             heroHealthBar = (
                                 heroStartingHealth - hero.tempHp) * heroHealthBlock
                             # If player HP is empty, end of battle process starts
@@ -640,19 +661,27 @@ class Game:
 
                             else:
                                 if (playerAttack == "attack1"):
+                                    Game.effectCheck(hero.move1effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move1bp, hero.level, enemy.tempDfs)
                                 elif (playerAttack == "attack2"):
+                                    Game.effectCheck(hero.move2effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move2bp, hero.level, enemy.tempDfs)
                                 elif (playerAttack == "attack3"):
+                                    Game.effectCheck(hero.move3effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move3bp, hero.level, enemy.tempDfs)
                                 elif (playerAttack == "attack4"):
+                                    Game.effectCheck(hero.move4effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move4bp, hero.level, enemy.tempDfs)
 
-                                enemy.tempHp = enemy.tempHp - playerDmg
+                                if (enemy.isProtected == False):
+                                    enemy.tempHp = enemy.tempHp - playerDmg
+                                else:
+                                    enemy.isProtected = False
+
                                 enemyHealthBar = (
                                     enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
                                 # If enemy HP is empty, end of battle process starts
@@ -913,6 +942,26 @@ class Game:
     #         pygame.display.flip()
 
     def effectCheck(effectID, hero, enemy):
+        if (effectID == 1):
+        # 1 - The user runs with high speeds and blocks the enemies attack, this move has priority. If this move is repeated consecutively, its accuracy is halved. 
+            if (hero.usedBlockLast == False):
+                hero.isProtected = True
+                hero.usedBlockLast = True
+                print("protect hit")
+                print(hero.usedBlockLast)
+            elif (hero.usedBlockLast == True):
+                rngCheck = random.randint(1, 2)
+                print(f"rngCheck result: {rngCheck}")
+                if (rngCheck == 1):
+                    hero.isProtected = True
+                    hero.usedBlockLast = True
+                    print("protect hit")
+                else:
+                    hero.isProtected = False
+                    hero.usedBlockLast = False
+                    print("protect missed")
+            
+
         if (effectID == 3):
         # 3 - Increases attack stat by 1 stage - maxes out at 6
             if (hero.tempAtk < (hero.atk * 4)):
@@ -930,8 +979,21 @@ class Game:
                     print("Defense was lowered 1 stage")
                 else:
                     print ("no defense change")
-            else:
-                print("id not reached")
+        elif (effectID == 7):
+        # 7 - Decreases opponent accuracy by 1/8th if it hits
+            if (enemy.tempAcc > 0.25):
+                enemy.tempAcc -= 0.125
+                print("Accuracy was lowered 12%")
+        elif (effectID == 10):
+        # 10 - Switch attack and defense stats
+            print(f"attack: {hero.tempAtk}, defense: {hero.tempDfs}")
+            temp = hero.tempDfs
+            hero.tempDfs = hero.tempAtk
+            hero.tempAtk = temp
+            print("atk and dfs switched")
+            print(f"attack: {hero.tempAtk}, defense: {hero.tempDfs}")
+        else:
+            print("id not reached")
 
 
 if __name__ == '__main__':
