@@ -148,6 +148,8 @@ class Fighter:
         self.imageSource = fileName
         self.fighterName = name
 
+        self.fighterName = name
+
     def reset(self):
         self.accuracy = 1.0
         self.tempAcc = self.accuracy
