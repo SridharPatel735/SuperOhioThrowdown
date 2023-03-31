@@ -95,7 +95,7 @@ def p():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     paused = not paused
-                if event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                     if paused:
                         f=pygame.font.Font(None,50)
                         continue_t=f.render('Continue', True, (0,0,0),2)
