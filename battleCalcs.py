@@ -143,6 +143,25 @@ class Fighter:
 
         self.imageSource = fileName
 
+    def reset(self):
+        self.accuracy = 1.0
+        self.tempAcc = self.accuracy
+        self.tempAtk = self.atk
+        self.tempDef = self.dfs
+        self.tempSpd = self.spd
+        self.tempHp = self.hp
+    
+    def afterWin(self, expTot):
+        self.expTot = expTot
+        self.level = findLevel(self.expTot)
+        self.atk = (self.atk // 20 + 1) * self.level
+        self.dfs = (self.dfs // 20 + 1) * self.level
+        self.spd = (self.spd // 20 + 1) * self.level
+        self.hp = (self.hp // 20 + 1) * self.level
+
+    def getLevel(self):
+        return self.level
+
     def replaceMove(self, moveToReplace):
         # user picks move to replace, move position is assigned to moveSelected, cancel button = 0
         moveSelected = 5
@@ -160,7 +179,7 @@ class Fighter:
 def findLevel(expTot):
     level =  0
     level = expTot // 1000
-    return (level + 1)
+    return (level)
 
 # class Move:
 #     def __init__(self, moveDetails):

@@ -46,6 +46,8 @@ print(startText_rect.width)
 exitText = pygame.font.Font.render(menuFont, "Exit", True, (255, 255, 255))
 exitText_rect = controlsText.get_rect()
 
+backText = pygame.font.Font.render(menuFont, "Back", True, (255, 255, 255))
+
 def loadingScreen():
     screen.fill((0,0,0))
     loadingText = pygame.font.Font.render(menuFont, "Loading...", True, (255, 255, 255))
@@ -73,18 +75,16 @@ while running:
             if (x >= startTab_rect.x and x <= (startTab_rect.x + startTab_rect.width) and y >= startTab_rect.y and y <= (startTab_rect.y + startTab_rect.height) and controlsMenuActive == False):
                 loadingScreen()
                 newGame = game()
-                newGame.__init__()
                 newGame.run()
-                print("success")
                 pygame.display.update()
             elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and controlsMenuActive == False):
                 running = False
-            elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and controlsMenuActive == True):
-                controlsMenuActive = False
+            # elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and controlsMenuActive == True):
+            #     controlsMenuActive = False
             elif (x >= controlsTab_rect.x and x <= (controlsTab_rect.x + controlsTab_rect.width) and y >= controlsTab_rect.y and y <= (controlsTab_rect.y + controlsTab_rect.height) and controlsMenuActive == False):
                 controlsMenuActive = True
-            elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and creditsActive == True):
-                creditsActive = False
+            # elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and creditsActive == True):
+            #     creditsActive = False
             elif (x >= creditsTab_rect.x and x <= (creditsTab_rect.x + creditsTab_rect.width) and y >= creditsTab_rect.y and y <= (creditsTab_rect.y + creditsTab_rect.height) and creditsActive == False):
                 creditsActive = True
 
@@ -94,18 +94,38 @@ while running:
             controlsMenuText = pygame.font.Font.render(menuFont, "arrow keys to move", True, (255, 255, 255))
             controlScreen.blit(controlsMenuText, ((controlsTab_rect.centerx - 90), (controlsTab_rect.centery - 50)))
             pygame.draw.rect(controlScreen, (0, 0, 255), exitTab_rect)
-            controlScreen.blit(exitText, ((exitTab_rect.centerx), (exitTab_rect.centery - 50)))
+            controlScreen.blit(backText, ((exitTab_rect.centerx), (exitTab_rect.centery - 50)))
             pygame.display.update()
             clock.tick(fps)
 
+            while (controlsMenuActive == True):
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        controlsMenuActive = False
+                        running = False
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        (x, y) = pygame.mouse.get_pos()
+                        if (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and controlsMenuActive == True):
+                            controlsMenuActive = False
+
     while creditsActive:
             creditsScreen.blit(bg, (0,0))
-            creditsMenuText = pygame.font.Font.render(menuFont, "tiago made dis shi", True, (255, 255, 255))
+            creditsMenuText = pygame.font.Font.render(menuFont, "tiago made this", True, (255, 255, 255))
             creditsScreen.blit(creditsMenuText, ((creditsTab_rect.centerx - 90), (creditsTab_rect.centery - 50)))
             pygame.draw.rect(creditsScreen, (0, 0, 255), exitTab_rect)
-            creditsScreen.blit(exitText, ((exitTab_rect.centerx), (exitTab_rect.centery - 50)))
+            creditsScreen.blit(backText, ((exitTab_rect.centerx), (exitTab_rect.centery - 50)))
             pygame.display.update()
             clock.tick(fps)
+
+            while (creditsActive == True):
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        creditsActive = False
+                        running = False
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        (x, y) = pygame.mouse.get_pos()
+                        if (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and creditsActive == True):
+                            creditsActive = False
 
     screen.blit(bg, (0,0))
     screen.blit(logo, logo_rect)
