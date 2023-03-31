@@ -155,12 +155,14 @@ class Game:
                         nextLevelButton = True
 
                 pygame.display.update()
-                # TODO - Add text to black screen
+
                 if nextLevelButton == True:
                     self.level2 = Level2()
                     level2Trigger = False
                     level2RunBool = True
                     level1RunBool = False
+                    gameObjects.gruntLoopRunOnce = False
+                    gameObjects.counterGrunt = 0
 
             if gameObjects.battleLoopGrunt == True:
                 gruntStats = [40, 40, 40, 40]

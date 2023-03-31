@@ -3,6 +3,8 @@ from levelSettings import *
 
 battleLoopGrunt = False
 gruntLoopRunOnce = False
+level1Grunt = True
+counterGrunt = 0
 
 battleLoopMiniBoss = False
 miniBossLoopRunOnce = False
@@ -12,6 +14,7 @@ bossLoopRunOnce = False
 
 endOfLevelOne = False
 endOfLevelOneRunOnce = False
+
 
 # Level 1 Sprites
 
@@ -90,6 +93,15 @@ class BossJackSparrow(pygame.sprite.Sprite):
             "jackSparrow.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=position)
 
+
+class BoatTile(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "boat.png").convert_alpha()
+        self.image = pygame.transform.flip(self.image, True, False)
+        self.rect = self.image.get_rect(topleft=position)
+
 # Level 3 Sprites
 
 # Level 4 Sprites
@@ -121,6 +133,9 @@ class Player(pygame.sprite.Sprite):
         self.boss_sprite = boss_sprite
         self.door_sprite = door_sprite
 
+        self.tempSpeedx = self.rect.x
+        self.tempSpeedy = self.rect.y
+
     def input(self):
         keys = pygame.key.get_pressed()
 
@@ -142,6 +157,9 @@ class Player(pygame.sprite.Sprite):
         if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
 
+        self.tempSpeedx = self.rect.x
+        self.tempSpeedy = self.rect.y
+
         self.rect.x += self.direction.x * self.speed
         self.collision("horizontal")
         self.rect.y += self.direction.y * self.speed
@@ -156,6 +174,9 @@ class Player(pygame.sprite.Sprite):
         global battleLoopBoss
         global endOfLevelOne
         global endOfLevelOneRunOnce
+        global level1Grunt
+
+        global counterGrunt
 
         if direction == "horizontal":
             for sprite in self.obstacle_sprites:
@@ -176,8 +197,22 @@ class Player(pygame.sprite.Sprite):
         if gruntLoopRunOnce == False:
             for sprite in self.grunt_sprite:
                 if sprite.rect.colliderect(self.rect):
-                    battleLoopGrunt = True
                     gruntLoopRunOnce = True
+
+                    if level1Grunt == True:
+                        self.rect.x = self.rect.x + 120
+                        level1Grunt = False
+                    else:
+                        self.rect.x = self.tempSpeedx
+                        self.rect.y = self.tempSpeedy
+
+                    counterGrunt = counterGrunt + 1
+
+                    battleLoopGrunt = True
+                    if counterGrunt >= 2:
+                        gruntLoopRunOnce = True
+                    else:
+                        gruntLoopRunOnce = False
 
         if miniBossLoopRunOnce == False:
             for sprite in self.miniBoss_sprite:

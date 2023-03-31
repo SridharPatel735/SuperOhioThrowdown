@@ -1,6 +1,7 @@
 import pygame
 from levelSettings import *
 from gameObjects import Tile, Player, PrisionTile, DoorTile, GruntTile, DoorTileFlipped
+import gameObjects
 
 
 class Level1:
@@ -50,7 +51,7 @@ class Level1:
 
                 if col == "g":
                     GruntTile((x, y), [self.visible_sprites,
-                              self.grunt_sprite])
+                                       self.grunt_sprite])
 
     def run(self):
         # update and draw the game

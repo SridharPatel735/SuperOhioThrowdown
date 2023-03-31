@@ -1,6 +1,6 @@
 import pygame
 from levelSettings import *
-from gameObjects import Tile, Player, GrassTile, WaterTile, SandTile, GruntTile, MiniBossShark, BossJackSparrow
+from gameObjects import Tile, Player, GrassTile, WaterTile, SandTile, GruntTile, MiniBossShark, BossJackSparrow, BoatTile
 
 
 class Level2:
@@ -28,7 +28,7 @@ class Level2:
                 if col == "g" or col == "p":
                     GrassTile((x, y), [self.visible_sprites])
 
-                if col == " " or col == "m" or col == "b" or col == "q":
+                if col == " " or col == "m" or col == "b" or col == "q" or col == "d":
                     SandTile((x, y), [self.visible_sprites])
 
         for row_index, row in enumerate(WORLD_MAP2):
@@ -48,8 +48,8 @@ class Level2:
                         (x, y), [self.visible_sprites], self.obstacle_sprites, self.grunt_sprite, self.miniBoss_sprite, self.boss_sprite, self.door_sprite)
 
                 if col == "q":
-                    GruntTile((x, y), [self.visible_sprites,
-                              self.grunt_sprite])
+                    GruntTile(
+                        (x, y), [self.visible_sprites, self.grunt_sprite])
 
                 if col == "m":
                     MiniBossShark((x, y), [self.visible_sprites,
@@ -58,6 +58,10 @@ class Level2:
                 if col == "b":
                     BossJackSparrow((x, y), [self.visible_sprites,
                                              self.boss_sprite])
+
+                if col == "d":
+                    BoatTile((x, y), [self.visible_sprites,
+                             self.door_sprite])
 
     def run(self):
         # update and draw the game
