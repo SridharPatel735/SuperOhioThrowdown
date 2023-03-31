@@ -88,6 +88,8 @@ class Game:
         global charSelected
         global heroLevel
 
+        heroLevel = 5000
+
         pygame.init()
         charSelected = characterSelection.charSelection()
         if (charSelected == 1):
@@ -99,7 +101,7 @@ class Game:
         elif (charSelected == 3):
             hero = battleCalcs.Fighter(
                 luffyStats, luffyMoves, heroLevel, "luffy.png")
-
+        
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Super Ohio Throwdown")
         self.clock = pygame.time.Clock()
@@ -182,7 +184,7 @@ class Game:
 
                 pygame.display.update()
                 if nextLevelButton == True:
-                    heroLevel = hero.getLevel() * 1000
+                    heroLevel = hero.level * 1000
                     gruntLevel = heroLevel + 1000
                     miniBossLevel = heroLevel + 2000
                     bossLevel = heroLevel + 3000
@@ -211,23 +213,8 @@ class Game:
                 gameObjects.battleLoopGrunt = False
 
             if gameObjects.battleLoopMiniBoss == True:
-                gruntStats = [40, 40, 40, 40]
-                gruntMoves = [[30, 100, 5, 4, 0, 0, "Shout"], [50, 100, 10, 0, 0, 0, "Punch"], [
-                    0, 100, 3, 3, 0, 0, "Get Angry"], [0, 100, 5, 16, 0, 0, "Stop Right There"]]
-                enemy = battleCalcs.Fighter(
-                    gruntStats, gruntMoves, 5000, "grunt_battle.png")
-                if (charSelected == 1):
-                    hero = battleCalcs.Fighter(
-                        lebronStats, lebronMoves, 5000, "lebron.png")
-                elif (charSelected == 2):
-                    hero = battleCalcs.Fighter(
-                        bruceStats, bruceMoves, 5000, "bruce_lee.png")
-                elif (charSelected == 3):
-                    hero = battleCalcs.Fighter(
-                        luffyStats, luffyMoves, 5000, "luffy.png")
-
+                enemy = miniBoss
                 healthLength = 215
-
                 heroHealthBlock = round(healthLength / hero.hp)
                 enemyHealthBlock = round(healthLength / enemy.hp)
                 heroStartingHealth = hero.hp
@@ -236,23 +223,8 @@ class Game:
                 gameObjects.battleLoopMiniBoss = False
 
             if gameObjects.battleLoopBoss == True:
-                gruntStats = [40, 40, 40, 40]
-                gruntMoves = [[30, 100, 5, 4, 0, 0, "Shout"], [50, 100, 10, 0, 0, 0, "Punch"], [
-                    0, 100, 3, 3, 0, 0, "Get Angry"], [0, 100, 5, 16, 0, 0, "Stop Right There"]]
-                enemy = battleCalcs.Fighter(
-                    gruntStats, gruntMoves, 5000, "grunt_battle.png")
-                if (charSelected == 1):
-                    hero = battleCalcs.Fighter(
-                        lebronStats, lebronMoves, 5000, "lebron.png")
-                elif (charSelected == 2):
-                    hero = battleCalcs.Fighter(
-                        bruceStats, bruceMoves, 5000, "bruce_lee.png")
-                elif (charSelected == 3):
-                    hero = battleCalcs.Fighter(
-                        luffyStats, luffyMoves, 5000, "luffy.png")
-
+                enemy = boss
                 healthLength = 215
-
                 heroHealthBlock = round(healthLength / hero.hp)
                 enemyHealthBlock = round(healthLength / enemy.hp)
                 heroStartingHealth = hero.hp
@@ -419,14 +391,15 @@ class Game:
                                 pygame.display.update()
 
                                 while (endBattle == True):
-                                    hero.afterWin(hero.getLevel() + 1000)
-                                    hero.reset()
+                                    print(hero.level)
                                     for event in pygame.event.get():
                                         if event.type == pygame.QUIT:
                                             battleRunning = False
                                         if event.type == pygame.MOUSEBUTTONDOWN:
                                             (x, y) = pygame.mouse.get_pos()
                                             if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
+                                                hero.afterWin((hero.level * 1000) + 1000)
+                                                hero.reset()
                                                 time.sleep(1)
                                                 endBattle = False
                                                 battleRunning = False
@@ -549,14 +522,14 @@ class Game:
                                     pygame.display.update()
 
                                     while (endBattle == True):
-                                        hero.afterWin(hero.getLevel() + 1000)
-                                        hero.reset()
                                         for event in pygame.event.get():
                                             if event.type == pygame.QUIT:
                                                 battleRunning = False
                                             if event.type == pygame.MOUSEBUTTONDOWN:
                                                 (x, y) = pygame.mouse.get_pos()
                                                 if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
+                                                    hero.afterWin((hero.level * 1000) + 1000)
+                                                    hero.reset()
                                                     time.sleep(1)
                                                     endBattle = False
                                                     battleRunning = False
