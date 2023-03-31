@@ -472,6 +472,7 @@ class Game:
                                 battleScreen.blit(battleText, (50, 550))
                                 hero.afterWin((hero.level * 1000) + 1000)
                                 hero.reset()
+
                                 for i in range(41):
                                     xpBarStatus = xpBarStatus + 7
                                     xpBar = (810, 477, xpBarStatus, 12)
@@ -498,9 +499,7 @@ class Game:
                                 pygame.display.update()
 
                                 while (endBattle == True):
-                                    hero.afterWin(hero.getLevel() + 1000)
-                                    hero.reset()
-
+                                
                                     xpBarStatus = 0
                                     for event in pygame.event.get():
                                         if event.type == pygame.QUIT:
@@ -674,6 +673,7 @@ class Game:
                                     battleScreen.blit(battleText, (50, 550))
                                     hero.afterWin((hero.level * 1000) + 1000)
                                     hero.reset()
+
                                     for i in range(41):
                                         xpBarStatus = xpBarStatus + 7
                                         xpBar = (810, 477, xpBarStatus, 12)
@@ -700,25 +700,35 @@ class Game:
                                     pygame.display.update()
 
                                     while (endBattle == True):
-                                        hero.afterWin(hero.getLevel() + 1000)
-                                        hero.reset()
-                                        newSwap = Game.heroSwap(hero.imageSource, enemy.imageSource)
-                                        pygame.display.update()
-                                        print(newSwap)
-                                        if (newSwap):
-                                            hero == enemy
-                                            print(hero.hp)
-                                            print(type(hero))
-
+                                        
                                         xpBarStatus = 0
                                         for event in pygame.event.get():
                                             if event.type == pygame.QUIT:
                                                 battleRunning = False
                                             if event.type == pygame.MOUSEBUTTONDOWN:
                                                 (x, y) = pygame.mouse.get_pos()
-                                            if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
-                                                endBattle = False
-                                                battleRunning = False
+                                                if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
+                                                    endBattle = False
+                                                    battleRunning = False
+                                                    
+                                    test = True
+                                    battleBg = pygame.image.load("battleBgTemplate.jpg")
+                                    battleBg_rect = battleBg.get_rect()
+                                    battleBorder = pygame.image.load("battleBgBorder.png")
+                                    battleScreen = pygame.display.set_mode((battleBg_rect.width, battleBg_rect.height))
+                                    test2 = True
+                                    if test:
+                                        while test2:
+                                            for event in pygame.event.get():
+                                                if event.type == pygame.QUIT:
+                                                    test2 = False
+                                                if event.type == pygame.MOUSEBUTTONDOWN:
+                                                    (x, y) = pygame.mouse.get_pos()
+                                                    if (x > 0):
+                                                        test2 = False
+
+                                    endBattle = True
+                                    pygame.display.update()
 
                     battleScreen.blit(battleBg, (0, 0))
                     battleScreen.blit(
