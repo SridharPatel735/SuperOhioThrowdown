@@ -15,6 +15,8 @@ bossLoopRunOnce = False
 endOfLevelOne = False
 endOfLevelOneRunOnce = False
 
+endOfLevelTwo = False
+endOfLevelTwoRunOnce = False
 
 # Level 1 Sprites
 
@@ -118,7 +120,7 @@ class Tile(pygame.sprite.Sprite):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, position, groups, obstacle_sprites, grunt_sprite, miniBoss_sprite, boss_sprite, door_sprite):
+    def __init__(self, position, groups, obstacle_sprites, grunt_sprite, miniBoss_sprite, boss_sprite, door_sprite, boat_sprite):
         super().__init__(groups)
         self.image = pygame.image.load(
             "sridhar_player_icon.png").convert_alpha()
@@ -132,6 +134,7 @@ class Player(pygame.sprite.Sprite):
         self.miniBoss_sprite = miniBoss_sprite
         self.boss_sprite = boss_sprite
         self.door_sprite = door_sprite
+        self.boat_sprite = boat_sprite
 
         self.tempSpeedx = self.rect.x
         self.tempSpeedy = self.rect.y
@@ -168,13 +171,16 @@ class Player(pygame.sprite.Sprite):
     def collision(self, direction):
         global gruntLoopRunOnce
         global battleLoopGrunt
+        global level1Grunt
         global miniBossLoopRunOnce
         global battleLoopMiniBoss
         global bossLoopRunOnce
         global battleLoopBoss
         global endOfLevelOne
         global endOfLevelOneRunOnce
-        global level1Grunt
+        global endOfLevelTwo
+        global endOfLevelTwoRunOnce
+
 
         global counterGrunt
 
@@ -231,6 +237,12 @@ class Player(pygame.sprite.Sprite):
                 if sprite.rect.colliderect(self.rect):
                     endOfLevelOne = True
                     endOfLevelOneRunOnce = True
+        
+        if endOfLevelTwoRunOnce == False:
+            for sprite in self.boat_sprite:
+                if sprite.rect.colliderect(self.rect):
+                    endOfLevelTwo = True
+                    endOfLevelTwoRunOnce = True
 
     def update(self):
         self.input()
