@@ -257,7 +257,25 @@ class Game:
                 pygame.display.update()
 
                 if nextLevelButton3 == True:
-                   
+                    heroLevel = hero.level * 1000
+                    gruntLevel = heroLevel + 1000
+                    miniBossLevel = heroLevel + 2000
+                    bossLevel = heroLevel + 3000
+                    print(
+                        "-------------------------------------------------------------------------")
+                    print(heroLevel)
+                    print(gruntLevel)
+                    print(miniBossLevel)
+                    print(bossLevel)
+                    print(
+                        "-------------------------------------------------------------------------")
+                    grunt = battleCalcs.Fighter(
+                        gruntStats, gruntMoves, gruntLevel, "grunt_battle.png", "Enemy Grunt")
+                    miniBoss = battleCalcs.Fighter(
+                        sharkStats, sharkMoves, miniBossLevel, "obama.png", "Barack Obama")
+                    boss = battleCalcs.Fighter(
+                        jackStats, jackMoves, bossLevel, "eminem.png", "Eminem")
+                    
                     self.level3 = Level3()
                     runMainLoop = True
                     level3Trigger = False
