@@ -6,13 +6,14 @@ def p():
     screen=pygame.display.set_mode((WIDTH,HEIGHT))
 
     pygame.display.set_caption("Pause Menu")
+    print(type(main.hero.imageSource))
     hImg = pygame.image.load(main.hero.imageSource)
-    player_stats = {'lvl':main.hero.level,'hp': main.hero.hp, 'atk': main.hero.atk, 'def': main.hero.dfs, 'spd': main.hero.spd}
+    player_stats = {'lvl':main.hero.level,'hp': main.hero.hp, 'atk': main.hero.atk, 'dfs': main.hero.dfs, 'spd': main.hero.spd}
     heroImg = pygame.transform.scale(hImg,(320, 440))
     
 
     def pause():
-        f=pygame.font.Font(None,50)
+        f=pygame.font.Font('kvn-pokemon-gen-5.ttf',30)
         continue_t=f.render('Continue', True, (0,0,0))
         quit_t=f.render('Quit',True,(0,0,0))
         
@@ -57,7 +58,7 @@ def p():
         screen.blit(move_2,move_2_r)
         screen.blit(move_3,move_3_r)
         screen.blit(move_4,move_4_r)
-        f=pygame.font.Font(None,30)
+        f=pygame.font.Font('kvn-pokemon-gen-5.ttf',20)
         lvl_box = pygame.Rect(WIDTH/2-460, HEIGHT/2-350, 320, 30)
         pygame.draw.rect(screen, (255, 255, 255), lvl_box)
         pygame.draw.rect(screen, (0, 0, 0), lvl_box, 2)
@@ -70,7 +71,7 @@ def p():
 
         lvl_render_rect = lvl_render.get_rect(center=(WIDTH/2-380,HEIGHT/2-335))
         screen.blit(lvl_render, lvl_render_rect)
-        f=pygame.font.Font(None,20)
+        f=pygame.font.Font('kvn-pokemon-gen-5.ttf',20)
 
         stat_text = f"HP: {player_stats['hp']}  ATK: {player_stats['atk']}"
         stat_text_2=f"DEF: {player_stats['def']}  SPD: {player_stats['spd']}"
@@ -95,7 +96,7 @@ def p():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     paused = not paused
-                if event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                     if paused:
                         f=pygame.font.Font(None,50)
                         continue_t=f.render('Continue', True, (0,0,0),2)

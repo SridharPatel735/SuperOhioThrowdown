@@ -89,7 +89,7 @@ Effects list (to implement later)
 3 - Increases attack stat by 1 stage - maxes out at 6
 4 - This move has a 20% chance of lowering the opponents defense by 1 stage. 
 5 - T1 charge up (no damage), T2 attack 
-6 - Ohm uses his toxic voice chat energy to irradiate the battle. Opponent takes 1/8th chip damage per turn for the next 5 turns
+6 - Ohm uses his toxic voice chat energy to irradiate the battle. Opponent takes 1/16th chip damage per turn for the next 5 turns
 7 - Decreases opponent accuracy by 1/8th if it hits
 8 - heals 50% health
 9 - hits 4-10 times
@@ -107,7 +107,7 @@ Effects list (to implement later)
 lebronMoves = [[0, 100, 10, 1, 1, 0, "Chasedown Block"],
     [0, 50, 20, 2, 0, 0, "Yabadabadoo Old Navy"],
     [0, 100, 15, 3, 0, 0, "Cleveland!! This is for You!"],
-    [100, 90, 10, 4, 0, 0, "Tomohawk Dunk"]]
+    [80, 75, 10, 4, 0, 0, "Tomohawk Dunk"]]
 
 ohmMoves = [[150, 100, 1, 5, 0, 0, "Super Ohio Throwdown"],
     [20, 100, 10, 6, 0, 0, "AtOHMic BOHMb"],

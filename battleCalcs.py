@@ -112,8 +112,11 @@ class Fighter:
         self.tempDfs = self.dfs
         self.tempSpd = self.spd
         self.tempHp = self.hp
+
         self.usedBlockLast = False
         self.isProtected = False
+        self.isChargingUp = True
+        self.turnsOfChipLeft = 0
         
         self.move1bp = moveset[0][0]
         self.move1acc = moveset[0][1]
