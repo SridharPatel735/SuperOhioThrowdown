@@ -7,6 +7,7 @@ from levelSettings import *
 from level1 import Level1
 from level2 import Level2
 from level3 import Level3
+from level4 import Level4
 import gameObjects
 import battleCalcs
 import characterSelection
@@ -17,9 +18,11 @@ from characterSwapping import charSwap as swap
 level1Trigger = True
 level2Trigger = False
 level3Trigger = False
+level4Trigger = False
 level1RunBool = False
 level2RunBool = False
 level3RunBool = False
+level4RunBool = False
 runMainLoop = True
 
 
@@ -123,9 +126,10 @@ class Game:
         self.clock = pygame.time.Clock()
 
     def run(self):
-        global level1Trigger, level2Trigger, level3Trigger, level1RunBool, level2RunBool, level3RunBool, runMainLoop
+        global level1Trigger, level2Trigger, level3Trigger, level4Trigger, level1RunBool, level2RunBool, level3RunBool, level4RunBool, runMainLoop
         nextLevelButton2 = True
         nextLevelButton3 = True
+        nextLevelButton4 = True
         runOnce = True
 
         global lebronStats, lebronMoves
@@ -172,13 +176,22 @@ class Game:
                 level2Trigger = True
                 level1Trigger = False
                 level3Trigger = False
+                level4Trigger = False
                 gameObjects.endOfLevelOne = False
 
             if gameObjects.endOfLevelTwo == True:
                 level2Trigger = False
                 level1Trigger = False
                 level3Trigger = True
+                level4Trigger = False
                 gameObjects.endOfLevelTwo = False
+
+            if gameObjects.endOfLevelThree == True:
+                level2Trigger = False
+                level1Trigger = False
+                level3Trigger = False
+                level4Trigger = True
+                gameObjects.endOfLevelThree = False
 
             if level1Trigger == True:
                 heroLevel = 5000
@@ -282,6 +295,37 @@ class Game:
                     level3Trigger = False
                     level3RunBool = True
                     level2RunBool = False
+                    gameObjects.miniBossLoopRunOnce = False
+                    gameObjects.bossLoopRunOnce = False
+                    gameObjects.gruntLoopRunOnce = False
+                    gameObjects.counterGrunt = 0
+            elif level4Trigger == True:
+                nextLevelButton4 = False
+                runMainLoop = False
+                self.screen.fill('black')
+                line1 = "GOING ON TO LEVEL 3 BABY"
+                line2 = "CONTINUE"
+
+                draw_text(self.screen, line1, 30, 100, 100)
+                draw_text(self.screen, line2, 30, 590, 600)
+
+                continueRectangle = pygame.draw.rect(
+                    self.screen, "red", pygame.Rect(550, 600, 200, 60), 2)
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    (x, y) = pygame.mouse.get_pos()
+                    if (x >= 550) and (x <= 750) and (y >= 600) and (y <= 660):
+                        nextLevelButton4 = True
+
+                pygame.display.update()
+
+                if nextLevelButton4 == True:
+                    
+                    self.level4 = Level4()
+                    runMainLoop = True
+                    level4Trigger = False
+                    level4RunBool = True
+                    level3RunBool = False
                     gameObjects.miniBossLoopRunOnce = False
                     gameObjects.bossLoopRunOnce = False
                     gameObjects.gruntLoopRunOnce = False
@@ -855,6 +899,8 @@ class Game:
                 self.level2.run()
             elif level3RunBool == True:
                 self.level3.run()
+            elif level4RunBool == True:
+                self.level4.run()
 
             if runMainLoop == True:
                 pygame.display.update()
