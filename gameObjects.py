@@ -18,6 +18,12 @@ endOfLevelOneRunOnce = False
 endOfLevelTwo = False
 endOfLevelTwoRunOnce = False
 
+endOfLevelThree = False
+endOfLevelThreeRunOnce = False
+
+endOfLevelFour = False
+endOfLevelFourRunOnce = False
+
 # Level 1 Sprites
 
 
@@ -133,6 +139,33 @@ class BossEminem(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=position)
 
 # Level 4 Sprites
+class LavaTile(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "lavatile.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class Plane(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "plane.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class MiniGrizzlyBear(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        grizzlyBear = pygame.image.load('grizzlyBear.png')
+        self.image = pygame.transform.scale(grizzlyBear, (64, 64))
+        self.rect = self.image.get_rect(topleft=position)
+
+class BossOhm(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        ohm = pygame.image.load('ohm.png')
+        self.image = pygame.transform.scale(ohm, (64, 64))
+        self.rect = self.image.get_rect(topleft=position)
 
 # ALL LEVELS
 
@@ -146,7 +179,7 @@ class Tile(pygame.sprite.Sprite):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, position, groups, obstacle_sprites, grunt_sprite, miniBoss_sprite, boss_sprite, door_sprite, boat_sprite):
+    def __init__(self, position, groups, obstacle_sprites, grunt_sprite, miniBoss_sprite, boss_sprite, door_sprite, boat_sprite, car_sprite, plane_sprite):
         super().__init__(groups)
         self.image = pygame.image.load(
             "sridhar_player_icon.png").convert_alpha()
@@ -161,6 +194,8 @@ class Player(pygame.sprite.Sprite):
         self.boss_sprite = boss_sprite
         self.door_sprite = door_sprite
         self.boat_sprite = boat_sprite
+        self.car_sprite = car_sprite
+        self.plane_sprite = plane_sprite
 
         self.tempSpeedx = self.rect.x
         self.tempSpeedy = self.rect.y
@@ -206,6 +241,10 @@ class Player(pygame.sprite.Sprite):
         global endOfLevelOneRunOnce
         global endOfLevelTwo
         global endOfLevelTwoRunOnce
+        global endOfLevelThree
+        global endOfLevelThreeRunOnce
+        global endOfLevelFour
+        global endOfLevelFourRunOnce
 
 
         global counterGrunt
@@ -269,6 +308,19 @@ class Player(pygame.sprite.Sprite):
                 if sprite.rect.colliderect(self.rect):
                     endOfLevelTwo = True
                     endOfLevelTwoRunOnce = True
+
+        if endOfLevelThreeRunOnce == False:
+            for sprite in self.car_sprite:
+                if sprite.rect.colliderect(self.rect):
+                    endOfLevelThree = True
+                    endOfLevelThreeRunOnce = True
+        
+        if endOfLevelFourRunOnce == False:
+            for sprite in self.plane_sprite:
+                if sprite.rect.colliderect(self.rect):
+                    print("Level 3 Works")
+                    endOfLevelFour = True
+                    endOfLevelFourRunOnce = True
 
     def update(self):
         self.input()

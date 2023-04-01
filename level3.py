@@ -17,6 +17,7 @@ class Level3:
         self.door_sprite = pygame.sprite.Group()
         self.boat_sprite = pygame.sprite.Group()
         self.car_sprite = pygame.sprite.Group()
+        self.plane_sprite = pygame.sprite.Group()
 
         # setup sprite
         self.create_map()
@@ -27,10 +28,10 @@ class Level3:
                 x = col_index * TILESIZE
                 y = row_index * TILESIZE
 
-                if col == " " or col == "p":
+                if col == " " or col == "p" or col == "g" or col == "o" or col == "c":
                     PrisionTile((x, y), [self.visible_sprites])
                 
-                if col == "s":
+                if col == "s" or col == "e":
                     StageTile((x, y), [self.visible_sprites])
 
                 
@@ -45,7 +46,7 @@ class Level3:
 
                 if col == "p":
                     self.player = Player(
-                        (x, y), [self.visible_sprites], self.obstacle_sprites, self.grunt_sprite, self.miniBoss_sprite, self.boss_sprite, self.door_sprite, self.boat_sprite)
+                        (x, y), [self.visible_sprites], self.obstacle_sprites, self.grunt_sprite, self.miniBoss_sprite, self.boss_sprite, self.door_sprite, self.boat_sprite, self.car_sprite, self.plane_sprite)
                     
                 if col == "g":
                     GruntTile((x, y), [self.visible_sprites,
@@ -63,9 +64,6 @@ class Level3:
                     Car((x, y), [self.visible_sprites,
                              self.car_sprite])
                 
-
-
-
 
     def run(self):
         # update and draw the game
