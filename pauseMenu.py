@@ -13,7 +13,7 @@ def p():
     
 
     def pause():
-        f=pygame.font.Font(None,50)
+        f=pygame.font.Font('kvn-pokemon-gen-5.ttf',30)
         continue_t=f.render('Continue', True, (0,0,0))
         quit_t=f.render('Quit',True,(0,0,0))
         
@@ -58,7 +58,7 @@ def p():
         screen.blit(move_2,move_2_r)
         screen.blit(move_3,move_3_r)
         screen.blit(move_4,move_4_r)
-        f=pygame.font.Font(None,30)
+        f=pygame.font.Font('kvn-pokemon-gen-5.ttf',20)
         lvl_box = pygame.Rect(WIDTH/2-460, HEIGHT/2-350, 320, 30)
         pygame.draw.rect(screen, (255, 255, 255), lvl_box)
         pygame.draw.rect(screen, (0, 0, 0), lvl_box, 2)
@@ -71,10 +71,10 @@ def p():
 
         lvl_render_rect = lvl_render.get_rect(center=(WIDTH/2-380,HEIGHT/2-335))
         screen.blit(lvl_render, lvl_render_rect)
-        f=pygame.font.Font(None,20)
+        f=pygame.font.Font('kvn-pokemon-gen-5.ttf',20)
 
         stat_text = f"HP: {player_stats['hp']}  ATK: {player_stats['atk']}"
-        stat_text_2=f"DEF: {player_stats['dfs']}  SPD: {player_stats['spd']}"
+        stat_text_2=f"DEF: {player_stats['def']}  SPD: {player_stats['spd']}"
         stat_render = f.render(stat_text, True, (0, 0, 0))
         stat_render_rect = stat_render.get_rect(center=(WIDTH/2-350,HEIGHT/2+120))
         screen.blit(stat_render, stat_render_rect)
@@ -93,39 +93,39 @@ def p():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     paused = not paused
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if paused:
-                    f=pygame.font.Font(None,50)
-                    continue_t=f.render('Continue', True, (0,0,0),2)
-                    quit_t=f.render('Quit',True,(0,0,0),2)
-                    continue_r= continue_t.get_rect(center=(WIDTH/2-300,HEIGHT*9/10))
-                    quit_r= quit_t.get_rect(center=(WIDTH/2+300,HEIGHT*9/10))
-                    move_1=f.render(main.hero.move1name, True,(0,0,0))
-                    move_2=f.render(main.hero.move2name, True,(0,0,0))
-                    move_3=f.render(main.hero.move3name, True,(0,0,0))
-                    move_4=f.render(main.hero.move4name, True,(0,0,0))
-                    move_1_r=move_1.get_rect(center=(WIDTH/2+150,HEIGHT/2-200))
-                    move_2_r=move_2.get_rect(center=(WIDTH/2+150,HEIGHT/2-150))
-                    move_3_r=move_3.get_rect(center=(WIDTH/2+150,HEIGHT/2-100))
-                    move_4_r=move_4.get_rect(center=(WIDTH/2+150,HEIGHT/2-50))
-                    mouse_pos = pygame.mouse.get_pos()
-                    if continue_r.collidepoint(mouse_pos):
-                        paused = False
-                        return False
-                    elif quit_r.collidepoint(mouse_pos):
-                        running = False
-                        return True
-                    elif move_1_r.collidepoint(mouse_pos):
-                        print()
-                    elif move_2_r.collidepoint(mouse_pos):
-                        print()
-                    elif move_3_r.collidepoint(mouse_pos):
-                        print()
-                    elif move_4_r.collidepoint(mouse_pos):
-                        print()            
+                    if paused:
+                        f=pygame.font.Font(None,50)
+                        continue_t=f.render('Continue', True, (0,0,0),2)
+                        quit_t=f.render('Quit',True,(0,0,0),2)
+                        continue_r= continue_t.get_rect(center=(WIDTH/2-300,HEIGHT*9/10))
+                        quit_r= quit_t.get_rect(center=(WIDTH/2+300,HEIGHT*9/10))
+                        move_1=f.render(main.hero.move1name, True,(0,0,0))
+                        move_2=f.render(main.hero.move2name, True,(0,0,0))
+                        move_3=f.render(main.hero.move3name, True,(0,0,0))
+                        move_4=f.render(main.hero.move4name, True,(0,0,0))
+                        move_1_r=move_1.get_rect(center=(WIDTH/2+150,HEIGHT/2-200))
+                        move_2_r=move_2.get_rect(center=(WIDTH/2+150,HEIGHT/2-150))
+                        move_3_r=move_3.get_rect(center=(WIDTH/2+150,HEIGHT/2-100))
+                        move_4_r=move_4.get_rect(center=(WIDTH/2+150,HEIGHT/2-50))
+                        mouse_pos = pygame.mouse.get_pos()
+                        if continue_r.collidepoint(mouse_pos):
+                            paused = False
+                            return False
+                        elif quit_r.collidepoint(mouse_pos):
+                            running = False
+                            return True
+                        elif move_1_r.collidepoint(mouse_pos):
+                            print()
+                        elif move_2_r.collidepoint(mouse_pos):
+                            print()
+                        elif move_3_r.collidepoint(mouse_pos):
+                            print()
+                        elif move_4_r.collidepoint(mouse_pos):
+                            print()            
 
 
         if paused:
