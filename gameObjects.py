@@ -246,7 +246,6 @@ class Player(pygame.sprite.Sprite):
         global endOfLevelFour
         global endOfLevelFourRunOnce
 
-
         global counterGrunt
 
         if direction == "horizontal":
@@ -318,7 +317,7 @@ class Player(pygame.sprite.Sprite):
         if endOfLevelFourRunOnce == False:
             for sprite in self.plane_sprite:
                 if sprite.rect.colliderect(self.rect):
-                    print("Level 3 Works")
+                    print("Level ENDDDDDDDD Works")
                     endOfLevelFour = True
                     endOfLevelFourRunOnce = True
 
