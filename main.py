@@ -29,6 +29,28 @@ def draw_text(screen, text, font_size, x, y):
     img = text_font.render(text, True, text_color)
     screen.blit(img, (x, y))
 
+def gameOver():
+    gameOverScreen = pygame.display.set_mode((1280, 720))
+    gameOverLoop = True
+    while gameOverLoop:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                gameOverLoop = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                (x, y) = pygame.mouse.get_pos()
+                if (x > 0) or (y > 0):
+                    gameOverLoop = False
+        gameOverScreen.fill((0, 0, 0))
+        text = "Game Over!"
+        text_font = pygame.font.Font("kvn-pokemon-gen-5.ttf", 50)
+        textPrint = text_font.render(text, True, (255, 0, 0))
+        textPrint_rect = textPrint.get_rect()
+        print(textPrint_rect.width())
+        print(textPrint_rect.height())
+        gameOverScreen.blit(textPrint_rect, (round(640 - (textPrint_rect.width() / 2)), round(360 - (textPrint_rect.height() / 2))))
+        pygame.display.update()
+
+
 
 lebronStats = [85, 75, 60, 70]
 lebronMoves = [[0, 100, 10, 1, 1, 0, "Chasedown Block"], [0, 50, 20, 2, 0, 0, "Yabadabadoo Old Navy"], [
@@ -617,6 +639,7 @@ class Game:
                                             if event.type == pygame.MOUSEBUTTONDOWN:
                                                 (x, y) = pygame.mouse.get_pos()
                                                 if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
+                                                    gameOver()
                                                     time.sleep(1)
                                                     endBattle = False
                                                     battleRunning = False
