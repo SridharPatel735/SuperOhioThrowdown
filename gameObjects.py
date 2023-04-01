@@ -289,6 +289,7 @@ class Player(pygame.sprite.Sprite):
                     battleLoopGrunt = True
                     if counterGrunt >= 2:
                         gruntLoopRunOnce = True
+                        sprite.kill()
                     else:
                         gruntLoopRunOnce = False
 
@@ -298,6 +299,7 @@ class Player(pygame.sprite.Sprite):
                     battleLoopMiniBoss = True
                     miniBossFainted = True
                     miniBossLoopRunOnce = True
+                    sprite.kill()
 
         
         if bossLoopRunOnce == False:
@@ -307,6 +309,7 @@ class Player(pygame.sprite.Sprite):
                         bossFainted = True
                         battleLoopBoss = True
                         bossLoopRunOnce = True
+                        sprite.kill()
                     else: 
                         notFaintedMessage = "Defeat the Mini Boss before you can fight the boss"
                         print(notFaintedMessage)

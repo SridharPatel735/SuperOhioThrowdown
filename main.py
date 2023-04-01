@@ -228,6 +228,9 @@ class Game:
                 level1Trigger = False
                 level3Trigger = False
                 level4Trigger = True
+
+                gameObjects.miniBossFainted = False
+                gameObjects.bossFainted = False
                 gameObjects.endOfLevelThree = False
             
             if gameObjects.endOfLevelFour == True:
