@@ -6,8 +6,9 @@ def p():
     screen=pygame.display.set_mode((WIDTH,HEIGHT))
 
     pygame.display.set_caption("Pause Menu")
+    print(type(main.hero.imageSource))
     hImg = pygame.image.load(main.hero.imageSource)
-    player_stats = {'lvl':main.hero.level,'hp': main.hero.hp, 'atk': main.hero.atk, 'def': main.hero.dfs, 'spd': main.hero.spd}
+    player_stats = {'lvl':main.hero.level,'hp': main.hero.hp, 'atk': main.hero.atk, 'dfs': main.hero.dfs, 'spd': main.hero.spd}
     heroImg = pygame.transform.scale(hImg,(320, 440))
     
 

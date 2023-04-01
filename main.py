@@ -22,6 +22,15 @@ level2RunBool = False
 level3RunBool = False
 runMainLoop = True
 
+storedAtk = 0
+
+def setStoredAttack(atk):
+    global storedAtk
+    storedAtk = atk
+
+def getStoredAttack():
+    global storedAtk
+    return storedAtk
 
 def draw_text(screen, text, font_size, x, y):
     text_font = pygame.font.Font("kvn-pokemon-gen-5.ttf", font_size)
@@ -46,7 +55,7 @@ gruntStats = [40, 40, 40, 40]
 gruntMoves = [[30, 100, 5, 4, 0, 0, "Shout"], [50, 100, 10, 0, 0, 0, "Punch"], [
     0, 100, 3, 3, 0, 0, "Get Angry"], [0, 100, 5, 16, 0, 0, "Stop Right There"]]
 
-obamaStats = [45, 120, 120, 25]
+obamaStats = [45, 120, 25, 120]
 obamaMoves = [[0, 100, 3, 7, 0, 0, "Let Me Be Clear"], [20, 100, 5, 17, 0, 0, "Campaign Trail Stomp"], [
     0, 100, 5, 16, 0, 0, "Landslide Victory"], [30, 100, 10, 14, 0, 0, "Endorsement Enforcement"]]
 
@@ -109,8 +118,10 @@ class Game:
         pygame.init()
         charSelected = characterSelection.charSelection()
         if (charSelected == 1):
+            # hero = battleCalcs.Fighter(
+            #     lebronStats, lebronMoves, heroLevel, "lebron.png", "LeBron James")
             hero = battleCalcs.Fighter(
-                lebronStats, lebronMoves, heroLevel, "lebron.png", "LeBron James")
+                jackStats, jackMoves, heroLevel, "jackSparrow.png", "Yack sparrow")
         elif (charSelected == 2):
             hero = battleCalcs.Fighter(
                 bruceStats, bruceMoves, heroLevel, "bruce_lee.png", "Bruce Lee")
@@ -141,7 +152,7 @@ class Game:
         global hero, grunt, miniBoss, boss
         global enemy
         global heroLevel, miniBossLevel, bossLevel
-        global heroBlocked, enemyBlocked
+        global storedAtk
 
         global heroHealthBlock, heroStartingHealth, heroHealthRect
         global enemyHealthBlock, enemyStartingHealth, enemyHealthRect
@@ -440,23 +451,33 @@ class Game:
                                 Game.effectCheck(hero.move1effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move1bp, hero.level, enemy.tempDfs)
+                                Game.afterEffectCheck(hero.move1effect, hero, enemy, playerDmg)
                             elif (playerAttack == "attack2"):
                                 Game.effectCheck(hero.move2effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move2bp, hero.level, enemy.tempDfs)
+                                Game.afterEffectCheck(hero.move2effect, hero, enemy, playerDmg)
                             elif (playerAttack == "attack3"):
                                 Game.effectCheck(hero.move3effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move3bp, hero.level, enemy.tempDfs)
+                                Game.afterEffectCheck(hero.move3effect, hero, enemy, playerDmg)
                             elif (playerAttack == "attack4"):
                                 Game.effectCheck(hero.move4effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move4bp, hero.level, enemy.tempDfs)
+                                Game.afterEffectCheck(hero.move4effect, hero, enemy, playerDmg)
 
                             if (enemy.isProtected == False):
                                 enemy.tempHp = enemy.tempHp - playerDmg
                             else:
                                 enemy.isProtected = False
+
+                            if (hero.turnsOfChipLeft > 0):
+                                    enemy.tempHp -= ((1/16) * enemy.hp)
+                                    print(f"the enemy lost {((1/16) * enemy.hp)} to chip")
+                                    print(f"turns remaining: {hero.turnsOfChipLeft}")
+                                    hero.turnsOfChipLeft -= 1
 
                             enemyHealthBar = (
                                 enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
@@ -551,23 +572,33 @@ class Game:
                                     Game.effectCheck(enemy.move1effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDfs)
+                                    Game.afterEffectCheck(enemy.move1effect, hero, enemy, enemyDmg)
                                 elif (enemyMove == 2):
                                     Game.effectCheck(enemy.move2effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDfs)
+                                    Game.afterEffectCheck(enemy.move2effect, hero, enemy, enemyDmg)
                                 elif (enemyMove == 3):
                                     Game.effectCheck(enemy.move3effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDfs)
+                                    Game.afterEffectCheck(enemy.move3effect, hero, enemy, enemyDmg)
                                 elif (enemyMove == 4):
                                     Game.effectCheck(enemy.move4effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDfs)
+                                    Game.afterEffectCheck(enemy.move4effect, hero, enemy, enemyDmg)
                                 
                                 if (hero.isProtected == False):
-                                    hero.tempHp = hero.tempHp - enemyDmg
+                                        hero.tempHp = hero.tempHp - enemyDmg
                                 else:
-                                    hero.isProtected = False
+                                    hero.isProtected = False  
+
+                                if (enemy.turnsOfChipLeft > 0):
+                                    hero.tempHp -= ((1/16) * hero.hp)
+                                    print(f"the hero lost {((1/16) * hero.hp)} to chip")
+                                    print(f"turns remaining: {enemy.turnsOfChipLeft}")
+                                    enemy.turnsOfChipLeft -= 1  
 
                                 heroHealthBar = (
                                     heroStartingHealth - hero.tempHp) * heroHealthBlock
@@ -608,23 +639,33 @@ class Game:
                                 Game.effectCheck(enemy.move1effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDfs)
+                                Game.afterEffectCheck(enemy.move1effect, hero, enemy, enemyDmg)
                             elif (enemyMove == 2):
                                 Game.effectCheck(enemy.move2effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDfs)
+                                Game.afterEffectCheck(enemy.move2effect, hero, enemy, enemyDmg)
                             elif (enemyMove == 3):
                                 Game.effectCheck(enemy.move3effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDfs)
+                                Game.afterEffectCheck(enemy.move3effect, hero, enemy, enemyDmg)
                             elif (enemyMove == 4):
                                 Game.effectCheck(enemy.move4effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDfs)
+                                Game.afterEffectCheck(enemy.move4effect, hero, enemy, enemyDmg)
                             
                             if (hero.isProtected == False):
-                                hero.tempHp = hero.tempHp - enemyDmg
+                                    hero.tempHp = hero.tempHp - enemyDmg
                             else:
-                                hero.isProtected = False
+                                    hero.isProtected = False  
+
+                            if (enemy.turnsOfChipLeft > 0):
+                                    hero.tempHp -= ((1/16) * hero.hp)
+                                    print(f"the hero lost {((1/16) * hero.hp)} to chip")
+                                    print(f"turns remaining: {enemy.turnsOfChipLeft}")
+                                    enemy.turnsOfChipLeft -= 1
 
                             heroHealthBar = (
                                 heroStartingHealth - hero.tempHp) * heroHealthBlock
@@ -664,23 +705,34 @@ class Game:
                                     Game.effectCheck(hero.move1effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move1bp, hero.level, enemy.tempDfs)
+                                    Game.afterEffectCheck(hero.move1effect, hero, enemy, playerDmg)
                                 elif (playerAttack == "attack2"):
                                     Game.effectCheck(hero.move2effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move2bp, hero.level, enemy.tempDfs)
+                                    Game.afterEffectCheck(hero.move2effect, hero, enemy, playerDmg)
                                 elif (playerAttack == "attack3"):
                                     Game.effectCheck(hero.move3effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move3bp, hero.level, enemy.tempDfs)
+                                    Game.afterEffectCheck(hero.move3effect, hero, enemy, playerDmg)
                                 elif (playerAttack == "attack4"):
                                     Game.effectCheck(hero.move4effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move4bp, hero.level, enemy.tempDfs)
+                                    Game.afterEffectCheck(hero.move4effect, hero, enemy, playerDmg)
 
                                 if (enemy.isProtected == False):
-                                    enemy.tempHp = enemy.tempHp - playerDmg
+                                        enemy.tempHp = enemy.tempHp - playerDmg
                                 else:
-                                    enemy.isProtected = False
+                                    enemy.isProtected = False  
+
+                                if (hero.turnsOfChipLeft > 0):
+                                    enemy.tempHp -= ((1/16) * enemy.hp)
+                                    print(f"the enemy lost {((1/16) * enemy.hp)} to chip")
+                                    print(f"turns remaining: {hero.turnsOfChipLeft}")
+                                    hero.turnsOfChipLeft -= 1
+
 
                                 enemyHealthBar = (
                                     enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
@@ -979,21 +1031,112 @@ class Game:
                     print("Defense was lowered 1 stage")
                 else:
                     print ("no defense change")
+        elif (effectID == 5):
+        #5 - T1 charge up (no damage), T2 attack
+            if (hero.isChargingUp == True):
+                print(f"{hero.fighterName} is charging up!")
+                setStoredAttack(hero.tempAtk)
+                print(hero.tempAtk)
+                hero.tempAtk = 0
+            elif (hero.isChargingUp == False):
+                print(f"{hero.fighterName} is attacking!")
+
+
+
         elif (effectID == 7):
         # 7 - Decreases opponent accuracy by 1/8th if it hits
             if (enemy.tempAcc > 0.25):
                 enemy.tempAcc -= 0.125
                 print("Accuracy was lowered 12%")
+        elif (effectID == 8):
+        # 8 - heals 50% health
+            if (hero.tempHp + (0.5 * hero.hp) < hero.hp):
+                hero.tempHp = round(hero.tempHp + (0.5 * hero.hp))
+            else:
+                hero.tempHp = hero.hp
         elif (effectID == 10):
-        # 10 - Switch attack and defense stats
+        # 10 - Switch user attack and defense stats
             print(f"attack: {hero.tempAtk}, defense: {hero.tempDfs}")
             temp = hero.tempDfs
             hero.tempDfs = hero.tempAtk
             hero.tempAtk = temp
             print("atk and dfs switched")
             print(f"attack: {hero.tempAtk}, defense: {hero.tempDfs}")
+        elif (effectID == 11):
+        #11 - increases speed stat by 1 stage - maxes out at 6
+            if (hero.tempSpd < 4 * hero.spd):
+                hero.tempSpd += round(0.5 * hero.spd)
+                print(f"new speed: {hero.tempSpd}")
+        elif (effectID == 12):
+        # 12 - drops opponent defense stat by 1 stage - maxes out at 6
+            if (enemy.tempDfs > 0):#0.25 * enemy.dfs):
+                enemy.tempDfs /= 1.2#-= round(0.5 * enemy.dfs)
+                print(f"enemy defense: {enemy.tempDfs}")
+        elif (effectID == 14):
+        # 14 - heals 25% health
+            if (hero.tempHp + (0.25 * hero.hp) < hero.hp):
+                hero.tempHp = round(hero.tempHp + (0.25 * hero.hp))
+            else:
+                hero.tempHp = hero.hp
+        if (effectID == 15):
+        # 15 - Increases defense stat by 1 stage - maxes out at 6
+            if (hero.tempDfs < (hero.dfs * 4)):
+                    hero.tempDfs += (hero.dfs * 0.5)
+                    print("Defense was raised 1 stage")
+                    print(hero.tempDfs)
+            else:
+                print ("Defense stat maxed, no change")
+        elif (effectID == 16):
+        # 16 - drops opponent speed by 1 stage - maxes
+            if (enemy.tempSpd > 0.25 * enemy.spd):
+                enemy.tempSpd -= round(0.125 * enemy.spd)
+                print(f"enemy speed: {enemy.tempSpd}")
+        elif (effectID == 19):
+        # 19 - Switch user defense into enemy defense stat
+            print(f"hero defense: {hero.tempDfs}, enemy defense: {enemy.tempDfs}")
+            hero.tempDfs = enemy.tempDfs
+            print("dfs switched")
+            print(f"hero defense: {hero.tempDfs}, enemy defense: {enemy.tempDfs}")
         else:
             print("id not reached")
+
+    def afterEffectCheck(effectID, hero, enemy, damage):
+            if (effectID == 5):
+            #5 - T1 charge up (no damage), T2 attack
+                if (hero.isChargingUp == True):
+                    hero.tempAtk = getStoredAttack()
+                    print(f"stored attack = {getStoredAttack()}")
+                    hero.isChargingUp = False
+                elif (hero.isChargingUp == False):
+                    hero.isChargingUp = True
+            elif (effectID == 6):
+            # 6 - Ohm uses his toxic voice chat energy to irradiate the battle. Opponent takes 1/16th chip damage per turn for the next 5 turns
+                if (hero.turnsOfChipLeft == 0):
+                    hero.turnsOfChipLeft = 4
+            #12 - only works if user is under 25% hp. drops defense by 50%, increases attack and speed by 100%
+            elif (effectID == 13):
+                if (hero.tempHp <= round(0.25 * hero.hp)):
+                    print(f"old: {hero.tempDfs}, {hero.tempAtk}, {hero.tempSpd} ")
+                    hero.tempDfs = round(0.5 * hero.tempDfs)
+                    hero.tempAtk *= 2
+                    hero.tempSpd *= 2
+                    print(f"new: {hero.tempDfs}, {hero.tempAtk}, {hero.tempSpd} ")
+
+            elif (effectID == 17):
+            # 17 - increases attack 10% each time the move is used up to 200%
+                if (hero.tempAtk < (hero.atk * 2)):
+                    hero.tempAtk += round(0.10 * hero.atk)
+                    print(f"new attack {hero.tempAtk}")
+                
+            elif (effectID == 18):
+            #18 - deals 33% damage of attack to user
+                recoilDamage = round(0.33 * damage)
+                print(f"recoil damage: {recoilDamage}")
+                if ((hero.tempHp - recoilDamage) > 0):
+                    hero.tempHp -= recoilDamage
+                else:
+                    hero.tempHp = 0
+
 
 
 if __name__ == '__main__':
