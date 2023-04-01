@@ -12,7 +12,7 @@ def p():
     
 
     def pause():
-        f=pygame.font.Font('kvn-pokemon-gen-5.ttf',50)
+        f=pygame.font.Font('kvn-pokemon-gen-5.ttf',30)
         continue_t=f.render('Continue', True, (0,0,0))
         quit_t=f.render('Quit',True,(0,0,0))
         
@@ -57,7 +57,7 @@ def p():
         screen.blit(move_2,move_2_r)
         screen.blit(move_3,move_3_r)
         screen.blit(move_4,move_4_r)
-        f=pygame.font.Font('kvn-pokemon-gen-5.ttf',30)
+        f=pygame.font.Font('kvn-pokemon-gen-5.ttf',20)
         lvl_box = pygame.Rect(WIDTH/2-460, HEIGHT/2-350, 320, 30)
         pygame.draw.rect(screen, (255, 255, 255), lvl_box)
         pygame.draw.rect(screen, (0, 0, 0), lvl_box, 2)
