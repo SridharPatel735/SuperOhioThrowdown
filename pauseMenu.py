@@ -6,13 +6,18 @@ def p():
     screen=pygame.display.set_mode((WIDTH,HEIGHT))
 
     pygame.display.set_caption("Pause Menu")
+    print(type(main.hero.imageSource))
     hImg = pygame.image.load(main.hero.imageSource)
+<<<<<<< HEAD
     player_stats = {'lvl':main.hero.level,'hp': main.hero.hp, 'atk': main.hero.atk, 'def': main.hero.dfs, 'spd': main.hero.spd}
     move_stats_1= {'bp':main.hero.move1bp,'acc': main.hero.move1acc, 'pp': main.hero.move1pp, 'efc': main.hero.move1effect, 'pri': main.hero.move1priority}
     move_stats_2= {'bp':main.hero.move2bp,'acc': main.hero.move2acc, 'pp': main.hero.move2pp, 'efc': main.hero.move2effect, 'pri': main.hero.move2priority}
     move_stats_3= {'bp':main.hero.move3bp,'acc': main.hero.move3acc, 'pp': main.hero.move3pp, 'efc': main.hero.move3effect, 'pri': main.hero.move3priority}
     move_stats_4= {'bp':main.hero.move3bp,'acc': main.hero.move4acc, 'pp': main.hero.move4pp, 'efc': main.hero.move4effect, 'pri': main.hero.move4priority}
 
+=======
+    player_stats = {'lvl':main.hero.level,'hp': main.hero.hp, 'atk': main.hero.atk, 'dfs': main.hero.dfs, 'spd': main.hero.spd}
+>>>>>>> 4134549c301942e75bea83dd6940368ba88dd6f9
     heroImg = pygame.transform.scale(hImg,(320, 440))
     
 
