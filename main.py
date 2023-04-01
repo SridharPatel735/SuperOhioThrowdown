@@ -57,9 +57,7 @@ def gameOver():
         text_font = pygame.font.Font("kvn-pokemon-gen-5.ttf", 50)
         textPrint = text_font.render(text, True, (255, 0, 0))
         textPrint_rect = textPrint.get_rect()
-        print(textPrint_rect.width())
-        print(textPrint_rect.height())
-        gameOverScreen.blit(textPrint_rect, (round(640 - (textPrint_rect.width() / 2)), round(360 - (textPrint_rect.height() / 2))))
+        gameOverScreen.blit(textPrint, (600, 345))
         pygame.display.update()
 
 
@@ -356,6 +354,24 @@ class Game:
                 pygame.display.update()
 
                 if nextLevelButton4 == True:
+                    heroLevel = hero.level * 1000
+                    gruntLevel = heroLevel + 1000
+                    miniBossLevel = heroLevel + 2000
+                    bossLevel = heroLevel + 3000
+                    print(
+                        "-------------------------------------------------------------------------")
+                    print(heroLevel)
+                    print(gruntLevel)
+                    print(miniBossLevel)
+                    print(bossLevel)
+                    print(
+                        "-------------------------------------------------------------------------")
+                    grunt = battleCalcs.Fighter(
+                        gruntStats, gruntMoves, gruntLevel, "grunt_battle.png", "Enemy Grunt")
+                    miniBoss = battleCalcs.Fighter(
+                        sharkStats, sharkMoves, miniBossLevel, "grizzlyBear.png", "Grizzly Bear")
+                    boss = battleCalcs.Fighter(
+                        jackStats, jackMoves, bossLevel, "ohm.png", "Ohm")
                     
                     self.level4 = Level4()
                     runMainLoop = True
@@ -718,7 +734,7 @@ class Game:
                                                 (x, y) = pygame.mouse.get_pos()
                                                 if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
                                                     gameOver()
-                                                    time.sleep(1)
+                                                    time.sleep(10)
                                                     endBattle = False
                                                     battleRunning = False
                                                     pygame.quit()
@@ -784,7 +800,8 @@ class Game:
                                         if event.type == pygame.MOUSEBUTTONDOWN:
                                             (x, y) = pygame.mouse.get_pos()
                                             if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
-                                                time.sleep(1)
+                                                gameOver()
+                                                time.sleep(10)
                                                 endBattle = False
                                                 battleRunning = False
                                                 pygame.quit()
