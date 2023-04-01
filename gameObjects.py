@@ -24,6 +24,10 @@ endOfLevelThreeRunOnce = False
 endOfLevelFour = False
 endOfLevelFourRunOnce = False
 
+miniBossFainted = False
+bossFainted = False
+notFaintedMessage = ""
+
 # Level 1 Sprites
 
 
@@ -245,8 +249,12 @@ class Player(pygame.sprite.Sprite):
         global endOfLevelThreeRunOnce
         global endOfLevelFour
         global endOfLevelFourRunOnce
+        global miniBossFainted 
+        global bossFainted 
+        global notFaintedMessage
 
         global counterGrunt
+
 
         if direction == "horizontal":
             for sprite in self.obstacle_sprites:
@@ -288,13 +296,22 @@ class Player(pygame.sprite.Sprite):
             for sprite in self.miniBoss_sprite:
                 if sprite.rect.colliderect(self.rect):
                     battleLoopMiniBoss = True
+                    miniBossFainted = True
                     miniBossLoopRunOnce = True
 
+        
         if bossLoopRunOnce == False:
             for sprite in self.boss_sprite:
                 if sprite.rect.colliderect(self.rect):
-                    battleLoopBoss = True
-                    bossLoopRunOnce = True
+                    if miniBossFainted == True:
+                        bossFainted = True
+                        battleLoopBoss = True
+                        bossLoopRunOnce = True
+                    else: 
+                        notFaintedMessage = "Defeat the Mini Boss before you can fight the boss"
+                        print(notFaintedMessage)
+                
+        
 
         if endOfLevelOneRunOnce == False:
             for sprite in self.door_sprite:
@@ -305,20 +322,33 @@ class Player(pygame.sprite.Sprite):
         if endOfLevelTwoRunOnce == False:
             for sprite in self.boat_sprite:
                 if sprite.rect.colliderect(self.rect):
-                    endOfLevelTwo = True
-                    endOfLevelTwoRunOnce = True
+                    if bossFainted == True:
+                        endOfLevelTwo = True
+                        endOfLevelTwoRunOnce = True
+                    else: 
+                        notFaintedMessage = "Defeat the Boss before you can enter the boat"
+                        print(notFaintedMessage)
+                    
 
         if endOfLevelThreeRunOnce == False:
             for sprite in self.car_sprite:
                 if sprite.rect.colliderect(self.rect):
-                    endOfLevelThree = True
-                    endOfLevelThreeRunOnce = True
+                    if bossFainted == True:
+                        endOfLevelThree = True
+                        endOfLevelThreeRunOnce = True
+                    else: 
+                        notFaintedMessage = "Defeat the Boss before you can enter the car"
+                        print(notFaintedMessage)
         
         if endOfLevelFourRunOnce == False:
             for sprite in self.plane_sprite:
                 if sprite.rect.colliderect(self.rect):
-                    endOfLevelFour = True
-                    endOfLevelFourRunOnce = True
+                    if bossFainted == True:
+                        endOfLevelFour = True
+                        endOfLevelFourRunOnce = True
+                    else: 
+                        notFaintedMessage = "Defeat the Boss before you can enter the plane"
+                        print(notFaintedMessage)
 
     def update(self):
         self.input()
