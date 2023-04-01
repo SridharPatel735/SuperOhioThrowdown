@@ -8,6 +8,11 @@ def p():
     pygame.display.set_caption("Pause Menu")
     hImg = pygame.image.load(main.hero.imageSource)
     player_stats = {'lvl':main.hero.level,'hp': main.hero.hp, 'atk': main.hero.atk, 'def': main.hero.dfs, 'spd': main.hero.spd}
+    move_stats_1= {'bp':main.hero.move1bp,'acc': main.hero.move1acc, 'pp': main.hero.move1pp, 'efc': main.hero.move1effect, 'pri': main.hero.move1priority}
+    move_stats_2= {'bp':main.hero.move2bp,'acc': main.hero.move2acc, 'pp': main.hero.move2pp, 'efc': main.hero.move2effect, 'pri': main.hero.move2priority}
+    move_stats_3= {'bp':main.hero.move3bp,'acc': main.hero.move3acc, 'pp': main.hero.move3pp, 'efc': main.hero.move3effect, 'pri': main.hero.move3priority}
+    move_stats_4= {'bp':main.hero.move3bp,'acc': main.hero.move4acc, 'pp': main.hero.move4pp, 'efc': main.hero.move4effect, 'pri': main.hero.move4priority}
+
     heroImg = pygame.transform.scale(hImg,(320, 440))
     
 
@@ -113,12 +118,15 @@ def p():
                         mouse_pos = pygame.mouse.get_pos()
                         if continue_r.collidepoint(mouse_pos):
                             paused = False
-                            return False
+                            return 1
                         elif quit_r.collidepoint(mouse_pos):
                             running = False
-                            return True
+                            return 2
                         elif move_1_r.collidepoint(mouse_pos):
-                            print()
+                            m_stats_1 = f"Base Power: {move_stats_1['bp']}  Accuracy: {move_stats_1['acc']} Power Points:{move_stats_1['pp']}"
+                            m_render_1 = f.render(m_stats_1, True, (0, 0, 0))
+                            m_render_rect_1 = m_render_1.get_rect(center=(WIDTH/2-350,HEIGHT/2+120))
+                            screen.blit(stat_render, stat_render_rect)
                         elif move_2_r.collidepoint(mouse_pos):
                             print()
                         elif move_3_r.collidepoint(mouse_pos):
