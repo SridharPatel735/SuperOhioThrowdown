@@ -317,7 +317,6 @@ class Player(pygame.sprite.Sprite):
         if endOfLevelFourRunOnce == False:
             for sprite in self.plane_sprite:
                 if sprite.rect.colliderect(self.rect):
-                    print("Level ENDDDDDDDD Works")
                     endOfLevelFour = True
                     endOfLevelFourRunOnce = True
 

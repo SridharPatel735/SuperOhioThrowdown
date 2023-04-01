@@ -226,6 +226,13 @@ class Game:
                 level3Trigger = False
                 level4Trigger = True
                 gameObjects.endOfLevelThree = False
+            
+            if gameObjects.endOfLevelFour == True:
+                gameObjects.endOfLevelFour == False
+                gameOver()
+                time.sleep(10)
+                pygame.quit()
+                sys.exit()
 
             if level1Trigger == True:
                 heroLevel = 5000
@@ -1185,6 +1192,7 @@ class Game:
         # 14 - heals 25% health
             if (hero.tempHp + (0.25 * hero.hp) < hero.hp):
                 hero.tempHp = round(hero.tempHp + (0.25 * hero.hp))
+                print("health healed")
             else:
                 hero.tempHp = hero.hp
         if (effectID == 15):
