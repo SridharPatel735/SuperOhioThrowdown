@@ -141,10 +141,10 @@ class Game:
         pygame.init()
         charSelected = characterSelection.charSelection()
         if (charSelected == 1):
-            # hero = battleCalcs.Fighter(
-            #     lebronStats, lebronMoves, heroLevel, "lebron.png", "LeBron James")
             hero = battleCalcs.Fighter(
-                jackStats, jackMoves, heroLevel, "jackSparrow.png", "Yack sparrow")
+                lebronStats, lebronMoves, heroLevel, "lebron.png", "LeBron James")
+            # hero = battleCalcs.Fighter(
+            #     jackStats, jackMoves, heroLevel, "jackSparrow.png", "Yack sparrow")
         elif (charSelected == 2):
             hero = battleCalcs.Fighter(
                 bruceStats, bruceMoves, heroLevel, "bruce_lee.png", "Bruce Lee")
@@ -230,7 +230,6 @@ class Game:
             if gameObjects.endOfLevelFour == True:
                 gameObjects.endOfLevelFour == False
                 gameOver()
-                time.sleep(10)
                 pygame.quit()
                 sys.exit()
 
@@ -591,8 +590,13 @@ class Game:
                                     print(f"turns remaining: {hero.turnsOfChipLeft}")
                                     hero.turnsOfChipLeft -= 1
 
-                            enemyHealthBar = (
-                                enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
+                            if (enemy.tempHp <= 0 ):
+                                enemyHealthBar = 215
+                            else:
+                                enemyHealthBar = (enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
+
+                            # enemyHealthBar = (
+                            #     enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
                             # If enemy HP is empty, end of battle process starts
                             if (enemy.tempHp < 0):
                                 if (enemyHealthBar >= 215):
@@ -741,7 +745,7 @@ class Game:
                                                 (x, y) = pygame.mouse.get_pos()
                                                 if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
                                                     gameOver()
-                                                    time.sleep(1)
+                                                    time.sleep(10)
                                                     endBattle = False
                                                     battleRunning = False
                                                     pygame.quit()
@@ -808,7 +812,7 @@ class Game:
                                             (x, y) = pygame.mouse.get_pos()
                                             if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
                                                 gameOver()
-                                                time.sleep(1)
+                                                time.sleep(10)
                                                 endBattle = False
                                                 battleRunning = False
                                                 pygame.quit()

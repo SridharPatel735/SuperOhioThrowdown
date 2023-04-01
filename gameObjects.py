@@ -87,16 +87,16 @@ class SandTile(pygame.sprite.Sprite):
 class MiniBossShark(pygame.sprite.Sprite):
     def __init__(self, position, groups):
         super().__init__(groups)
-        self.image = pygame.image.load(
-            "shark.png").convert_alpha()
+        shark = pygame.image.load('shark.png')
+        self.image = pygame.transform.scale(shark, (64, 64))
         self.rect = self.image.get_rect(topleft=position)
 
 
 class BossJackSparrow(pygame.sprite.Sprite):
     def __init__(self, position, groups):
         super().__init__(groups)
-        self.image = pygame.image.load(
-            "jackSparrow.png").convert_alpha()
+        jackSparrow = pygame.image.load('jackSparrow.png')
+        self.image = pygame.transform.scale(jackSparrow, (64, 64))
         self.rect = self.image.get_rect(topleft=position)
 
 
