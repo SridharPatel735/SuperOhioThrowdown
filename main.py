@@ -734,7 +734,7 @@ class Game:
                                                 (x, y) = pygame.mouse.get_pos()
                                                 if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
                                                     gameOver()
-                                                    time.sleep(10)
+                                                    time.sleep(1)
                                                     endBattle = False
                                                     battleRunning = False
                                                     pygame.quit()
@@ -801,7 +801,7 @@ class Game:
                                             (x, y) = pygame.mouse.get_pos()
                                             if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
                                                 gameOver()
-                                                time.sleep(10)
+                                                time.sleep(1)
                                                 endBattle = False
                                                 battleRunning = False
                                                 pygame.quit()
