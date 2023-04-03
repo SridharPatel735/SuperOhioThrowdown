@@ -55,7 +55,7 @@ def charSwap(heroSource, enemySource):
                     print("test3")
                     swapCharLoop = False
                     return True
-                if (x > 680) and (x < 780) and (y > 500) and (y < 550):
+                elif (x > 680) and (x < 780) and (y > 500) and (y < 550):
                     print("test4")
                     swapCharLoop = False
                     return False
@@ -818,20 +818,14 @@ class Game:
                                         if event.type == pygame.MOUSEBUTTONDOWN:
                                             (x, y) = pygame.mouse.get_pos()
                                             if ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
-                                                print("test1")
                                                 heroSwapped = charSwap(hero.imageSource, enemy.imageSource)
-                                                print("test2")
                                                 if (heroSwapped):
                                                     hero = enemy
-                                                    pygame.display.update()
                                                     endBattle = False
                                                     battleRunning = False
-                                                    print("test5")
                                                 else:
-                                                    print("test6")
                                                     endBattle = False
                                                     battleRunning = False
-                                                    print("test7")
                                                 
                                 # test = True
                                 # battleBg = pygame.image.load("battleBgTemplate.jpg")
@@ -1093,7 +1087,8 @@ class Game:
                                                     heroSwapped = charSwap(hero.imageSource, enemy.imageSource)
                                                     if (heroSwapped):
                                                         hero = enemy
-                                                        pygame.display.update()
+                                                        endBattle = False
+                                                        battleRunning = False
                                                     else:
                                                         endBattle = False
                                                         battleRunning = False
