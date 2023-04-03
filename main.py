@@ -15,10 +15,10 @@ from debug import debug
 import time
 from characterSwapping import charSwap as swap
 
-level1Trigger = True
+level1Trigger = False
 level2Trigger = False
 level3Trigger = False
-level4Trigger = False
+level4Trigger = True
 level1RunBool = False
 level2RunBool = False
 level3RunBool = False
@@ -255,11 +255,20 @@ class Game:
                 nextLevelButton2 = False
                 runMainLoop = False
                 self.screen.fill('black')
-                line1 = "Testing"
-                line2 = "CONTINUE"
+                line1 = "As you escape from the high-security prison, you find yourself standing on the" 
+                line2 = "wide beach with your mind filled with revenge. Suddenly, the notorious pirate," 
+                line3 = "Jack Sparrow, and his crew appear before you, forcing you to fight for your"  
+                line4 = "freedom and uncover the truth behind your incarceration. Will you be able to" 
+                line5 = "defeat Jack Sparrow and uncover the secrets of your imprisonment?"
+
+                line0 = "Continue"
 
                 draw_text(self.screen, line1, (255, 255, 255), 30, 100, 100)
-                draw_text(self.screen, line2, (255, 255, 255), 30, 590, 600)
+                draw_text(self.screen, line2, (255, 255, 255), 30, 100, 135)
+                draw_text(self.screen, line3, (255, 255, 255), 30, 100, 170)
+                draw_text(self.screen, line4, (255, 255, 255), 30, 100, 205)
+                draw_text(self.screen, line5, (255, 255, 255), 30, 100, 240)
+                draw_text(self.screen, line0, (255, 255, 255), 30, 590, 600)
 
                 continueRectangle = pygame.draw.rect(
                     self.screen, "red", pygame.Rect(550, 600, 200, 60), 2)
@@ -301,11 +310,23 @@ class Game:
                 nextLevelButton3 = False
                 runMainLoop = False
                 self.screen.fill('black')
-                line1 = "GOING ON TO LEVEL 3 BABY"
-                line2 = "CONTINUE"
+
+                line1 = "After defeating Jack Sparrow, he reveals a treasure map that leads you to the"   
+                line2 = "corrupt former president, Obama's and Eminem's location in Detroit. With the"   
+                line3 = "help of your newfound ally, you embark on a perilous journey through treacherous"    
+                line4 = "terrain and dangerous enemies to uncover the truth behind the mysterious powerful"  
+                line5 = "individual who corrupted Obama and Eminem. Can you defeat Obama and Eminem and" 
+                line6 = "uncover the truth behind the powerful individual?"
+
+                line0 = "Continue"
 
                 draw_text(self.screen, line1, (255, 255, 255), 30, 100, 100)
-                draw_text(self.screen, line2, (255, 255, 255), 30, 590, 600)
+                draw_text(self.screen, line2, (255, 255, 255), 30, 100, 135)
+                draw_text(self.screen, line3, (255, 255, 255), 30, 100, 170)
+                draw_text(self.screen, line4, (255, 255, 255), 30, 100, 205)
+                draw_text(self.screen, line5, (255, 255, 255), 30, 100, 240)
+                draw_text(self.screen, line6, (255, 255, 255), 30, 100, 275)
+                draw_text(self.screen, line0, (255, 255, 255), 30, 590, 600)
 
                 continueRectangle = pygame.draw.rect(
                     self.screen, "red", pygame.Rect(550, 600, 200, 60), 2)
@@ -350,11 +371,29 @@ class Game:
                 nextLevelButton4 = False
                 runMainLoop = False
                 self.screen.fill('black')
-                line1 = "GOING ON TO LEVEL 4 BABY"
-                line2 = "CONTINUE"
+                
+                line1 = "After you defeat Eminem, he disables the forcefield surrounding Ohio allowing"   
+                line2 = "you to enter. You feel the weight of the mission pressing down on you as you"  
+                line3 = "enter the fiery wasteland, the lair of the final boss. The obstacles in your"   
+                line4 = "path seem insurmountable, but you know that failure is not an option. With" 
+                line5 = "each step, the heat intensifies, and the stakes grow higher. As you finally" 
+                line6 = "come face to face with the final boss, his fiery aura blazes with an intensity" 
+                line7 = "that threatens to consume you. Will you have what it takes to defeat this final" 
+                line8 = "foe, uncover his true identity, and bring freedom to your country once and for" 
+                line9 = "all? The fate of the land rests in your hands, hero."
+
+                line0 = "Continue"
 
                 draw_text(self.screen, line1, (255, 255, 255), 30, 100, 100)
-                draw_text(self.screen, line2, (255, 255, 255), 30, 590, 600)
+                draw_text(self.screen, line2, (255, 255, 255), 30, 100, 135)
+                draw_text(self.screen, line3, (255, 255, 255), 30, 100, 170)
+                draw_text(self.screen, line4, (255, 255, 255), 30, 100, 205)
+                draw_text(self.screen, line5, (255, 255, 255), 30, 100, 240)
+                draw_text(self.screen, line6, (255, 255, 255), 30, 100, 275)
+                draw_text(self.screen, line7, (255, 255, 255), 30, 100, 310)
+                draw_text(self.screen, line8, (255, 255, 255), 30, 100, 345)
+                draw_text(self.screen, line9, (255, 255, 255), 30, 100, 380)
+                draw_text(self.screen, line0, (255, 255, 255), 30, 590, 600)
 
                 continueRectangle = pygame.draw.rect(
                     self.screen, "red", pygame.Rect(550, 600, 200, 60), 2)

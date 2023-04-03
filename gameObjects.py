@@ -313,7 +313,6 @@ class Player(pygame.sprite.Sprite):
                         sprite.kill()
                     else: 
                         notFaintedMessage = "Defeat the Mini Boss before you can fight the boss"
-                        print(notFaintedMessage)
                 else:
                     notFaintedMessage = ""
         
@@ -333,7 +332,6 @@ class Player(pygame.sprite.Sprite):
                         endOfLevelTwoRunOnce = True
                     else: 
                         notFaintedMessage = "Defeat the Boss before you can enter the boat"
-                        print(notFaintedMessage)
                     
 
         if endOfLevelThreeRunOnce == False:
@@ -345,7 +343,6 @@ class Player(pygame.sprite.Sprite):
                         endOfLevelThreeRunOnce = True
                     else: 
                         notFaintedMessage = "Defeat the Boss before you can enter the car"
-                        print(notFaintedMessage)
         
         if endOfLevelFourRunOnce == False:
             for sprite in self.plane_sprite:
@@ -356,7 +353,6 @@ class Player(pygame.sprite.Sprite):
                         endOfLevelFourRunOnce = True
                     else: 
                         notFaintedMessage = "Defeat the Boss before you can enter the plane"
-                        print(notFaintedMessage)
 
     def update(self):
         self.input()

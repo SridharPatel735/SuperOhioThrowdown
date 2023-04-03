@@ -1,11 +1,13 @@
 #main menu file
 import pygame, time
 from main import Game as game
+import main
 pygame.init()
 
 fps = 120
 clock = pygame.time.Clock()
 obamaFix = 1
+startGame = False
 
 #pygame.mixer.music.load("menumusic.mp3")
 
@@ -73,10 +75,36 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             (x, y) = pygame.mouse.get_pos()
             if (x >= startTab_rect.x and x <= (startTab_rect.x + startTab_rect.width) and y >= startTab_rect.y and y <= (startTab_rect.y + startTab_rect.height) and controlsMenuActive == False):
-                loadingScreen()
+                
+                controlScreen.fill('black')
+                line1 = "The player faces a devastating defeat at the hands of a powerful unknown"
+                line2 = "individual, leading to a 20-year period in the maximum security FunTime" 
+                line3 = "jail. After years of isolation, the player finally earns a phone call" 
+                line4 = "for their good behavior. With the opportunity to choose an ally from three" 
+                line5 = "potential characters, the player sets their sights on breaking out of their" 
+                line6 = "confines. The chosen ally is then dispatched to the jail, ready to aid the"
+                line7 = "player in their daring escape. Will they make it out alive? Only time will tell."
+
+                line0 = "Loading..."
+
+                main.draw_text(controlScreen, line1, (255, 255, 255), 30, 100, 100)
+                main.draw_text(controlScreen, line2, (255, 255, 255), 30, 100, 135)
+                main.draw_text(controlScreen, line3, (255, 255, 255), 30, 100, 170)
+                main.draw_text(controlScreen, line4, (255, 255, 255), 30, 100, 205)
+                main.draw_text(controlScreen, line5, (255, 255, 255), 30, 100, 240)
+                main.draw_text(controlScreen, line6, (255, 255, 255), 30, 100, 275)
+                main.draw_text(controlScreen, line7, (255, 255, 255), 30, 100, 310)
+                main.draw_text(controlScreen, line0, (255, 255, 255), 30, 590, 600)
+
+                # continueRectangle = pygame.draw.rect(
+                #     controlScreen, "red", pygame.Rect(550, 600, 200, 60), 2)
+                pygame.display.update()
+                time.sleep(30)
+                #loadingScreen()
                 newGame = game()
                 newGame.run()
                 pygame.display.update()
+                    
             elif (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and controlsMenuActive == False):
                 running = False
             elif (x >= controlsTab_rect.x and x <= (controlsTab_rect.x + controlsTab_rect.width) and y >= controlsTab_rect.y and y <= (controlsTab_rect.y + controlsTab_rect.height) and controlsMenuActive == False):
@@ -122,7 +150,7 @@ while running:
                         (x, y) = pygame.mouse.get_pos()
                         if (x >= exitTab_rect.x and x <= (exitTab_rect.x + exitTab_rect.width) and y >= exitTab_rect.y and y <= (exitTab_rect.y + exitTab_rect.height) and creditsActive == True):
                             creditsActive = False
-
+    
     screen.blit(bg, (0,0))
     screen.blit(logo, logo_rect)
     pygame.draw.rect(screen, (255, 0, 0), controlsTab_rect)
