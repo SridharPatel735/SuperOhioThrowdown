@@ -277,21 +277,20 @@ class Player(pygame.sprite.Sprite):
                 if sprite.rect.colliderect(self.rect):
                     gruntLoopRunOnce = True
 
-                    if level1Grunt == True:
-                        self.rect.x = self.rect.x + 120
-                        level1Grunt = False
-                    else:
-                        self.rect.x = self.tempSpeedx
-                        self.rect.y = self.tempSpeedy
+                    # if level1Grunt == True:
+                    #     self.rect.x = self.rect.x + 120
+                    #     level1Grunt = False
+                    # else:
+                    self.rect.x = self.tempSpeedx
+                    self.rect.y = self.tempSpeedy
 
                     counterGrunt = counterGrunt + 1
 
                     battleLoopGrunt = True
-                    if counterGrunt >= 2:
-                        gruntLoopRunOnce = True
-                        sprite.kill()
-                    else:
-                        gruntLoopRunOnce = False
+
+                    sprite.kill()
+                    gruntLoopRunOnce = False
+                    
 
         if miniBossLoopRunOnce == False:
             for sprite in self.miniBoss_sprite:
