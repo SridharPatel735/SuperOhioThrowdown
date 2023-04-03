@@ -1,3 +1,4 @@
+
 import pygame, main
 pygame.init()
 def p():
@@ -6,9 +7,7 @@ def p():
     screen=pygame.display.set_mode((WIDTH,HEIGHT))
 
     pygame.display.set_caption("Pause Menu")
-    print(type(main.hero.imageSource))
     hImg = pygame.image.load(main.hero.imageSource)
-
     player_stats = {'lvl':main.hero.level,'hp': main.hero.hp, 'atk': main.hero.atk, 'def': main.hero.dfs, 'spd': main.hero.spd}
     move_stats_1= {'bp':main.hero.move1bp,'acc': main.hero.move1acc, 'pp': main.hero.move1pp, 'efc': main.hero.move1effect, 'pri': main.hero.move1priority}
     move_stats_2= {'bp':main.hero.move2bp,'acc': main.hero.move2acc, 'pp': main.hero.move2pp, 'efc': main.hero.move2effect, 'pri': main.hero.move2priority}
@@ -120,15 +119,16 @@ def p():
                         mouse_pos = pygame.mouse.get_pos()
                         if continue_r.collidepoint(mouse_pos):
                             paused = False
-                            return 1
+                            return False
                         elif quit_r.collidepoint(mouse_pos):
                             running = False
-                            return 2
+                            return True
                         elif move_1_r.collidepoint(mouse_pos):
                             m_stats_1 = f"Base Power: {move_stats_1['bp']}  Accuracy: {move_stats_1['acc']} Power Points:{move_stats_1['pp']}"
+                            f=pygame.font.Font('kvn-pokemon-gen-5.ttf',20)
                             m_render_1 = f.render(m_stats_1, True, (0, 0, 0))
-                            m_render_rect_1 = m_render_1.get_rect(center=(WIDTH/2-350,HEIGHT/2+120))
-                            #screen.blit(stat_render, stat_render_rect)
+                            m_render_rect_1 = m_render_1.get_rect(center=(WIDTH/2,HEIGHT/2))
+                            screen.blit(m_render_1, m_render_rect_1)
                         elif move_2_r.collidepoint(mouse_pos):
                             print()
                         elif move_3_r.collidepoint(mouse_pos):
