@@ -35,9 +35,8 @@ def getStoredAttack():
     global storedAtk
     return storedAtk
 
-def draw_text(screen, text, font_size, x, y):
+def draw_text(screen, text, text_color, font_size, x, y):
     text_font = pygame.font.Font("kvn-pokemon-gen-5.ttf", font_size)
-    text_color = (255, 255, 255)
     img = text_font.render(text, True, text_color)
     screen.blit(img, (x, y))
 
@@ -363,11 +362,13 @@ class Game:
                         level2Trigger = True
                         runOnce = False
                     if event.key == pygame.K_ESCAPE and battleLoopBool == False:
+                        
+                        pauseMenu.p()
                         if pauseMenu.p()==True:
                             pygame.quit()
                             sys.exit()
                         pauseMenu.p()
-    
+
             if gameObjects.endOfLevelOne == True:
                 level2Trigger = True
                 level1Trigger = False
@@ -419,8 +420,8 @@ class Game:
                 line1 = "Testing"
                 line2 = "CONTINUE"
 
-                draw_text(self.screen, line1, 30, 100, 100)
-                draw_text(self.screen, line2, 30, 590, 600)
+                draw_text(self.screen, line1, (255, 255, 255), 30, 100, 100)
+                draw_text(self.screen, line2, (255, 255, 255), 30, 590, 600)
 
                 continueRectangle = pygame.draw.rect(
                     self.screen, "red", pygame.Rect(550, 600, 200, 60), 2)
@@ -465,8 +466,8 @@ class Game:
                 line1 = "GOING ON TO LEVEL 3 BABY"
                 line2 = "CONTINUE"
 
-                draw_text(self.screen, line1, 30, 100, 100)
-                draw_text(self.screen, line2, 30, 590, 600)
+                draw_text(self.screen, line1, (255, 255, 255), 30, 100, 100)
+                draw_text(self.screen, line2, (255, 255, 255), 30, 590, 600)
 
                 continueRectangle = pygame.draw.rect(
                     self.screen, "red", pygame.Rect(550, 600, 200, 60), 2)
@@ -511,11 +512,11 @@ class Game:
                 nextLevelButton4 = False
                 runMainLoop = False
                 self.screen.fill('black')
-                line1 = "GOING ON TO LEVEL 3 BABY"
+                line1 = "GOING ON TO LEVEL 4 BABY"
                 line2 = "CONTINUE"
 
-                draw_text(self.screen, line1, 30, 100, 100)
-                draw_text(self.screen, line2, 30, 590, 600)
+                draw_text(self.screen, line1, (255, 255, 255), 30, 100, 100)
+                draw_text(self.screen, line2, (255, 255, 255), 30, 590, 600)
 
                 continueRectangle = pygame.draw.rect(
                     self.screen, "red", pygame.Rect(550, 600, 200, 60), 2)
@@ -1196,6 +1197,8 @@ class Game:
                 self.level4.run()
 
             if runMainLoop == True:
+                message = gameObjects.notFaintedMessage
+                draw_text(self.screen, message, (255, 0, 0), 30, 300, 600)
                 pygame.display.update()
                 self.clock.tick(FPS)
 
