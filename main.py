@@ -534,6 +534,10 @@ class Game:
                 heroHealthBar = 0
                 enemyHealthBar = 0
                 newSwap = None
+                pygame.mixer.music.load("battlemusic.mp3")
+
+                pygame.mixer.music.set_volume(0.1)
+                pygame.mixer.music.play(1)
 
                 heroImg = pygame.image.load(hero.imageSource)
                 heroImg = pygame.transform.flip(heroImg, True, False)
@@ -562,6 +566,7 @@ class Game:
                            (battleScreen_rect.width - 300) / 2, 50)
 
                 while battleRunning:
+                    
                     playerAttack = ""
                     playerEffect = 0
                     enemyAttack = ""
@@ -572,6 +577,7 @@ class Game:
                     heroHealthRect = (884, 408, heroHealthBar, 10)
                     enemyHealthRect = (335, 152, enemyHealthBar, 10)
                     xpBar = (810, 477, xpBarStatus, 12)
+                    
 
                     # event loop
                     for event in pygame.event.get():
@@ -754,7 +760,10 @@ class Game:
                                 pygame.display.update()
 
                                 while (endBattle == True):
-                                
+                                    pygame.mixer.music.load("battlemusic.mp3")
+
+                                    pygame.mixer.music.set_volume(0)
+                                    pygame.mixer.music.play(1)
                                     xpBarStatus = 0
                                     for event in pygame.event.get():
                                         if event.type == pygame.QUIT:
