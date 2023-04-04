@@ -149,6 +149,48 @@ class StageTile(pygame.sprite.Sprite):
             "stage.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=position)
 
+class NPC1(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "npc1.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class NPC2(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "npc2.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class NPC3(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "npc3.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class NPC4(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "npc4.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class NPC5(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "npc5.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class Invisible(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "invisible.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
 class Car(pygame.sprite.Sprite):
     def __init__(self, position, groups):
         super().__init__(groups)

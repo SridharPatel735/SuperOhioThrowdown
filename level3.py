@@ -1,6 +1,6 @@
 import pygame
 from levelSettings import *
-from gameObjects import Tile, Player, GruntTile, PrisionTile, StageTile, Car, MiniBossObama, BossEminem 
+from gameObjects import Tile, Player, GruntTile, PrisionTile, StageTile, Car, MiniBossObama, BossEminem, NPC1, NPC2, NPC3, NPC4, NPC5, Invisible
 
 
 class Level3:
@@ -28,10 +28,10 @@ class Level3:
                 x = col_index * TILESIZE
                 y = row_index * TILESIZE
 
-                if col == " " or col == "p" or col == "g" or col == "o" or col == "c":
+                if col == " " or col == "p" or col == "g" or col == "o" or col == "c" or col == "1" or col == "2" or col == "3" or col == "4" or col == "5":
                     PrisionTile((x, y), [self.visible_sprites])
                 
-                if col == "s" or col == "e":
+                if col == "s" or col == "e" or col == "i":
                     StageTile((x, y), [self.visible_sprites])
 
                 
@@ -43,6 +43,24 @@ class Level3:
 
                 if col == "x":
                     Tile((x, y), [self.visible_sprites, self.obstacle_sprites])
+                
+                if col == "1":
+                    NPC1((x, y), [self.visible_sprites, self.obstacle_sprites])
+
+                if col == "2":
+                    NPC2((x, y), [self.visible_sprites, self.obstacle_sprites])
+
+                if col == "3":
+                    NPC3((x, y), [self.visible_sprites, self.obstacle_sprites])
+
+                if col == "4":
+                    NPC4((x, y), [self.visible_sprites, self.obstacle_sprites])
+
+                if col == "5":
+                    NPC5((x, y), [self.visible_sprites, self.obstacle_sprites])
+
+                if col == "i":
+                    Invisible((x, y), [self.visible_sprites, self.obstacle_sprites])
 
                 if col == "p":
                     self.player = Player(
