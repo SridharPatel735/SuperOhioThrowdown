@@ -150,6 +150,11 @@ class Fighter:
         self.move4learnLvl = moveset[3][5]
         self.move4name = moveset[3][6]
 
+        self.move1TempPP = self.move1pp
+        self.move2TempPP = self.move2pp
+        self.move3TempPP = self.move3pp
+        self.move4TempPP = self.move4pp
+
         self.imageSource = fileName
         self.fighterName = name
 
@@ -162,6 +167,10 @@ class Fighter:
         self.tempDfs = self.dfs
         self.tempSpd = self.spd
         self.tempHp = self.hp
+        self.move1TempPP = self.move1pp
+        self.move2TempPP = self.move2pp
+        self.move3TempPP = self.move3pp
+        self.move4TempPP = self.move4pp
     
     def afterWin(self, expTot):
         self.expTot = expTot
