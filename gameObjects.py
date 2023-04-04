@@ -87,6 +87,34 @@ class SandTile(pygame.sprite.Sprite):
             "sandtile.jpg").convert_alpha()
         self.rect = self.image.get_rect(topleft=position)
 
+class PalmTree(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "palmTree.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class BlueUmbrella(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "blueUmbrella.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class DeadFish(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "deadFish.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
+class PirateShip(pygame.sprite.Sprite):
+    def __init__(self, position, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(
+            "pirateShip.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
+
 
 class MiniBossShark(pygame.sprite.Sprite):
     def __init__(self, position, groups):

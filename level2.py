@@ -1,6 +1,6 @@
 import pygame
 from levelSettings import *
-from gameObjects import Tile, Player, GrassTile, WaterTile, SandTile, GruntTile, MiniBossShark, BossJackSparrow, BoatTile
+from gameObjects import Tile, Player, GrassTile, WaterTile, SandTile, GruntTile, MiniBossShark, BossJackSparrow, BoatTile, PalmTree, PirateShip, BlueUmbrella, DeadFish
 
 
 class Level2:
@@ -31,8 +31,12 @@ class Level2:
                 if col == "g" or col == "p":
                     GrassTile((x, y), [self.visible_sprites])
 
-                if col == " " or col == "m" or col == "b" or col == "q" or col == "d":
+                if col == " " or col == "m" or col == "b" or col == "q" or col == "d" or col == "t" or col == "u" or col == "f":
                     SandTile((x, y), [self.visible_sprites])
+
+                if col == "w" or col == "s":
+                    WaterTile((x, y), [self.visible_sprites,
+                              self.obstacle_sprites])
 
         for row_index, row in enumerate(WORLD_MAP2):
             for col_index, col in enumerate(row):
@@ -42,8 +46,17 @@ class Level2:
                 if col == "x":
                     Tile((x, y), [self.visible_sprites, self.obstacle_sprites])
 
-                if col == "w":
-                    WaterTile((x, y), [self.visible_sprites,
+                if col == "t":
+                    PalmTree((x, y), [self.visible_sprites, self.obstacle_sprites])
+
+                if col == "u":
+                    BlueUmbrella((x, y), [self.visible_sprites, self.obstacle_sprites])
+
+                if col == "f":
+                    DeadFish((x, y), [self.visible_sprites, self.obstacle_sprites])
+                    
+                if col == "s":
+                    PirateShip((x, y), [self.visible_sprites,
                               self.obstacle_sprites])
 
                 if col == "p":

@@ -64,7 +64,8 @@ def charSwap(heroSource, enemySource):
         yesText_rect.center = yes_button.center
         yesText_rect.x = yesText_rect.x - (yesText_rect.width / 2)
         yesText_rect.y = yesText_rect.y - (yesText_rect.height / 2)
-
+        bg = pygame.image.load('bg2.jpg')
+        bg_scaled=pygame.transform.scale(bg,(1280,720))
         noText = text_font.render("No", True, (0, 0, 0))
         noText_rect = noText.get_rect()
         no_button = pygame.Rect(680, 500, 100, 50)
@@ -87,6 +88,8 @@ def charSwap(heroSource, enemySource):
         textPrint_rect = textPrint.get_rect()
         textPrint_rect.x = 640 - (textPrint_rect.width / 2)
         # textPrint_rect.y = textPrint_rect.y - (textPrint_rect.height / 2)
+        swapCharScreen.blit(bg_scaled,(0,0))
+
         swapCharScreen.blit(textPrint, (textPrint_rect.x, 45))
         swapCharScreen.blit(yesText, (yesText_rect.center))
         swapCharScreen.blit(noText, (noText_rect.center))
