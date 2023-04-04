@@ -84,12 +84,6 @@ def p():
         pygame.draw.rect(screen,(0,0,0), move_4_r,2)
         pygame.draw.rect(screen,(0,0,0), h_r)
 
-        
-
-        # descBox = pygame.Rect(WIDTH/2-175, HEIGHT/2+200, 350, 60)
-        # pygame.draw.rect(screen, (255, 255, 255), descBox)
-        # pygame.draw.rect(screen, (0, 0, 0), descBox, 2)
-
         screen.blit(heroImg,h_r)
         screen.blit(continue_t,continue_r)
         screen.blit(quit_t,quit_r)
@@ -135,7 +129,6 @@ def p():
     move4=False
     while running:
         for event in pygame.event.get():
-            #paused = not paused
             
             if event.type == pygame.QUIT:
                 running = False
