@@ -9,9 +9,10 @@ clock = pygame.time.Clock()
 obamaFix = 1
 startGame = False
 
-#pygame.mixer.music.load("menumusic.mp3")
+pygame.display.set_caption("Super Ohio Throwdown")
+pygame.mixer.music.load("menumusic.mp3")
 
-bg = pygame.image.load('bg2.jpg')
+bg = pygame.image.load('ohioBackground.jpg')
 bg_rect = bg.get_rect()
 keys = {'right':False, 'up':False, 'left':False, 'down':False}
 
@@ -115,10 +116,20 @@ while running:
 
     while controlsMenuActive:
             controlScreen.blit(bg, (0,0))
-            controlsMenuText = pygame.font.Font.render(menuFont, "arrow keys to move", True, (255, 255, 255))
-            controlScreen.blit(controlsMenuText, ((controlsTab_rect.centerx - 90), (controlsTab_rect.centery - 50)))
+            controlsMenuText1 = pygame.font.Font.render(menuFont, "Use the WASD keys to move", True, (255, 255, 255))
+            controlsMenuText2 = pygame.font.Font.render(menuFont, "Click in battles to select your moves / move forward", True, (255, 255, 255))
+            controlsMenuText3 = pygame.font.Font.render(menuFont, "ESC key in overworld to access pause menu", True, (255, 255, 255))
+            controlsMenuText4 = pygame.font.Font.render(menuFont, 'To quit the game, access the pause menu and press "Quit" ', True, (255, 255, 255))
+            battleTutorial = pygame.image.load("tutorialAttack.jpg")
+            battleTutorialImg = pygame.transform.scale(battleTutorial, (427, 240))
+            
+            controlScreen.blit(controlsMenuText1, ((controlScreen_rect.centerx) - (0.5 * controlsMenuText1.get_rect().width), (0)))
+            controlScreen.blit(controlsMenuText2, ((controlScreen_rect.centerx) - (0.5 * controlsMenuText2.get_rect().width), (60)))
+            controlScreen.blit(controlsMenuText3, ((controlScreen_rect.centerx) - (0.5 * controlsMenuText3.get_rect().width), (400)))
+            controlScreen.blit(controlsMenuText4, ((5 + controlScreen_rect.centerx) - (0.5 * controlsMenuText4.get_rect().width), (460)))
+            controlScreen.blit(battleTutorialImg, ((controlScreen_rect.centerx - (0.5 * battleTutorialImg.get_rect().width)), (170)))
             pygame.draw.rect(controlScreen, (0, 0, 255), exitTab_rect)
-            controlScreen.blit(backText, ((exitTab_rect.centerx), (exitTab_rect.centery - 50)))
+            controlScreen.blit(backText, (exitTab_rect.centerx - (0.5 * backText.get_rect().width), exitTab_rect.y))
             pygame.display.update()
             clock.tick(fps)
 
@@ -134,10 +145,19 @@ while running:
 
     while creditsActive:
             creditsScreen.blit(bg, (0,0))
-            creditsMenuText = pygame.font.Font.render(menuFont, "tiago made this", True, (255, 255, 255))
-            creditsScreen.blit(creditsMenuText, ((creditsTab_rect.centerx - 90), (creditsTab_rect.centery - 50)))
+            creditsMenuText1 = pygame.font.Font.render(menuFont, "Programmed by: ", True, (255, 255, 255))
+            creditsMenuText2 = pygame.font.Font.render(menuFont, "Aarya Patel", True, (255, 255, 255))
+            creditsMenuText3 = pygame.font.Font.render(menuFont, "Ohm Patel", True, (255, 255, 255))
+            creditsMenuText4 = pygame.font.Font.render(menuFont, "Sridhar Patel", True, (255, 255, 255))
+            creditsMenuText5 = pygame.font.Font.render(menuFont, "and Tiago Alves", True, (255, 255, 255))
+
+            creditsScreen.blit(creditsMenuText1, ((creditsScreen_rect.centerx) - (0.5 * creditsMenuText1.get_rect().width), (25)))
+            creditsScreen.blit(creditsMenuText2, ((creditsScreen_rect.centerx) - (0.5 * creditsMenuText1.get_rect().width), (125)))
+            creditsScreen.blit(creditsMenuText3, ((creditsScreen_rect.centerx) - (0.5 * creditsMenuText1.get_rect().width), (225)))
+            creditsScreen.blit(creditsMenuText4, ((creditsScreen_rect.centerx) - (0.5 * creditsMenuText1.get_rect().width), (325)))
+            creditsScreen.blit(creditsMenuText5, ((creditsScreen_rect.centerx) - (0.5 * creditsMenuText1.get_rect().width), (425)))
             pygame.draw.rect(creditsScreen, (0, 0, 255), exitTab_rect)
-            creditsScreen.blit(backText, ((exitTab_rect.centerx), (exitTab_rect.centery - 50)))
+            creditsScreen.blit(backText, (exitTab_rect.centerx - (0.5 * backText.get_rect().width), exitTab_rect.y))
             pygame.display.update()
             clock.tick(fps)
 
@@ -157,10 +177,10 @@ while running:
     screen.blit(controlsText, ((controlsTab_rect.centerx - 90), (controlsTab_rect.centery - 50)))
     pygame.draw.rect(screen, (255, 0, 0), creditsTab_rect)
     screen.blit(creditsText, ((creditsTab_rect.centerx - 75), (creditsTab_rect.centery - 50)))
-    pygame.draw.rect(screen, (0, 255, 0), startTab_rect)
-    screen.blit(startText, ((startTab_rect.centerx - (startText_rect.width/2)), (startTab_rect.centery - 50)))
-    pygame.draw.rect(screen, (0, 0, 255), exitTab_rect)
-    screen.blit(exitText, ((exitTab_rect.centerx), (exitTab_rect.centery - 50)))
+    pygame.draw.rect(screen, (255, 0, 0), startTab_rect)
+    screen.blit(startText, (startTab_rect.centerx - (0.5 * startText.get_rect().width), startTab_rect.y))
+    pygame.draw.rect(screen, (255, 0, 0), exitTab_rect)
+    screen.blit(exitText, (10 + exitTab_rect.centerx - (0.5 * backText.get_rect().width), exitTab_rect.y))
     pygame.display.flip()
     clock.tick(fps)
 
