@@ -15,9 +15,9 @@ from debug import debug
 import time
 from characterSwapping import charSwap as swap
 
-level1Trigger = True
+level1Trigger = False
 level2Trigger = False
-level3Trigger = False
+level3Trigger = True
 level4Trigger = False
 level1RunBool = False
 level2RunBool = False
