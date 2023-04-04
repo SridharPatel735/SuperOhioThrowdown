@@ -49,14 +49,11 @@ def charSwap(heroSource, enemySource):
             if event.type == pygame.QUIT:
                 swapCharLoop = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print("HI")
                 (x, y) = pygame.mouse.get_pos()
                 if (x > 500) and (x < 600) and (y > 500) and (y < 550):
-                    print("test3")
                     swapCharLoop = False
                     return True
                 elif (x > 680) and (x < 780) and (y > 500) and (y < 550):
-                    print("test4")
                     swapCharLoop = False
                     return False
         swapCharScreen.fill((255, 255, 255))
@@ -97,6 +94,7 @@ def charSwap(heroSource, enemySource):
         swapCharScreen.blit(enemyImg, (680, 380))
         #print("test")
         pygame.display.update()
+
 def gameOver():
     gameOverScreen = pygame.display.set_mode((1280, 720))
     gameOverLoop = True
@@ -169,6 +167,8 @@ miniBossLevel = heroLevel + 2000
 bossLevel = heroLevel + 3000
 charSelected = 0
 healthLength = 215
+playerAttackRectText = ""
+enemyAttackRectText = ""
 
 heroHealthBlock = 0
 enemyHealthBlock = 0
@@ -177,7 +177,8 @@ heroHealthRect = 0
 enemyHealthRect = 0
 enemyStartingHealth = 0
 xpBarStatus = 0
-
+playerDmgText = ""
+enemyDmgText = ""
 
 class Game:
 
@@ -233,6 +234,7 @@ class Game:
         global enemy
         global heroLevel, miniBossLevel, bossLevel
         global storedAtk
+        global playerAttackRectText, enemyAttackRectText, playerDmgText, enemyDmgText
 
         global heroHealthBlock, heroStartingHealth, heroHealthRect
         global enemyHealthBlock, enemyStartingHealth, enemyHealthRect
@@ -355,7 +357,7 @@ class Game:
                     miniBoss = battleCalcs.Fighter(
                         sharkStats, sharkMoves, miniBossLevel, "shark.png", "Shark")
                     boss = battleCalcs.Fighter(
-                        jackStats, jackMoves, bossLevel, "jackSparrow.png", "Captain Jack Sparrow")
+                        jackStats, jackMoves, bossLevel, "jackSparrow.png", "Captain Sparrow")
                     self.level2 = Level2()
                     runMainLoop = True
                     level2Trigger = False
@@ -561,6 +563,8 @@ class Game:
                     playerEffect = 0
                     enemyAttack = ""
                     enemyEffect = 0
+                    playerAttackRect = (25, 325, 225, 100)
+                    enemyAttackRect = (1030, 75, 225, 100)
 
                     heroHealthRect = (884, 408, heroHealthBar, 10)
                     enemyHealthRect = (335, 152, enemyHealthBar, 10)
@@ -662,22 +666,28 @@ class Game:
                                 Game.effectCheck(hero.move1effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move1bp, hero.level, enemy.tempDfs)
+                                playerAttackRectText = f"Move: {hero.move1name}"
                                 Game.afterEffectCheck(hero.move1effect, hero, enemy, playerDmg)
                             elif (playerAttack == "attack2"):
                                 Game.effectCheck(hero.move2effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move2bp, hero.level, enemy.tempDfs)
+                                playerAttackRectText = f"Move: {hero.move2name}"
                                 Game.afterEffectCheck(hero.move2effect, hero, enemy, playerDmg)
                             elif (playerAttack == "attack3"):
                                 Game.effectCheck(hero.move3effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move3bp, hero.level, enemy.tempDfs)
+                                playerAttackRectText = f"Move: {hero.move3name}"
                                 Game.afterEffectCheck(hero.move3effect, hero, enemy, playerDmg)
                             elif (playerAttack == "attack4"):
                                 Game.effectCheck(hero.move4effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move4bp, hero.level, enemy.tempDfs)
+                                playerAttackRectText = f"Move: {hero.move4name}"
                                 Game.afterEffectCheck(hero.move4effect, hero, enemy, playerDmg)
+                            
+                            playerDmgText = f"Damage: {playerDmg}"
 
                             if (enemy.isProtected == False):
                                 enemy.tempHp = enemy.tempHp - playerDmg
@@ -794,23 +804,29 @@ class Game:
                                     Game.effectCheck(enemy.move1effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDfs)
+                                    enemyAttackRectText = f"Move: {enemy.move1name}"
                                     Game.afterEffectCheck(enemy.move1effect, hero, enemy, enemyDmg)
                                 elif (enemyMove == 2):
                                     Game.effectCheck(enemy.move2effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDfs)
+                                    enemyAttackRectText = f"Move: {enemy.move2name}"
                                     Game.afterEffectCheck(enemy.move2effect, hero, enemy, enemyDmg)
                                 elif (enemyMove == 3):
                                     Game.effectCheck(enemy.move3effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDfs)
+                                    enemyAttackRectText = f"Move: {enemy.move3name}"
                                     Game.afterEffectCheck(enemy.move3effect, hero, enemy, enemyDmg)
                                 elif (enemyMove == 4):
                                     Game.effectCheck(enemy.move4effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDfs)
+                                    enemyAttackRectText = f"Move: {enemy.move4name}"
                                     Game.afterEffectCheck(enemy.move4effect, hero, enemy, enemyDmg)
                                 
+                                enemyDmgText = f"Damage: {enemyDmg}"
+
                                 if (hero.isProtected == False):
                                         hero.tempHp = hero.tempHp - enemyDmg
                                 else:
@@ -862,22 +878,28 @@ class Game:
                                 Game.effectCheck(enemy.move1effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDfs)
+                                enemyAttackRectText = f"Move: {enemy.move1name}"
                                 Game.afterEffectCheck(enemy.move1effect, hero, enemy, enemyDmg)
                             elif (enemyMove == 2):
                                 Game.effectCheck(enemy.move2effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDfs)
+                                enemyAttackRectText = f"Move: {enemy.move2name}"
                                 Game.afterEffectCheck(enemy.move2effect, hero, enemy, enemyDmg)
                             elif (enemyMove == 3):
                                 Game.effectCheck(enemy.move3effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDfs)
+                                enemyAttackRectText = f"Move: {enemy.move3name}"
                                 Game.afterEffectCheck(enemy.move3effect, hero, enemy, enemyDmg)
                             elif (enemyMove == 4):
                                 Game.effectCheck(enemy.move4effect, enemy, hero)
                                 enemyDmg = battleCalcs.damageCalc(
                                     enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDfs)
+                                enemyAttackRectText = f"Move: {enemy.move4name}"
                                 Game.afterEffectCheck(enemy.move4effect, hero, enemy, enemyDmg)
+
+                            enemyDmgText = f"Damage: {enemyDmg}"
                             
                             if (hero.isProtected == False):
                                     hero.tempHp = hero.tempHp - enemyDmg
@@ -929,22 +951,28 @@ class Game:
                                     Game.effectCheck(hero.move1effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move1bp, hero.level, enemy.tempDfs)
+                                    playerAttackRectText = f"Move: {hero.move1name}"
                                     Game.afterEffectCheck(hero.move1effect, hero, enemy, playerDmg)
                                 elif (playerAttack == "attack2"):
                                     Game.effectCheck(hero.move2effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move2bp, hero.level, enemy.tempDfs)
+                                    playerAttackRectText = f"Move: {hero.move2name}"
                                     Game.afterEffectCheck(hero.move2effect, hero, enemy, playerDmg)
                                 elif (playerAttack == "attack3"):
                                     Game.effectCheck(hero.move3effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move3bp, hero.level, enemy.tempDfs)
+                                    playerAttackRectText = f"Move: {hero.move3name}"
                                     Game.afterEffectCheck(hero.move3effect, hero, enemy, playerDmg)
                                 elif (playerAttack == "attack4"):
                                     Game.effectCheck(hero.move4effect, hero, enemy)
                                     playerDmg = battleCalcs.damageCalc(
                                         hero.tempAtk, hero.move4bp, hero.level, enemy.tempDfs)
+                                    playerAttackRectText = f"Move: {hero.move4name}"
                                     Game.afterEffectCheck(hero.move4effect, hero, enemy, playerDmg)
+
+                                playerDmgText = f"Damage: {playerDmg}"
 
                                 if (enemy.isProtected == False):
                                         enemy.tempHp = enemy.tempHp - playerDmg
@@ -1054,10 +1082,31 @@ class Game:
                     pygame.draw.rect(battleScreen, (240, 240, 240), attack4)
 
                     pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
-                    pygame.draw.rect(
-                        battleScreen, (255, 0, 0), enemyHealthRect)
-                    
+                    pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
+
                     levelFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 30)
+                    attackFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 20)
+                    pygame.draw.rect(battleScreen, (255, 255, 255), playerAttackRect)
+                    pygame.draw.rect(battleScreen, (255, 255, 255), enemyAttackRect)
+
+                    playerAttackText = attackFont.render(playerAttackRectText, True, (0, 0, 0))
+                    playerDmgTextTest = attackFont.render(playerDmgText, True, (0, 0, 0))
+                    playerAttackText_rect = playerAttackText.get_rect()
+                    playerAttack_rect = pygame.Rect(playerAttackRect)
+                    playerAttackText_rect.x = playerAttack_rect.centerx - (playerAttackText_rect.width / 2)
+                    playerAttackText_rect.y = playerAttack_rect.centery - playerAttackText_rect.height - 1
+                    battleScreen.blit(playerAttackText, (playerAttackText_rect.x, playerAttackText_rect.y))
+                    battleScreen.blit(playerDmgTextTest, (playerAttackText_rect.x, playerAttackText_rect.y + playerAttackText_rect.height + 2))
+
+                    enemyAttackText = attackFont.render(enemyAttackRectText, True, (0, 0, 0))
+                    enemyDmgTextTest = attackFont.render(enemyDmgText, True, (0, 0, 0))
+                    enemyAttackText_rect = enemyAttackText.get_rect()
+                    enemyAttack_rect = pygame.Rect(enemyAttackRect)
+                    enemyAttackText_rect.x = enemyAttack_rect.centerx - (enemyAttackText_rect.width / 2)
+                    enemyAttackText_rect.y = enemyAttack_rect.centery - enemyAttackText_rect.height - 1
+                    battleScreen.blit(enemyAttackText, (enemyAttackText_rect.x, enemyAttackText_rect.y))
+                    battleScreen.blit(enemyDmgTextTest, (enemyAttackText_rect.x, enemyAttackText_rect.y + enemyAttackText_rect.height + 2))
+                    
                     
                     text = f"{hero.level}"
                     heroLevelPrint = levelFont.render(text, True, (0, 0, 0))
