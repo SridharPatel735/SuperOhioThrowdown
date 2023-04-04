@@ -12,6 +12,9 @@ def charSelection():
     HEIGHT = 720
 
     screen = pygame.display.set_mode((WIDTH,HEIGHT))
+    bg = pygame.image.load('bg2.jpg')
+    bg_scaled=pygame.transform.scale(bg,(1280,720))
+
     pygame.display.set_caption("Character Selection")
     luffy =pygame.image.load('luffy.png')
 
@@ -86,22 +89,26 @@ def charSelection():
             break 
 
         screen.fill((255,255,255))
+        screen.blit(bg_scaled,(0,0))
+
         for i in range(num_C):
             image=images[i]
             r=select[i]
             screen.blit(image,r)
             if index is not None and i == index:
-                pygame.draw.rect(screen,(0,0,0), r,2)
+                pygame.draw.rect(screen,(255,255,255), r,4)
             else:
-                pygame.draw.rect(screen,(0,0,0), r, 1)
+                pygame.draw.rect(screen,(255,255,255), r,1)
         t=f.render("Select Character", True,(0,0,0))
-        t_r = t.get_rect(center=(WIDTH//2, 100))  
+        t_r = t.get_rect(center=(WIDTH//2, 110))  
 
-        pygame.draw.rect(screen, (0,0,0), select_button,2)
+        pygame.draw.rect(screen, (255,255,255), select_button)
         select_text=f.render("Select",True,(0,0,0))
         select_text_rect = select_text.get_rect(center=select_button.center)
 
         screen.blit(select_text,select_text_rect)
         screen.blit(t,t_r)
+        
+
         pygame.display.flip()
 pygame.quit()    
