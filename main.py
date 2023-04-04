@@ -565,6 +565,7 @@ class Game:
                     enemyEffect = 0
                     playerAttackRect = (25, 325, 225, 100)
                     enemyAttackRect = (1030, 75, 225, 100)
+                    printMethod = False
 
                     heroHealthRect = (884, 408, heroHealthBar, 10)
                     enemyHealthRect = (335, 152, enemyHealthBar, 10)
@@ -1068,6 +1069,8 @@ class Game:
 
                                     endBattle = True
                                     pygame.display.update()
+                                
+                        printMethod = True
 
                     battleScreen.blit(battleBg, (0, 0))
                     battleScreen.blit(
@@ -1085,28 +1088,61 @@ class Game:
                     pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
 
                     levelFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 30)
-                    attackFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 20)
-                    pygame.draw.rect(battleScreen, (255, 255, 255), playerAttackRect)
-                    pygame.draw.rect(battleScreen, (255, 255, 255), enemyAttackRect)
+                    attackFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 30)
 
-                    playerAttackText = attackFont.render(playerAttackRectText, True, (0, 0, 0))
-                    playerDmgTextTest = attackFont.render(playerDmgText, True, (0, 0, 0))
-                    playerAttackText_rect = playerAttackText.get_rect()
-                    playerAttack_rect = pygame.Rect(playerAttackRect)
-                    playerAttackText_rect.x = playerAttack_rect.centerx - (playerAttackText_rect.width / 2)
-                    playerAttackText_rect.y = playerAttack_rect.centery - playerAttackText_rect.height - 1
-                    battleScreen.blit(playerAttackText, (playerAttackText_rect.x, playerAttackText_rect.y))
-                    battleScreen.blit(playerDmgTextTest, (playerAttackText_rect.x, playerAttackText_rect.y + playerAttackText_rect.height + 2))
+                    while printMethod:
+                        battleScreen.blit(battleBorder, (0, 500))
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                printMethod = False
+                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                (x, y) = pygame.mouse.get_pos()
+                                if (y > 500):
+                                    printMethod = False
+                                    
+                        pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
+                        pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
 
-                    enemyAttackText = attackFont.render(enemyAttackRectText, True, (0, 0, 0))
-                    enemyDmgTextTest = attackFont.render(enemyDmgText, True, (0, 0, 0))
-                    enemyAttackText_rect = enemyAttackText.get_rect()
-                    enemyAttack_rect = pygame.Rect(enemyAttackRect)
-                    enemyAttackText_rect.x = enemyAttack_rect.centerx - (enemyAttackText_rect.width / 2)
-                    enemyAttackText_rect.y = enemyAttack_rect.centery - enemyAttackText_rect.height - 1
-                    battleScreen.blit(enemyAttackText, (enemyAttackText_rect.x, enemyAttackText_rect.y))
-                    battleScreen.blit(enemyDmgTextTest, (enemyAttackText_rect.x, enemyAttackText_rect.y + enemyAttackText_rect.height + 2))
-                    
+                        playerAttackText = attackFont.render(playerAttackRectText, True, (0, 0, 0))
+                        playerDmgTextTest = attackFont.render(playerDmgText, True, (0, 0, 0))
+                        playerAttackText_rect = playerAttackText.get_rect()
+                        playerAttackText_rect.x = 150
+                        playerAttackText_rect.y = 550
+                        battleScreen.blit(playerAttackText, (playerAttackText_rect.x, playerAttackText_rect.y))
+                        battleScreen.blit(playerDmgTextTest, (playerAttackText_rect.x, playerAttackText_rect.y + playerAttackText_rect.height + 2))
+
+                        enemyAttackText = attackFont.render(enemyAttackRectText, True, (0, 0, 0))
+                        enemyDmgTextTest = attackFont.render(enemyDmgText, True, (0, 0, 0))
+                        enemyAttackText_rect = enemyAttackText.get_rect()
+                        enemyAttackText_rect.x = 690
+                        enemyAttackText_rect.y = 550
+                        battleScreen.blit(enemyAttackText, (enemyAttackText_rect.x, enemyAttackText_rect.y))
+                        battleScreen.blit(enemyDmgTextTest, (enemyAttackText_rect.x, enemyAttackText_rect.y + enemyAttackText_rect.height + 2))
+
+                        text = f"{hero.level}"
+                        heroLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(heroLevelPrint, (1055, 343))
+
+                        text = f"{enemy.level}"
+                        enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(enemyLevelPrint, (505, 87))
+
+                        text = f"{hero.hp}"
+                        enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(enemyLevelPrint, (1046, 417))
+
+                        text = f"{hero.tempHp}"
+                        enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(enemyLevelPrint, (975, 417))
+
+                        text = f"{hero.fighterName}"
+                        enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(enemyLevelPrint, (750, 343))
+
+                        text = f"{enemy.fighterName}"
+                        enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(enemyLevelPrint, (200, 87))
+                        pygame.display.update()
                     
                     text = f"{hero.level}"
                     heroLevelPrint = levelFont.render(text, True, (0, 0, 0))
