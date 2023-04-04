@@ -51,20 +51,8 @@ exitText_rect = controlsText.get_rect()
 
 backText = pygame.font.Font.render(menuFont, "Back", True, (255, 255, 255))
 
-def loadingScreen():
-    screen.fill((0,0,0))
-    loadingText = pygame.font.Font.render(menuFont, "Loading...", True, (255, 255, 255))
-    loadingText_rect = loadingText.get_rect()
-    loadingText_rect.x = screen_rect.centerx
-    loadingText_rect.y = screen_rect.centery
-    screen.blit(loadingText, loadingText_rect)
-    pygame.display.update()
-    time.sleep(1)
-
 level = 0
 
-# pygame.mixer.music.set_volume(0.5)
-# pygame.mixer.music.play(-1)
 running = True
 controlsMenuActive = False
 creditsActive = False
@@ -97,11 +85,9 @@ while running:
                 main.draw_text(controlScreen, line7, (255, 255, 255), 30, 100, 310)
                 main.draw_text(controlScreen, line0, (255, 255, 255), 30, 590, 600)
 
-                # continueRectangle = pygame.draw.rect(
-                #     controlScreen, "red", pygame.Rect(550, 600, 200, 60), 2)
                 pygame.display.update()
                 time.sleep(5)
-                #loadingScreen()
+            
                 newGame = game()
                 newGame.run()
                 pygame.display.update()

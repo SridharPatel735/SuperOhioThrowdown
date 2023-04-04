@@ -80,14 +80,12 @@ def charSwap(heroSource, enemySource):
         enemyImg = pygame.image.load(enemySource)
         enemyImg = pygame.transform.scale(enemyImg,(100, 100))
         heroImg_rect = heroImg.get_rect()
-        
-#     arrow_rect = arrowImg.get_rect(center=(WIDTH // 2, HEIGHT // 2))
 
         text = "Would you like to swap to the enemy character?"
         textPrint = text_font.render(text, True, (255, 0, 0))
         textPrint_rect = textPrint.get_rect()
         textPrint_rect.x = 640 - (textPrint_rect.width / 2)
-        # textPrint_rect.y = textPrint_rect.y - (textPrint_rect.height / 2)
+    
         swapCharScreen.blit(bg_scaled,(0,0))
 
         swapCharScreen.blit(textPrint, (textPrint_rect.x, 45))
@@ -95,7 +93,7 @@ def charSwap(heroSource, enemySource):
         swapCharScreen.blit(noText, (noText_rect.center))
         swapCharScreen.blit(heroImg, (500, 380))
         swapCharScreen.blit(enemyImg, (680, 380))
-        #print("test")
+     
         pygame.display.update()
 
 def gameOver():
@@ -203,8 +201,6 @@ class Game:
         if (charSelected == 1):
             hero = battleCalcs.Fighter(
                 lebronStats, lebronMoves, heroLevel, "lebron.png", "LeBron James")
-            # hero = battleCalcs.Fighter(
-            #     jackStats, jackMoves, heroLevel, "jackSparrow.png", "Yack sparrow")
         elif (charSelected == 2):
             hero = battleCalcs.Fighter(
                 bruceStats, bruceMoves, heroLevel, "bruce_lee.png", "Bruce Lee")
@@ -243,12 +239,11 @@ class Game:
         global enemyHealthBlock, enemyStartingHealth, enemyHealthRect
         global xpBarStatus
 
-        # pygame.mixer.music.load("menumusic.mp3")
+     
         battleLoopBool = False
         endBattle = False
 
-        # pygame.mixer.music.set_volume(0)
-        # pygame.mixer.music.play(1)
+
 
         while True:
             for event in pygame.event.get():
@@ -597,16 +592,7 @@ class Game:
                                 playerAttack = "attack3"
                             elif ((x >= (battleScreen_rect.width / 2) + 50) and (x <= ((battleScreen_rect.width - 300) / 2) + (battleScreen_rect.width / 2) + 50) and (y >= 630) and (y <= 680)):
                                 playerAttack = "attack4"
-                            # elif ((x >= 0) and (x <= 1280) and (y >= 500) and (y <= 720) and (endBattle == True)):
-                            #     time.sleep(1)
-                            #     endBattle = False
-                            #     battleRunning = False
-
-                            # if optionsMenu.rect.collidepoint(event.pos):
-                            #     menuText = battleFont.render('Success!', True, (0, 0, 0))
-                            #     menuText_rect = menuText.get_rect()
-                            #     menuText_rect.centerx = battleScreen_rect.centerx
-                            #     pygame.display.update()
+                    
 
                     if (playerAttack != ""):
                         enemyMove = random.randint(1, 4)
@@ -738,9 +724,6 @@ class Game:
                             else:
                                 enemyHealthBar = (enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
 
-                            # enemyHealthBar = (
-                            #     enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
-                            # If enemy HP is empty, end of battle process starts
                             if (enemy.tempHp < 0):
                                 if (enemyHealthBar >= 215):
                                     enemyHealthBar = 215
@@ -803,34 +786,6 @@ class Game:
                                                 else:
                                                     endBattle = False
                                                     battleRunning = False
-                                                
-                                # test = True
-                                # battleBg = pygame.image.load("battleBgTemplate.jpg")
-                                # battleBg_rect = battleBg.get_rect()
-                                # battleBorder = pygame.image.load("battleBgBorder.png")
-                                # battleScreen = pygame.display.set_mode((battleBg_rect.width, battleBg_rect.height))
-                                # test2 = True
-                                # if test:
-                                #     while test2:
-                                #         for event in pygame.event.get():
-                                #             if event.type == pygame.QUIT:
-                                #                 test2 = False
-                                #             if event.type == pygame.MOUSEBUTTONDOWN:
-                                #                 (x, y) = pygame.mouse.get_pos()
-                                #                 if (x > 0):
-                                #                     test2 = False
-                                #     if (newSwap == None):
-                                #         newSwap = Game.heroSwap(hero.imageSource, enemy.imageSource)
-                                #         pygame.display.update()
-                                #         pygame.display.update()
-                                #         print(newSwap)
-                                #     if (newSwap):
-                                #         hero = enemy
-                                #     print(hero.hp)
-                                #     print(type(hero))
-                                #     print("test")
-
-                                # newSwap = None
                                 
                                 endBattle = True
                                 pygame.display.update()
@@ -1095,22 +1050,6 @@ class Game:
                                                     else:
                                                         endBattle = False
                                                         battleRunning = False
-                                                    
-                                    # test = True
-                                    # battleBg = pygame.image.load("battleBgTemplate.jpg")
-                                    # battleBg_rect = battleBg.get_rect()
-                                    # battleBorder = pygame.image.load("battleBgBorder.png")
-                                    # battleScreen = pygame.display.set_mode((battleBg_rect.width, battleBg_rect.height))
-                                    # test2 = True
-                                    # if test:
-                                    #     while test2:
-                                    #         for event in pygame.event.get():
-                                    #             if event.type == pygame.QUIT:
-                                    #                 test2 = False
-                                    #             if event.type == pygame.MOUSEBUTTONDOWN:
-                                    #                 (x, y) = pygame.mouse.get_pos()
-                                    #                 if (x > 0):
-                                    #                     test2 = False
 
                                     endBattle = True
                                     pygame.display.update()
@@ -1255,107 +1194,6 @@ class Game:
                 draw_text(self.screen, message, (255, 0, 0), 30, 300, 600)
                 pygame.display.update()
                 self.clock.tick(FPS)
-
-    # def heroSwap(heroSource, enemySource):
-    #     WIDTH = 1280
-    #     HEIGHT = 720
-
-    #     swapScreen = pygame.display.set_mode((WIDTH,HEIGHT))
-    #     pygame.display.set_caption("Character Swap")
-
-
-    #     pygame.font.init()
-    #     f= pygame.font.SysFont("Arial", 30)
-
-    #     heroImg = pygame.image.load(heroSource)
-    #     heroImg = pygame.transform.scale(heroImg, (100, 100))
-
-    #     enemyImg = pygame.image.load(enemySource)
-    #     enemyImg = pygame.transform.scale(enemyImg,(100,100))
-
-        
-
-    #     arrow=pygame.image.load("arrow.png")
-    #     arrowImg=pygame.transform.scale(arrow,(100,100))
-    #     arrow_rect = arrowImg.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-
-    #     images = [heroImg, enemyImg]
-
-    #     num_C = len(images)
-    #     c_Width=heroImg.get_width()
-    #     c_Height=heroImg.get_height()
-    #     select = []
-    #     total_width = num_C * c_Width + (num_C - 1) * 20
-    #     x_start = (WIDTH - total_width) // 2
-
-    #     for i in range(num_C):
-    #         x = i*(c_Width+20)+x_start
-    #         y=c_Height
-    #         r= pygame.Rect(x,y,c_Width,c_Height)
-    #         select.append(r)
-
-
-    #     yes_button = pygame.Rect(WIDTH//2-50+100,2.5+220,100,100-50)
-    #     no_button = pygame.Rect(WIDTH//2-50-100,2.5+220,100,100-50)
-
-    #     index=0
-    #     running = True
-    #     no=False
-    #     yes=False
-
-
-    #     while(running):
-    #         for event in pygame.event.get():
-    #             if event.type == pygame.QUIT:
-    #                 running=False
-
-    #             if event.type == pygame.MOUSEBUTTONDOWN:
-                            
-    #                 if yes_button.collidepoint(event.pos):
-    #                     running = False
-    #                     return True
-                            
-    #                 if no_button.collidepoint(event.pos):
-    #                     running = False
-    #                     return False
-                            
-
-
-
-    #         if no:
-    #             print(f"Selected character stays same")
-    #             break
-    #         elif yes:
-    #             print(f"Swapped characters") 
-    #         separate=0
-    #         swapScreen.fill((255,255,255))
-    #         for i in range(num_C):
-    #             image=images[i]
-    #             r=select[i]
-    #             r.x=c_Height+separate
-    #             separate=200
-    #             swapScreen.blit(image,r)
-    #             if index is not None and i == index:
-    #                 pygame.draw.rect(swapScreen,(0,0,0), r,2)
-    #             else:
-    #                 pygame.draw.rect(swapScreen,(0,0,0), r, 2)
-        
-    #         t=f.render("Swap character?", True,(0,0,0))
-    #         t_r = t.get_rect(center=(WIDTH//2, 100//2))  
-
-    #         pygame.draw.rect(swapScreen, (0,0,0), yes_button,2)
-    #         yes_text=f.render("Yes",True,(0,0,0))
-    #         yes_text_rect = yes_text.get_rect(center=yes_button.center)
-            
-    #         pygame.draw.rect(swapScreen, (0,0,0), no_button,2)
-    #         no_text=f.render("No",True,(0,0,0))
-    #         no_text_rect = no_text.get_rect(center=no_button.center)
-
-    #         swapScreen.blit(arrowImg,arrow_rect)
-    #         swapScreen.blit(no_text,no_text_rect)
-    #         swapScreen.blit(yes_text,yes_text_rect)
-    #         swapScreen.blit(t,t_r)
-    #         pygame.display.flip()
 
     def effectCheck(effectID, hero, enemy):
         if (effectID == 1):
