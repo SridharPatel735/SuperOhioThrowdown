@@ -100,7 +100,7 @@ while running:
                 # continueRectangle = pygame.draw.rect(
                 #     controlScreen, "red", pygame.Rect(550, 600, 200, 60), 2)
                 pygame.display.update()
-                time.sleep(30)
+                time.sleep(5)
                 #loadingScreen()
                 newGame = game()
                 newGame.run()

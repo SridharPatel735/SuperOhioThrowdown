@@ -15,9 +15,9 @@ from debug import debug
 import time
 from characterSwapping import charSwap as swap
 
-level1Trigger = False
+level1Trigger = True
 level2Trigger = False
-level3Trigger = True
+level3Trigger = False
 level4Trigger = False
 level1RunBool = False
 level2RunBool = False
@@ -83,7 +83,7 @@ def charSwap(heroSource, enemySource):
         
 #     arrow_rect = arrowImg.get_rect(center=(WIDTH // 2, HEIGHT // 2))
 
-        text = "Would you like to swap to the enemy charcter?"
+        text = "Would you like to swap to the enemy character?"
         textPrint = text_font.render(text, True, (255, 0, 0))
         textPrint_rect = textPrint.get_rect()
         textPrint_rect.x = 640 - (textPrint_rect.width / 2)
@@ -417,7 +417,7 @@ class Game:
                     miniBoss = battleCalcs.Fighter(
                         sharkStats, sharkMoves, miniBossLevel, "obama.png", "Barack Obama")
                     boss = battleCalcs.Fighter(
-                        jackStats, jackMoves, bossLevel, "eminem.png", "Eminem")
+                        emStats, emMoves, bossLevel, "eminem.png", "Eminem")
                     
                     self.level3 = Level3()
                     runMainLoop = True
@@ -483,7 +483,7 @@ class Game:
                     miniBoss = battleCalcs.Fighter(
                         sharkStats, sharkMoves, miniBossLevel, "grizzlyBear.png", "Grizzly Bear")
                     boss = battleCalcs.Fighter(
-                        jackStats, jackMoves, bossLevel, "ohm.png", "Ohm")
+                        ohmStats, ohmMoves, bossLevel, "ohm.png", "Ohm")
                     
                     self.level4 = Level4()
                     runMainLoop = True
