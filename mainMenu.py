@@ -1,4 +1,5 @@
-#main menu file
+#Main Menu 
+#PLEASE START HERE (RUN THIS FILE)
 import pygame, time
 from main import Game as game
 import main
