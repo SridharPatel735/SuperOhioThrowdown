@@ -64,7 +64,8 @@ def charSwap(heroSource, enemySource):
         yesText_rect.center = yes_button.center
         yesText_rect.x = yesText_rect.x - (yesText_rect.width / 2)
         yesText_rect.y = yesText_rect.y - (yesText_rect.height / 2)
-
+        bg = pygame.image.load('bg2.jpg')
+        bg_scaled=pygame.transform.scale(bg,(1280,720))
         noText = text_font.render("No", True, (0, 0, 0))
         noText_rect = noText.get_rect()
         no_button = pygame.Rect(680, 500, 100, 50)
@@ -87,6 +88,8 @@ def charSwap(heroSource, enemySource):
         textPrint_rect = textPrint.get_rect()
         textPrint_rect.x = 640 - (textPrint_rect.width / 2)
         # textPrint_rect.y = textPrint_rect.y - (textPrint_rect.height / 2)
+        swapCharScreen.blit(bg_scaled,(0,0))
+
         swapCharScreen.blit(textPrint, (textPrint_rect.x, 45))
         swapCharScreen.blit(yesText, (yesText_rect.center))
         swapCharScreen.blit(noText, (noText_rect.center))
@@ -531,6 +534,10 @@ class Game:
                 heroHealthBar = 0
                 enemyHealthBar = 0
                 newSwap = None
+                pygame.mixer.music.load("battlemusic.mp3")
+
+                pygame.mixer.music.set_volume(0.1)
+                pygame.mixer.music.play(1)
 
                 heroImg = pygame.image.load(hero.imageSource)
                 heroImg = pygame.transform.flip(heroImg, True, False)
@@ -559,16 +566,19 @@ class Game:
                            (battleScreen_rect.width - 300) / 2, 50)
 
                 while battleRunning:
+                    
                     playerAttack = ""
                     playerEffect = 0
                     enemyAttack = ""
                     enemyEffect = 0
                     playerAttackRect = (25, 325, 225, 100)
                     enemyAttackRect = (1030, 75, 225, 100)
+                    printMethod = False
 
                     heroHealthRect = (884, 408, heroHealthBar, 10)
                     enemyHealthRect = (335, 152, enemyHealthBar, 10)
                     xpBar = (810, 477, xpBarStatus, 12)
+                    
 
                     # event loop
                     for event in pygame.event.get():
@@ -600,92 +610,115 @@ class Game:
 
                     if (playerAttack != ""):
                         enemyMove = random.randint(1, 4)
+                        print(hero.move1TempPP)
                         result = False
                         playerDmg = 0
                         enemyDmg = 0
 
                         if (playerAttack == "attack1"):
+                            hero.move1TempPP -= 1
                             playerEffect == hero.move1effect
                             if enemyMove == 1:
                                 result = battleCalcs.speedCalc(
                                     hero.move1priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move1TempPP -= 1
                             elif enemyMove == 2:
                                 result = battleCalcs.speedCalc(
                                     hero.move1priority, enemy.move2priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move2TempPP -= 1
                             elif enemyMove == 3:
                                 result = battleCalcs.speedCalc(
                                     hero.move1priority, enemy.move3priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move3TempPP -= 1
                             elif enemyMove == 4:
                                 result = battleCalcs.speedCalc(
                                     hero.move1priority, enemy.move4priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move4TempPP -= 1
                         elif (playerAttack == "attack2"):
+                            hero.move2TempPP -= 1
                             playerEffect == hero.move2effect
                             if enemyMove == 1:
                                 result = battleCalcs.speedCalc(
                                     hero.move2priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move1TempPP -= 1
                             elif enemyMove == 2:
                                 result = battleCalcs.speedCalc(
                                     hero.move2priority, enemy.move2priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move2TempPP -= 1
                             elif enemyMove == 3:
                                 result = battleCalcs.speedCalc(
                                     hero.move2priority, enemy.move3priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move3TempPP -= 1
                             elif enemyMove == 4:
                                 result = battleCalcs.speedCalc(
                                     hero.move2priority, enemy.move4priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move4TempPP -= 1
                         elif (playerAttack == "attack3"):
+                            hero.move3TempPP -= 1
                             playerEffect == hero.move3effect
                             if enemyMove == 1:
                                 result = battleCalcs.speedCalc(
                                     hero.move3priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move1TempPP -= 1
                             elif enemyMove == 2:
                                 result = battleCalcs.speedCalc(
                                     hero.move3priority, enemy.move2priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move2TempPP -= 1
                             elif enemyMove == 3:
                                 result = battleCalcs.speedCalc(
                                     hero.move3priority, enemy.move3priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move3TempPP -= 1
                             elif enemyMove == 4:
                                 result = battleCalcs.speedCalc(
                                     hero.move3priority, enemy.move4priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move4TempPP -= 1
                         elif (playerAttack == "attack4"):
+                            hero.move4TempPP -= 1
                             playerEffect == hero.move4effect
                             if enemyMove == 1:
                                 result = battleCalcs.speedCalc(
                                     hero.move4priority, enemy.move1priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move1TempPP -= 1
                             elif enemyMove == 2:
                                 result = battleCalcs.speedCalc(
                                     hero.move4priority, enemy.move2priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move2TempPP -= 1
                             elif enemyMove == 3:
                                 result = battleCalcs.speedCalc(
                                     hero.move4priority, enemy.move3priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move3TempPP -= 1
                             elif enemyMove == 4:
                                 result = battleCalcs.speedCalc(
                                     hero.move4priority, enemy.move4priority, hero.tempSpd, enemy.tempSpd)
+                                enemy.move4TempPP -= 1
 
                         if (result):
-                            if (playerAttack == "attack1"):
+                            if (playerAttack == "attack1" and hero.move1TempPP > 0):
                                 Game.effectCheck(hero.move1effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move1bp, hero.level, enemy.tempDfs)
                                 playerAttackRectText = f"Move: {hero.move1name}"
                                 Game.afterEffectCheck(hero.move1effect, hero, enemy, playerDmg)
-                            elif (playerAttack == "attack2"):
+                            elif (playerAttack == "attack2" and hero.move2TempPP > 0):
                                 Game.effectCheck(hero.move2effect, hero, enemy)
-                                playerDmg = battleCalcs.damageCalc(
-                                    hero.tempAtk, hero.move2bp, hero.level, enemy.tempDfs)
+                                playerDmg = battleCalcs.damageCalc(hero.tempAtk, hero.move2bp, hero.level, enemy.tempDfs)
                                 playerAttackRectText = f"Move: {hero.move2name}"
                                 Game.afterEffectCheck(hero.move2effect, hero, enemy, playerDmg)
-                            elif (playerAttack == "attack3"):
+                            elif (playerAttack == "attack3" and hero.move3TempPP > 0):
                                 Game.effectCheck(hero.move3effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move3bp, hero.level, enemy.tempDfs)
                                 playerAttackRectText = f"Move: {hero.move3name}"
                                 Game.afterEffectCheck(hero.move3effect, hero, enemy, playerDmg)
-                            elif (playerAttack == "attack4"):
+                            elif (playerAttack == "attack4" and hero.move4TempPP > 0):
                                 Game.effectCheck(hero.move4effect, hero, enemy)
                                 playerDmg = battleCalcs.damageCalc(
                                     hero.tempAtk, hero.move4bp, hero.level, enemy.tempDfs)
                                 playerAttackRectText = f"Move: {hero.move4name}"
                                 Game.afterEffectCheck(hero.move4effect, hero, enemy, playerDmg)
+                            else:
+                                print ("out of PP")
+                                playerDmg = 0
                             
                             playerDmgText = f"Damage: {playerDmg}"
 
@@ -751,7 +784,10 @@ class Game:
                                 pygame.display.update()
 
                                 while (endBattle == True):
-                                
+                                    pygame.mixer.music.load("battlemusic.mp3")
+
+                                    pygame.mixer.music.set_volume(0)
+                                    pygame.mixer.music.play(1)
                                     xpBarStatus = 0
                                     for event in pygame.event.get():
                                         if event.type == pygame.QUIT:
@@ -800,25 +836,27 @@ class Game:
                                 pygame.display.update()
 
                             else:
-                                if (enemyMove == 1):
+                                if (enemyMove == 1 and enemy.move1TempPP > 0):
                                     Game.effectCheck(enemy.move1effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move1bp, enemy.level, hero.tempDfs)
                                     enemyAttackRectText = f"Move: {enemy.move1name}"
+                                    print("PP: " + str(enemy.move1TempPP))
                                     Game.afterEffectCheck(enemy.move1effect, hero, enemy, enemyDmg)
-                                elif (enemyMove == 2):
+                                elif (enemyMove == 2 and enemy.move2TempPP > 0):
                                     Game.effectCheck(enemy.move2effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move2bp, enemy.level, hero.tempDfs)
+                                    print("PP: " + str(enemy.move2TempPP))
                                     enemyAttackRectText = f"Move: {enemy.move2name}"
                                     Game.afterEffectCheck(enemy.move2effect, hero, enemy, enemyDmg)
-                                elif (enemyMove == 3):
+                                elif (enemyMove == 3 and enemy.move3TempPP > 0):
                                     Game.effectCheck(enemy.move3effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move3bp, enemy.level, hero.tempDfs)
                                     enemyAttackRectText = f"Move: {enemy.move3name}"
                                     Game.afterEffectCheck(enemy.move3effect, hero, enemy, enemyDmg)
-                                elif (enemyMove == 4):
+                                elif (enemyMove == 4 and enemy.move4TempPP > 0):
                                     Game.effectCheck(enemy.move4effect, enemy, hero)
                                     enemyDmg = battleCalcs.damageCalc(
                                         enemy.tempAtk, enemy.move4bp, enemy.level, hero.tempDfs)
@@ -1068,6 +1106,8 @@ class Game:
 
                                     endBattle = True
                                     pygame.display.update()
+    
+                        printMethod = True
 
                     battleScreen.blit(battleBg, (0, 0))
                     battleScreen.blit(
@@ -1085,28 +1125,61 @@ class Game:
                     pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
 
                     levelFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 30)
-                    attackFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 20)
-                    pygame.draw.rect(battleScreen, (255, 255, 255), playerAttackRect)
-                    pygame.draw.rect(battleScreen, (255, 255, 255), enemyAttackRect)
+                    attackFont = pygame.font.Font('kvn-pokemon-gen-5.ttf', 30)
 
-                    playerAttackText = attackFont.render(playerAttackRectText, True, (0, 0, 0))
-                    playerDmgTextTest = attackFont.render(playerDmgText, True, (0, 0, 0))
-                    playerAttackText_rect = playerAttackText.get_rect()
-                    playerAttack_rect = pygame.Rect(playerAttackRect)
-                    playerAttackText_rect.x = playerAttack_rect.centerx - (playerAttackText_rect.width / 2)
-                    playerAttackText_rect.y = playerAttack_rect.centery - playerAttackText_rect.height - 1
-                    battleScreen.blit(playerAttackText, (playerAttackText_rect.x, playerAttackText_rect.y))
-                    battleScreen.blit(playerDmgTextTest, (playerAttackText_rect.x, playerAttackText_rect.y + playerAttackText_rect.height + 2))
+                    while printMethod:
+                        battleScreen.blit(battleBorder, (0, 500))
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                printMethod = False
+                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                (x, y) = pygame.mouse.get_pos()
+                                if (y > 500):
+                                    printMethod = False
+                                    
+                        pygame.draw.rect(battleScreen, (255, 0, 0), heroHealthRect)
+                        pygame.draw.rect(battleScreen, (255, 0, 0), enemyHealthRect)
 
-                    enemyAttackText = attackFont.render(enemyAttackRectText, True, (0, 0, 0))
-                    enemyDmgTextTest = attackFont.render(enemyDmgText, True, (0, 0, 0))
-                    enemyAttackText_rect = enemyAttackText.get_rect()
-                    enemyAttack_rect = pygame.Rect(enemyAttackRect)
-                    enemyAttackText_rect.x = enemyAttack_rect.centerx - (enemyAttackText_rect.width / 2)
-                    enemyAttackText_rect.y = enemyAttack_rect.centery - enemyAttackText_rect.height - 1
-                    battleScreen.blit(enemyAttackText, (enemyAttackText_rect.x, enemyAttackText_rect.y))
-                    battleScreen.blit(enemyDmgTextTest, (enemyAttackText_rect.x, enemyAttackText_rect.y + enemyAttackText_rect.height + 2))
-                    
+                        playerAttackText = attackFont.render(playerAttackRectText, True, (0, 0, 0))
+                        playerDmgTextTest = attackFont.render(playerDmgText, True, (0, 0, 0))
+                        playerAttackText_rect = playerAttackText.get_rect()
+                        playerAttackText_rect.x = 150
+                        playerAttackText_rect.y = 550
+                        battleScreen.blit(playerAttackText, (playerAttackText_rect.x, playerAttackText_rect.y))
+                        battleScreen.blit(playerDmgTextTest, (playerAttackText_rect.x, playerAttackText_rect.y + playerAttackText_rect.height + 2))
+
+                        enemyAttackText = attackFont.render(enemyAttackRectText, True, (0, 0, 0))
+                        enemyDmgTextTest = attackFont.render(enemyDmgText, True, (0, 0, 0))
+                        enemyAttackText_rect = enemyAttackText.get_rect()
+                        enemyAttackText_rect.x = 690
+                        enemyAttackText_rect.y = 550
+                        battleScreen.blit(enemyAttackText, (enemyAttackText_rect.x, enemyAttackText_rect.y))
+                        battleScreen.blit(enemyDmgTextTest, (enemyAttackText_rect.x, enemyAttackText_rect.y + enemyAttackText_rect.height + 2))
+
+                        text = f"{hero.level}"
+                        heroLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(heroLevelPrint, (1055, 343))
+
+                        text = f"{enemy.level}"
+                        enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(enemyLevelPrint, (505, 87))
+
+                        text = f"{hero.hp}"
+                        enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(enemyLevelPrint, (1046, 417))
+
+                        text = f"{hero.tempHp}"
+                        enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(enemyLevelPrint, (975, 417))
+
+                        text = f"{hero.fighterName}"
+                        enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(enemyLevelPrint, (750, 343))
+
+                        text = f"{enemy.fighterName}"
+                        enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
+                        battleScreen.blit(enemyLevelPrint, (200, 87))
+                        pygame.display.update()
                     
                     text = f"{hero.level}"
                     heroLevelPrint = levelFont.render(text, True, (0, 0, 0))
@@ -1132,26 +1205,26 @@ class Game:
                     enemyLevelPrint = levelFont.render(text, True, (0, 0, 0))
                     battleScreen.blit(enemyLevelPrint, (200, 87))
 
-                    attack1Text = battleFont.render(
-                        hero.move1name, True, (0, 0, 0))
+                    move1Text = (hero.move1name + "   PP: " + str(hero.move1TempPP))
+                    attack1Text = battleFont.render(move1Text, True, (0, 0, 0))
                     attack1Text_rect = attack1Text.get_rect()
                     battleScreen.blit(attack1Text, (100 + ((((battleScreen_rect.width - 300) / 2) -
                                       attack1Text_rect.width) / 2), 535 + ((50 - attack1Text_rect.height) / 2)))
 
-                    attack2Text = battleFont.render(
-                        hero.move2name, True, (0, 0, 0))
+                    move2Text = (hero.move2name + "   PP: " + str(hero.move2TempPP))
+                    attack2Text = battleFont.render(move2Text, True, (0, 0, 0))
                     attack2Text_rect = attack2Text.get_rect()
                     battleScreen.blit(attack2Text, (((battleScreen_rect.width / 2) + 50) + (
                         (((battleScreen_rect.width - 300) / 2) - attack2Text_rect.width) / 2), 535 + ((50 - attack2Text_rect.height) / 2)))
 
-                    attack3Text = battleFont.render(
-                        hero.move3name, True, (0, 0, 0))
+                    move3Text = (hero.move3name + "   PP: " + str(hero.move3TempPP))
+                    attack3Text = battleFont.render(move3Text, True, (0, 0, 0))
                     attack3Text_rect = attack3Text.get_rect()
                     battleScreen.blit(attack3Text, (100 + ((((battleScreen_rect.width - 300) / 2) -
                                       attack3Text_rect.width) / 2), 630 + ((50 - attack3Text_rect.height) / 2)))
 
-                    attack4Text = battleFont.render(
-                        hero.move4name, True, (0, 0, 0))
+                    move4Text = (hero.move4name + "   PP: " + str(hero.move4TempPP))
+                    attack4Text = battleFont.render(move4Text, True, (0, 0, 0))
                     attack4Text_rect = attack4Text.get_rect()
                     battleScreen.blit(attack4Text, (((battleScreen_rect.width / 2) + 50) + (
                         (((battleScreen_rect.width - 300) / 2) - attack4Text_rect.width) / 2), 630 + ((50 - attack4Text_rect.height) / 2)))
