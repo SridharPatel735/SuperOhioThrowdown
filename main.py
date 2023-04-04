@@ -954,6 +954,10 @@ class Game:
                                 heroStartingHealth - hero.tempHp) * heroHealthBlock
                             # If player HP is empty, end of battle process starts
                             if (hero.tempHp < 0):
+                                pygame.mixer.music.load("battlemusic.mp3")
+
+                                pygame.mixer.music.set_volume(0)
+                                pygame.mixer.music.play(1)
                                 if (heroHealthBar >= 215):
                                     heroHealthBar = 215
                                 heroHealthRect = (884, 408, heroHealthBar, 10)
@@ -1028,6 +1032,10 @@ class Game:
                                     enemyStartingHealth - enemy.tempHp) * enemyHealthBlock
                                 # If enemy HP is empty, end of battle process starts
                                 if (enemy.tempHp < 0):
+                                    pygame.mixer.music.load("battlemusic.mp3")
+
+                                    pygame.mixer.music.set_volume(0)
+                                    pygame.mixer.music.play(1)
                                     if (enemyHealthBar >= 215):
                                         enemyHealthBar = 215
                                     heroHealthRect = (
