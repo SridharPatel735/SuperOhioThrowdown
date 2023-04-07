@@ -13,7 +13,6 @@ import battleCalcs
 import characterSelection
 from debug import debug
 import time
-from characterSwapping import charSwap as swap
 
 level1Trigger = True
 level2Trigger = False
@@ -410,7 +409,7 @@ class Game:
                     grunt = battleCalcs.Fighter(
                         gruntStats, gruntMoves, gruntLevel, "grunt_battle.png", "Enemy Grunt")
                     miniBoss = battleCalcs.Fighter(
-                        sharkStats, sharkMoves, miniBossLevel, "obama.png", "Barack Obama")
+                        obamaStats, obamaMoves, miniBossLevel, "obama.png", "Barack Obama")
                     boss = battleCalcs.Fighter(
                         emStats, emMoves, bossLevel, "eminem.png", "Eminem")
                     
@@ -476,7 +475,7 @@ class Game:
                     grunt = battleCalcs.Fighter(
                         gruntStats, gruntMoves, gruntLevel, "grunt_battle.png", "Enemy Grunt")
                     miniBoss = battleCalcs.Fighter(
-                        sharkStats, sharkMoves, miniBossLevel, "grizzlyBear.png", "Grizzly Bear")
+                        bearStats, bearMoves, miniBossLevel, "grizzlyBear.png", "Grizzly Bear")
                     boss = battleCalcs.Fighter(
                         ohmStats, ohmMoves, bossLevel, "ohm.png", "Ohm")
                     
@@ -786,6 +785,10 @@ class Game:
                                                 else:
                                                     endBattle = False
                                                     battleRunning = False
+                                                hero.usedBlockLast = False
+                                                hero.isProtected = False
+                                                hero.isChargingUp = True
+                                                hero.turnsOfChipLeft = 0
                                 
                                 endBattle = True
                                 pygame.display.update()
@@ -865,7 +868,10 @@ class Game:
                                                     battleRunning = False
                                                     pygame.quit()
                                                     sys.exit()
-
+                                                hero.usedBlockLast = False
+                                                hero.isProtected = False
+                                                hero.isChargingUp = True
+                                                hero.turnsOfChipLeft = 0
                         elif (result == False):
                             if (enemyMove == 1):
                                 Game.effectCheck(enemy.move1effect, enemy, hero)
@@ -942,7 +948,10 @@ class Game:
                                                 battleRunning = False
                                                 pygame.quit()
                                                 sys.exit()
-
+                                            hero.usedBlockLast = False
+                                            hero.isProtected = False
+                                            hero.isChargingUp = True
+                                            hero.turnsOfChipLeft = 0
                             else:
                                 if (playerAttack == "attack1"):
                                     Game.effectCheck(hero.move1effect, hero, enemy)
@@ -1050,6 +1059,10 @@ class Game:
                                                     else:
                                                         endBattle = False
                                                         battleRunning = False
+                                                hero.usedBlockLast = False
+                                                hero.isProtected = False
+                                                hero.isChargingUp = True
+                                                hero.turnsOfChipLeft = 0
 
                                     endBattle = True
                                     pygame.display.update()

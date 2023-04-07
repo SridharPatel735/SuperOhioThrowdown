@@ -87,7 +87,7 @@ while running:
                 main.draw_text(controlScreen, line0, (255, 255, 255), 30, 590, 600)
 
                 pygame.display.update()
-                time.sleep(5)
+                time.sleep(20)
             
                 newGame = game()
                 newGame.run()
