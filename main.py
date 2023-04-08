@@ -137,7 +137,7 @@ obamaMoves = [[0, 100, 3, 7, 0, 0, "Let Me Be Clear"], [20, 100, 5, 17, 0, 0, "C
     0, 100, 5, 16, 0, 0, "Landslide Victory"], [30, 100, 10, 14, 0, 0, "Endorsement Enforcement"]]
 
 ohmStats = [100, 100, 100, 100]
-ohmMoves = [[150, 100, 1, 5, 0, 0, "Super Ohio Throwdown"], [20, 100, 10, 6, 0, 0, "AtOHMic BOHMb"], [
+ohmMoves = [[150, 100, 2, 5, 0, 0, "Super Ohio Throwdown"], [20, 100, 10, 6, 0, 0, "AtOHMic BOHMb"], [
     0, 50, 5, 7, 0, 0, "Attack of the ClOHMs"], [0, 100, 3, 8, 0, 0, "OHMazing Grace"]]
 
 emStats = [70, 100, 50, 20]
@@ -164,7 +164,7 @@ miniBoss = 0
 boss = 0
 gruntLevel = heroLevel + 1000
 miniBossLevel = heroLevel + 2000
-bossLevel = heroLevel + 3000
+bossLevel = heroLevel + 4000
 charSelected = 0
 healthLength = 215
 playerAttackRectText = ""
@@ -179,6 +179,9 @@ enemyStartingHealth = 0
 xpBarStatus = 0
 playerDmgText = ""
 enemyDmgText = ""
+
+miniBossXP = False
+bossXP = False
 
 class Game:
 
@@ -232,7 +235,7 @@ class Game:
         global enemy
         global heroLevel, miniBossLevel, bossLevel
         global storedAtk
-        global playerAttackRectText, enemyAttackRectText, playerDmgText, enemyDmgText
+        global playerAttackRectText, enemyAttackRectText, playerDmgText, enemyDmgText, miniBossXP, bossXP
 
         global heroHealthBlock, heroStartingHealth, heroHealthRect
         global enemyHealthBlock, enemyStartingHealth, enemyHealthRect
@@ -340,7 +343,7 @@ class Game:
                     heroLevel = hero.level * 1000
                     gruntLevel = heroLevel + 1000
                     miniBossLevel = heroLevel + 2000
-                    bossLevel = heroLevel + 3000
+                    bossLevel = heroLevel + 4000
                     print(
                         "-------------------------------------------------------------------------")
                     print(heroLevel)
@@ -397,7 +400,7 @@ class Game:
                     heroLevel = hero.level * 1000
                     gruntLevel = heroLevel + 1000
                     miniBossLevel = heroLevel + 2000
-                    bossLevel = heroLevel + 3000
+                    bossLevel = heroLevel + 4000
                     print(
                         "-------------------------------------------------------------------------")
                     print(heroLevel)
@@ -463,7 +466,7 @@ class Game:
                     heroLevel = hero.level * 1000
                     gruntLevel = heroLevel + 1000
                     miniBossLevel = heroLevel + 2000
-                    bossLevel = heroLevel + 3000
+                    bossLevel = heroLevel + 4000
                     print(
                         "-------------------------------------------------------------------------")
                     print(heroLevel)
@@ -503,6 +506,7 @@ class Game:
                 gameObjects.battleLoopGrunt = False
 
             if gameObjects.battleLoopMiniBoss == True:
+                miniBossXP = True
                 enemy = miniBoss
                 healthLength = 215
                 heroHealthBlock = round(healthLength / hero.hp)
@@ -512,8 +516,11 @@ class Game:
 
                 battleLoopBool = True
                 gameObjects.battleLoopMiniBoss = False
+                
+                
 
             if gameObjects.battleLoopBoss == True:
+                bossXP = True
                 enemy = boss
                 healthLength = 215
                 heroHealthBlock = round(healthLength / hero.hp)
@@ -738,6 +745,14 @@ class Game:
                                     endMessageFont, "The enemy fainted!", True, (255, 255, 255))
                                 battleScreen.blit(battleText, (50, 550))
                                 hero.afterWin((hero.level * 1000) + 1000)
+                                if (miniBossXP):
+                                   hero.afterWin((hero.level * 1000 ) + 1000)
+                                   miniBossXP = False     
+                                
+                                if (bossXP):
+                                   hero.afterWin((hero.level * 1000 ) + 2000)
+                                   bossXP = False     
+                                
                                 hero.reset()
 
                                 for i in range(41):
@@ -1015,6 +1030,14 @@ class Game:
                                         endMessageFont, "Enemy fainted!", True, (255, 255, 255))
                                     battleScreen.blit(battleText, (50, 550))
                                     hero.afterWin((hero.level * 1000) + 1000)
+                                    if (miniBossXP):
+                                        hero.afterWin((hero.level * 1000 ) + 1000)
+                                        miniBossXP = False     
+                                    
+                                    if (bossXP):
+                                        hero.afterWin((hero.level * 1000 ) + 2000)
+                                        bossXP = False     
+                                    
                                     hero.reset()
 
                                     for i in range(41):
